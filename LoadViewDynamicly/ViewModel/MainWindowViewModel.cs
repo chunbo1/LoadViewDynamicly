@@ -13,6 +13,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Controls;
 
+
+//TEST GitHub
 namespace LoadViewDynamicly.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
