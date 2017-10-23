@@ -1,0 +1,125 @@
+﻿<igRibbon:XamRibbonWindow x:Class="LoadViewDynamicly.MainRibbon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoadViewDynamicly"
+        mc:Ignorable="d"
+        xmlns:igRibbon="http://infragistics.com/Ribbon"
+        xmlns:igEditors="http://infragistics.com/Editors"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"         
+        Title="MainRibbon" Height="714" Width="1220"
+        Icon="Image/ancor.ico"                          
+                          >
+
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResources.xaml" />
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="X" Modifiers="Control"  Command="{Binding ExitCommand}" />
+    </Window.InputBindings>
+
+    <igRibbon:RibbonWindowContentHost>
+        <Grid Background="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="149" />
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <!--0 TODO: Add Ribbon-->
+            <igRibbon:XamRibbon Name="XamRibbon1" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+
+                <!--1 TODO: Add ApplicationMenu here-->
+                <igRibbon:XamRibbon.ApplicationMenu>
+                    <igRibbon:ApplicationMenu Image="image/Binoculars.png">
+
+                        <igRibbon:ApplicationMenu.Items>
+                            <igRibbon:ButtonTool Caption="Open" Id="btnOpen"  />
+                            <igRibbon:ButtonTool Caption="Exit" Id="btnExit1"  LargeImage="image\delete.png"  Command="{Binding ExitCommand}" />
+                        </igRibbon:ApplicationMenu.Items>
+
+                        <igRibbon:ApplicationMenu.RecentItems>
+                            <igRibbon:ButtonTool Caption="Recent Item 1.txt" Id="btnRecent1" />
+                        </igRibbon:ApplicationMenu.RecentItems>
+
+                        <igRibbon:ApplicationMenu.FooterToolbar>
+                            <igRibbon:ApplicationMenuFooterToolbar>
+                                <igRibbon:ButtonTool Caption="Exit" Id="btnExit"  LargeImage="image\delete.png"/>
+                            </igRibbon:ApplicationMenuFooterToolbar>
+                        </igRibbon:ApplicationMenu.FooterToolbar>
+
+
+                    </igRibbon:ApplicationMenu>
+                </igRibbon:XamRibbon.ApplicationMenu>
+
+                <!--2 TODO: Add Tabs here-->
+                <igRibbon:XamRibbon.Tabs>
+
+                    <igRibbon:RibbonTabItem Header="MktData"  FlowDirection="LeftToRight">
+                        <igRibbon:RibbonGroup Caption="Static Data"  Id="grStaticData">
+                            <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
+                                <!--TODO: Add tools here-->
+                                <igRibbon:ButtonTool Caption="Students" Id="btnStudent" Command="{Binding ChangeStudentViewCommand}"  LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+
+                                <igRibbon:ButtonTool Caption="Teachers" Id="btnTeacher" Command="{Binding ChangeTeacherViewCommand}"  LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+
+                                <igRibbon:ButtonTool Caption="Classes" Id="btnClass" Command="{Binding ChangeClassViewCommand}"  LargeImage="image\news_256.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge">
+                                    <igRibbon:ButtonTool.ToolTip>
+                                        <ToolTip 
+                                        Content="Class Management" 
+                                        Style="{DynamicResource {x:Static igRibbon:XamRibbon.ToolTipStyleKey}}" />
+                                    </igRibbon:ButtonTool.ToolTip>
+                                </igRibbon:ButtonTool>
+
+                                
+                            </igRibbon:ToolHorizontalWrapPanel>
+                        </igRibbon:RibbonGroup>
+
+                        <igRibbon:RibbonGroup Caption="Dynamic Data"  Id="grDynamicData">
+                        <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
+                            <!--TODO: Add tools here-->
+                            <igRibbon:ButtonTool Caption="ClassStudent" Id="btnClassStudent" Command="{Binding ChangeClassStudentViewCommand}"  LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                            <igRibbon:ButtonTool Caption="Schedule" Id="btnSchedule" Command="{Binding ChangeScheduleViewCommand}"  LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                        </igRibbon:ToolHorizontalWrapPanel>
+                        </igRibbon:RibbonGroup>
+                    
+                    </igRibbon:RibbonTabItem>
+
+                </igRibbon:XamRibbon.Tabs>
+
+                <!--4 TODO: Add QuickAccessToolbar here-->
+                <igRibbon:XamRibbon.QuickAccessToolbar>
+                    <igRibbon:QuickAccessToolbar>
+                        <igRibbon:QatPlaceholderTool TargetId="btnExit1" />
+                        
+                    </igRibbon:QuickAccessToolbar>
+                </igRibbon:XamRibbon.QuickAccessToolbar>
+
+            </igRibbon:XamRibbon>
+
+          
+            <ContentControl  Grid.Row="2" Grid.ColumnSpan="2" Content="{Binding ContentControlView}">
+                
+            </ContentControl>
+        </Grid>
+
+
+        <igRibbon:RibbonWindowContentHost.StatusBar>
+            <StatusBar Name="StatusBar1">
+                <!--TODO: Add StatusBar Items -->
+                <TextBlock Text="{Binding StatusBar}" />
+            </StatusBar>
+        </igRibbon:RibbonWindowContentHost.StatusBar>
+
+    </igRibbon:RibbonWindowContentHost>
+
+
+</igRibbon:XamRibbonWindow>

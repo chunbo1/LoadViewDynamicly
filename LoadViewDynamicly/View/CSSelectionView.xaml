@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="LoadViewDynamicly.View.CSSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LoadViewDynamicly.View"
+             xmlns:vm="clr-namespace:LoadViewDynamicly.ViewModel"
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             d:DesignHeight="300" d:DesignWidth="300">
+        <UserControl.Resources>
+            <CollectionViewSource Source="{Binding}" x:Key="customerView">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="ClassName" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+
+    </UserControl.Resources>
+    
+        <Grid>
+        <ListBox Margin="10" Background="LightSkyBlue"
+            ItemsSource="{Binding DataItems1}" 
+            DisplayMemberPath="StudentName"
+            SelectedItem="{Binding SelectedProduct}">
+            <!-- https://stackoverflow.com/questions/12297502/how-to-handle-wpf-listbox-selectionchanged-event-using-mvvm-->
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ListBoxCommand}" />
+            </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="8">
+                                <TextBlock Text="{Binding Path=Name}" x:Name="txt" Background="{StaticResource Brush_HeaderBackground}" FontWeight="Bold" Foreground="White" Margin="1" Padding="4,2,0,2"/>
+                            </Border>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                 </GroupStyle>
+            </ListBox.GroupStyle>
+        </ListBox>
+    </Grid>
+</UserControl>

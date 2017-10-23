@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MDH2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=sscsdsql01;Initial Catalog=MDH2;Integrated Security=True" SettingsObjectName="LoadViewDynamicly.Properties.Settings" SettingsPropertyName="MDH2ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Schedules" Member="Schedules">
+    <Type Name="Schedule">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClassId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TeacherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Weekday" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Teachers" Member="Teachers">
+    <Type Name="Teacher">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="HomePhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CellPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClassStudents" Member="ClassStudents">
+    <Type Name="ClassStudent">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClassId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TuitionPaid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Students" Member="Students">
+    <Type Name="Student">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="HomePhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CellPhone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Classes" Member="Classes">
+    <Type Name="Class">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Division" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Dayofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Timeofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuition" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TeacherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.UpdateCS" Method="UpdateCS">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TuitionPaid" Parameter="tuitionPaid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddCS" Method="AddCS">
+    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TuitionPaid" Parameter="tuitionPaid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteCS" Method="DeleteCS">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="LoadViewDynamicly.View.StudentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:vm="clr-namespace:LoadViewDynamicly.ViewModel"
+             xmlns:igDP="http://infragistics.com/DataPresenter"
+             d:DesignHeight="300" d:DesignWidth="300">
+  
+    <StackPanel>
+        <Label Content="{Binding Text}" />
+        
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="linqCtrl">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" MinHeight="100" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Content="Clear" Click="Clear_Click"></Button>
+            <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Content="Load" Click="Load_Click"></Button>
+            <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Content="Save" Click="Save_Click"></Button>
+            <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
+            <igDP:XamDataPresenter   Name="StudentGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.ColumnSpan="6">
+                <igDP:XamDataPresenter.FieldLayoutSettings>
+                    <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
+                                          AddNewRecordLocation="OnBottom" AllowAddNew="True" 
+                                            HighlightAlternateRecords="True"
+                                          />
+                </igDP:XamDataPresenter.FieldLayoutSettings>
+
+                <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
+                <igDP:XamDataPresenter.FieldSettings>
+                    <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
+                </igDP:XamDataPresenter.FieldSettings>
+            </igDP:XamDataPresenter>
+
+        </Grid>
+    </StackPanel>
+</UserControl>
