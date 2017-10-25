@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
+using System.ComponentModel;
 
 namespace LoadViewDynamicly.ViewModel
 {
@@ -21,6 +22,10 @@ namespace LoadViewDynamicly.ViewModel
             Messenger messenger = App.Messenger;
             messenger.Register("ProductSelectionChanged", (Action<ClassStudent>)(param => ProcessProduct(param)));
             messenger.Register("SetStatus", (Action<String>)(param => stat.Status = param));
+            //After adding a new student, need to refresh StudentTable
+            messenger.Register("RefreshStudentTable", (Action)(() => StudentTable = refreshStudentTable()));
+            
+
             if (dc.DatabaseExists())
             {
                 classTable = dc.Classes;
@@ -40,7 +45,7 @@ namespace LoadViewDynamicly.ViewModel
         }
 
         System.Data.Linq.Table<Student> studentTable = null;
-        
+        [RefreshPropertiesAttribute(RefreshProperties.All)]
         public MyObservableCollection<MyStudent> StudentTable
         {
             get {
@@ -54,8 +59,24 @@ namespace LoadViewDynamicly.ViewModel
                     myStudents.Add(ss);
                 return myStudents;
             }
+            set
+            {
+                RaisePropertyChanged("StudentTable");
+            }
         }
-        
+
+        public MyObservableCollection<MyStudent> refreshStudentTable()
+        {
+            MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
+            var query = from s in studentTable
+                        select new MyStudent(s.ID, s.ID +
+                        " " + s.FirstName + " " + s.LastName + " " + s.BirthDate,
+                        s.FirstName, s.LastName);
+
+            foreach (MyStudent ss in query)
+                myStudents.Add(ss);
+            return myStudents;            
+        }
 
         //data checks and status indicators done in another class
         private readonly ProductDisplayModelStatus stat = new ProductDisplayModelStatus();

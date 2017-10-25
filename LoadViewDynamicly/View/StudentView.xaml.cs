@@ -49,6 +49,10 @@ namespace LoadViewDynamicly.View
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             dc.SubmitChanges();
+            Messenger messenger = App.Messenger;
+            //After adding a new student, need to refresh StudentTable
+            messenger.NotifyColleagues("RefreshStudentTable");
+
         }
     }//Class
 
