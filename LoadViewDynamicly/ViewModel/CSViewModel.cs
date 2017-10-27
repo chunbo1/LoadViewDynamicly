@@ -13,7 +13,7 @@ using System.Windows.Data;
 namespace LoadViewDynamicly.ViewModel
 {
     
-    class CSViewModel : ViewModelBase
+    public class CSViewModel : ViewModelBase
     {
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
         private ICollectionView _customerView;
@@ -29,9 +29,13 @@ namespace LoadViewDynamicly.ViewModel
             //The sorting technique explained above is really simple, but also quite slow for a large amount of data, 
             //because it internally uses reflection. But there is an alternative, more performant way to do sorting by providing a custom sorter.
             _customerView = CollectionViewSource.GetDefaultView(DataItems);
-            _customerView.GroupDescriptions.Add(new PropertyGroupDescription("ClassName"));
-            _customerView.SortDescriptions.Add(new SortDescription("CLassName", ListSortDirection.Ascending));
+            _customerView.GroupDescriptions.Add(new PropertyGroupDescription("Grouping"));
+            _customerView.SortDescriptions.Add(new SortDescription("Grouping", ListSortDirection.Ascending));
             _customerView.SortDescriptions.Add(new SortDescription("StudentName", ListSortDirection.Ascending));
+
+            //Use side by side with IsSynchronizedWithCurrentItem="True"
+            //We can use DataGrid instead of ListBox [SelectedItem="{Binding SelectedProduct}">]
+            _customerView.CurrentChanged += CustomerSelectionChanged;
 
             listBoxCommand = new RelayCommand(() => SelectionHasChanged());
             App.Messenger.Register("ProductCleared", (Action)(() => SelectedProduct = null));
@@ -39,6 +43,14 @@ namespace LoadViewDynamicly.ViewModel
             App.Messenger.Register("UpdateProduct", (Action<ClassStudent>)(param => UpdateProduct(param)));
             App.Messenger.Register("DeleteProduct", (Action)(() => DeleteProduct()));
             App.Messenger.Register("AddProduct", (Action<ClassStudent>)(param => AddProduct(param)));
+        }
+
+        private void CustomerSelectionChanged(object sender, EventArgs e)
+        {
+            // React to the changed selection
+            SelectedProduct = (ClassStudent)DataItems1.CurrentItem;
+            SelectionHasChanged();
+            
         }
 
         private void GetClassStudents()
@@ -103,6 +115,11 @@ namespace LoadViewDynamicly.ViewModel
         public ICollectionView DataItems1
         {
             get { return _customerView; }
+            set
+            {
+                _customerView = value;
+                RaisePropertyChanged("DataItems1");
+            }
         }
 
         private RelayCommand listBoxCommand;

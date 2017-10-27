@@ -107,13 +107,23 @@ namespace LoadViewDynamicly.ViewModel
                 OnPropertyChanged("UpdateDateTime"); }
         }
 
+        private string grouping;
+        public string Grouping
+        {
+            get { return grouping; }
+            set
+            {
+                grouping = value;
+                OnPropertyChanged("Grouping");
+            }
+        }
         public ClassStudent()
         {
         }
 
         public ClassStudent(int _Id, int? studentId, string studentName, 
             int? classId, string className, int? tuitionPaid,
-                       string comment, DateTime updateDateTime)
+                       string comment, DateTime updateDateTime, string grouping)
         {
             this.id = _Id;
             StudentId = studentId;
@@ -123,6 +133,7 @@ namespace LoadViewDynamicly.ViewModel
             TuitionPaid = tuitionPaid;
             Comment = comment;
             UpdateDateTime = updateDateTime;
+            Grouping = grouping;
         }
 
         public void CopyProduct(ClassStudent p)
@@ -160,11 +171,12 @@ namespace LoadViewDynamicly.ViewModel
         public int? TuitionPaid { get; set; }
         public string Comment { get; set; }
         public DateTime UpdateDateTime { get; set; }
+        public string Grouping { get; set; }
 
         public SqlClassStudent() { }
 
         public SqlClassStudent(int id, int studentId, int classId, int tuitionPaid,
-                      string comment, DateTime timestamp)
+                      string comment, DateTime timestamp, string grouping)
         {
             Id = id;
             StudentId = studentId;
@@ -172,6 +184,7 @@ namespace LoadViewDynamicly.ViewModel
             TuitionPaid = tuitionPaid;
             Comment = comment;
             UpdateDateTime = timestamp;
+            Grouping = grouping;
         }
 
         public SqlClassStudent(ClassStudent p)
@@ -186,7 +199,7 @@ namespace LoadViewDynamicly.ViewModel
 
         public ClassStudent SqlProduct2Product()
         {
-            return new ClassStudent(Id, StudentId, StudentName, ClassId, ClassName, TuitionPaid, Comment,  UpdateDateTime);
+            return new ClassStudent(Id, StudentId, StudentName, ClassId, ClassName, TuitionPaid, Comment,  UpdateDateTime, Grouping);
         } //SqlProduct2Product()
     }//Class SqlClassStudent
 
@@ -206,8 +219,26 @@ namespace LoadViewDynamicly.ViewModel
         }
     }//Class
 
+    public class MyClass
+    {
+        public int ID { get; set; }
+        public string ClassName { get; set; }
+        public string FullName { get; set; }
+        public string Semester { get; set; }
+        public string Dayofweek { get; set; }
+        public string Timeofweek { get; set; }
+        public MyClass(int id, string division, string className, string semester, string dayofweek, string timeofweek)
+        {
+            ID = id;
+            ClassName = className;
+            Semester = semester;
+            Dayofweek = dayofweek;
+            Timeofweek = timeofweek;
+            FullName = className + " " + semester + " " + dayofweek + " " + timeofweek;
+        }
+    }//Class
 
 
 
 
-    }//NS
+}//NS

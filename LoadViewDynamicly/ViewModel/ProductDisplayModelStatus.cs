@@ -105,7 +105,10 @@ namespace LoadViewDynamicly.ViewModel
             if (String.IsNullOrEmpty(p.StudentName))
             { errCnt++; ModelNameBrush = errorBrush; }
             else ModelNameBrush = okBrush;
-
+            if (String.IsNullOrEmpty(p.Grouping))
+            { errCnt++; ModelNameBrush = errorBrush; }
+            else ModelNameBrush = okBrush;
+            
             if (errCnt == 0) { Status = "OK"; return true; }
             else { Status = "ADD, missing or invalid fields."; return false; }
         } //ChkProductForAdd()

@@ -43,9 +43,6 @@
                                           HighlightAlternateRecords="True"
                                           HeaderPrefixAreaDisplayMode="FieldChooserButton"
                                           />
- 
-                    
-
                 </igDP:XamDataPresenter.FieldLayoutSettings>
 
                 <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->

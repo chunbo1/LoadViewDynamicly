@@ -1,0 +1,48 @@
+﻿<Window x:Class="LoadViewDynamicly.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoadViewDynamicly.View"
+        xmlns:CarsNS="clr-namespace:CarsBusinessLogic.Data"
+        xmlns:VM="clr-namespace:LoadViewDynamicly.ViewModel"
+        xmlns:igDP="http://infragistics.com/DataPresenter"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="333" Width="684">
+    <!--For testing purpose-->
+    <Window.Resources>
+        <!--TODO: Add an ObjectDataProvider here-->
+        <ObjectDataProvider x:Key="CarData" 
+                            ObjectType="{x:Type CarsNS:CarsBusinessLogic}" MethodName="GetCars" 
+                            />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="13" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--DataSource="{Binding Source={StaticResource CarData}}"-->
+        <igDP:XamDataPresenter  Grid.Row="1"  Name="xamDataPresenter1"                                
+                                DataSource="{Binding DataItems1}" 
+                                IsSynchronizedWithCurrentItem="True"
+                                
+                               >
+
+
+            <igDP:XamDataPresenter.FieldLayoutSettings>
+                <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
+                                          AddNewRecordLocation="OnTopFixed" AllowAddNew="False" 
+                                            HighlightAlternateRecords="True"
+                                          />
+            </igDP:XamDataPresenter.FieldLayoutSettings>
+
+
+        </igDP:XamDataPresenter>
+
+        <CheckBox Grid.Row="0" Content="CheckBox" Height="16" HorizontalAlignment="Left" Margin="28,25,0,0" Name="checkBox1" VerticalAlignment="Top" IsChecked="{Binding Path=(FieldLayoutSettings).AllowAddNew, ElementName=xamDataPresenter1}"/>
+
+
+    </Grid>
+</Window>

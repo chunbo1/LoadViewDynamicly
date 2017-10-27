@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="LoadViewDynamicly.View.CSSelectionGridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LoadViewDynamicly.View"
+             xmlns:VM="clr-namespace:LoadViewDynamicly.ViewModel"
+             xmlns:igDP="http://infragistics.com/DataPresenter"             
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="13" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--DataSource="{Binding Source={StaticResource CarData}}"-->
+        <igDP:XamDataPresenter  Grid.Row="1"  Name="xamDataPresenter1"                                
+                                DataSource="{Binding DataItems1}" 
+                                IsSynchronizedWithCurrentItem="True"                                
+                               >
+
+
+            <igDP:XamDataPresenter.FieldLayoutSettings>
+                <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
+                                          AddNewRecordLocation="OnTopFixed" AllowAddNew="False" 
+                                          HighlightAlternateRecords="True"
+                                          HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          />
+            </igDP:XamDataPresenter.FieldLayoutSettings>
+
+            <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
+            <igDP:XamDataPresenter.FieldSettings>
+                <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
+            </igDP:XamDataPresenter.FieldSettings>
+
+        </igDP:XamDataPresenter>
+    </Grid>
+</UserControl>

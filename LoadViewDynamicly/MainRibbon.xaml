@@ -75,7 +75,7 @@
                                     <igRibbon:ButtonTool.ToolTip>
                                         <ToolTip 
                                         Content="Class Management" 
-                                        Style="{DynamicResource {x:Static igRibbon:XamRibbon.ToolTipStyleKey}}" />
+                                        />
                                     </igRibbon:ButtonTool.ToolTip>
                                 </igRibbon:ButtonTool>
 

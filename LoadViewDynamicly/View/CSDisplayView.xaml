@@ -29,7 +29,7 @@
             <Button Margin="2,5,0,0"  Background="LightBlue" Height="35" Width="50"
                   Command="{Binding AddCommand}" Padding="2">Add</Button>
             <Button Margin="2,5,0,0"  Background="LightBlue" Height="35" Width="50"
-                  Command="{Binding AddCommand}" Padding="2">XXX</Button>
+                    Padding="2">XXX</Button>
 
         </StackPanel>
         <Grid Margin="10" Grid.Row="1">
@@ -41,9 +41,9 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
@@ -79,10 +79,11 @@
 
             <TextBlock Margin="7" Grid.Row="3">Comment:</TextBlock>
             <TextBox Margin="5" Grid.Row="3" Grid.Column="1"  BorderBrush="{Binding Path=Stat.CategoryNameBrush}" BorderThickness="1"
+                     TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" 
                      Text="{Binding Path=DisplayedProduct.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <TextBlock Margin="7,7,7,0" Grid.Row="4">UpdateDateTime:</TextBlock>
-            <TextBox Margin="7" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
+            <TextBox Margin="7" Grid.Row="4" Grid.Column="1"  
                  TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding Path=DisplayedProduct.UpdateDateTime}"></TextBox>
 
             <TextBlock Margin="7,25,15,0" Grid.Row="6">Status:</TextBlock>

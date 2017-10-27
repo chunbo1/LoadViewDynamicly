@@ -11,7 +11,7 @@
         <UserControl.Resources>
             <CollectionViewSource Source="{Binding}" x:Key="customerView">
                 <CollectionViewSource.GroupDescriptions>
-                    <PropertyGroupDescription PropertyName="ClassName" />
+                    <PropertyGroupDescription PropertyName="Grouping" />
                 </CollectionViewSource.GroupDescriptions>
             </CollectionViewSource>
 

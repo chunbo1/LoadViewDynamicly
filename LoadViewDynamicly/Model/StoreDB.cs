@@ -36,7 +36,8 @@ namespace LoadViewDynamicly.Model
                                 ClassName = c.ClassName,
                                 TuitionPaid = q.TuitionPaid,            
                                 Comment = q.Comment,
-                                UpdateDateTime = q.UpdateDateTime
+                                UpdateDateTime = q.UpdateDateTime,
+                                Grouping = c.ClassName + " " + c.Semester + " " + c.Dayofweek + " " + c.Timeofweek
                             };
                 foreach (SqlClassStudent sp in query)
                     products.Add(sp.SqlProduct2Product());

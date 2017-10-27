@@ -33,6 +33,7 @@
                     <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
                                           AddNewRecordLocation="OnBottom" AllowAddNew="True" 
                                             HighlightAlternateRecords="True"
+                                              HeaderPrefixAreaDisplayMode="FieldChooserButton"
                                           />
                 </igDP:XamDataPresenter.FieldLayoutSettings>
 

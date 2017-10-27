@@ -24,7 +24,7 @@ namespace LoadViewDynamicly.ViewModel
             messenger.Register("SetStatus", (Action<String>)(param => stat.Status = param));
             //After adding a new student, need to refresh StudentTable
             messenger.Register("RefreshStudentTable", (Action)(() => StudentTable = refreshStudentTable()));
-            
+            messenger.Register("RefreshClassTable", (Action)(() => ClassTable = refreshClassTable()));
 
             if (dc.DatabaseExists())
             {
@@ -34,12 +34,20 @@ namespace LoadViewDynamicly.ViewModel
         } //ctor
 
         System.Data.Linq.Table<Class> classTable = null;
-        public System.Data.Linq.Table<Class> ClassTable
+        public MyObservableCollection<MyClass> ClassTable
         {
-            get { return classTable; }
+            get
+            {
+                MyObservableCollection<MyClass> myClasses = new MyObservableCollection<MyClass>();
+                var query = from s in classTable
+                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek);
+
+                foreach (MyClass ss in query)
+                    myClasses.Add(ss);
+                return myClasses;
+            }
             set
             {
-                classTable = value;
                 RaisePropertyChanged("ClassTable");
             }
         }
@@ -65,6 +73,8 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
+ 
+
         public MyObservableCollection<MyStudent> refreshStudentTable()
         {
             MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
@@ -76,6 +86,17 @@ namespace LoadViewDynamicly.ViewModel
             foreach (MyStudent ss in query)
                 myStudents.Add(ss);
             return myStudents;            
+        }
+
+        public MyObservableCollection<MyClass> refreshClassTable()
+        {
+            MyObservableCollection<MyClass> myClasses = new MyObservableCollection<MyClass>();
+            var query = from s in classTable
+                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek);
+
+            foreach (MyClass ss in query)
+                myClasses.Add(ss);
+            return myClasses;
         }
 
         //data checks and status indicators done in another class
@@ -130,8 +151,11 @@ namespace LoadViewDynamicly.ViewModel
         private void UpdateClassStudent()
         {
             //Sync DisplayedProduct's ID with Name
-            DisplayedProduct.ClassName = ClassTable.SingleOrDefault(c => c.ID == (DisplayedProduct.ClassId ?? 0)).ClassName;
+            MyClass cc = (MyClass)ClassTable.SingleOrDefault(c => c.ID == (DisplayedProduct.ClassId ?? 0));
+            DisplayedProduct.ClassName = cc.ClassName;
             DisplayedProduct.StudentName = StudentTable.SingleOrDefault(s => s.ID == (DisplayedProduct.StudentId ?? 0)).FullName;
+            //GetClassStudents() has Grouping, DisplayedProduct does the same
+            DisplayedProduct.Grouping = cc.ClassName + " " + cc.Semester + " " + cc.Dayofweek + " " + cc.Timeofweek;
 
             if (!stat.ChkProductForUpdate(DisplayedProduct)) return;
             if (!App.StoreDB.UpdateProduct(DisplayedProduct))
@@ -174,9 +198,15 @@ namespace LoadViewDynamicly.ViewModel
 
         private void AddProduct()
         {
+
+            if (DisplayedProduct.ClassId == null) { stat.Status = "Please pick up a Class"; return; }
+            if (DisplayedProduct.StudentId == null) { stat.Status = "Please pick up a Student"; return; }
             //Sync DisplayedProduct's ID with Name
-            DisplayedProduct.ClassName = ClassTable.SingleOrDefault(c => c.ID == (DisplayedProduct.ClassId ?? 0)).ClassName;
+            MyClass cc = (MyClass) ClassTable.SingleOrDefault(c => c.ID == (DisplayedProduct.ClassId ?? 0));
+            DisplayedProduct.ClassName = cc.ClassName;
             DisplayedProduct.StudentName = StudentTable.SingleOrDefault(s => s.ID == (DisplayedProduct.StudentId ?? 0)).FullName;
+            //GetClassStudents() has Grouping, DisplayedProduct does the same
+            DisplayedProduct.Grouping = cc.ClassName + " " + cc.Semester + " " + cc.Dayofweek + " " + cc.Timeofweek;
 
             if (!stat.ChkClassStudentForAdd(DisplayedProduct)) return;
             if (!App.StoreDB.AddProduct(DisplayedProduct))
