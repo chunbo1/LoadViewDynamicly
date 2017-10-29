@@ -59,9 +59,11 @@ namespace LoadViewDynamicly.ViewModel
             get {
                 MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
                 var query = from s in studentTable
+                            orderby s.FirstName
                             select new MyStudent(s.ID, s.ID + 
                             " " + s.FirstName + " " + s.LastName + " " + s.BirthDate,
-                            s.FirstName, s.LastName );
+                            s.FirstName, s.LastName )
+                            ;
                             
                 foreach (MyStudent ss in query)
                     myStudents.Add(ss);

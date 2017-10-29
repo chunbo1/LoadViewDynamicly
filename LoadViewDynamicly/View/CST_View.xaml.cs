@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Infragistics.Windows.DataPresenter.ExcelExporter;
+using Infragistics.Excel;
+using System.Diagnostics;
 namespace LoadViewDynamicly.View
 {
     /// <summary>
@@ -45,5 +47,53 @@ namespace LoadViewDynamicly.View
             CSTGrid.DataSource = dc.vwCSTs;
 
         }
+
+        private void Export2Excel_Click(object sender, RoutedEventArgs e)
+        {
+            string fileName = @"c:\temp\3\a.xlsx";
+            try
+            {
+                // Get the instance of the DataPresenterExcelExporter we defined in the Page's resources and call its Export
+                // method passing in the XamDataGrid we want to export, the name of the file we would like
+                // to export to and the format of the Workbook we want to Exporter to create.
+                //
+                // NOTE: there are 11 overloads to the Export method that give you control over different
+                // aspects of the exporting process.
+                DataPresenterExcelExporter exporter = (DataPresenterExcelExporter)this.Resources["Exporter"];
+                ExportOptions op = new ExportOptions();
+                op.ChildRecordCollectionSpacing = ChildRecordCollectionSpacing.None;
+                op.ExcludeExpandedState = true;
+                op.ExcludeSummaries = true;
+                exporter.Export(CSTGrid, fileName, WorkbookFormat.Excel2007, op);
+            }
+            catch (Exception ex)
+            {
+                // It's possible that the exporter does not have permission to write the file, so it's generally
+                // a good idea to account for this possibility.
+                MessageBox.Show(string.Format("Export_Message_ExcelExportError_Text", ex.Message),
+                                "Export_Message_ExcelError_Caption",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+
+                return;
+            }
+
+            // Execute Excel to display the exported workbook.
+            try
+            {
+                Process p = new Process();
+                p.StartInfo.FileName = fileName;
+                p.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Export_Message_ExcelError_Text", ex.Message),
+                                "Export_Message_ExcelError_Caption",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+            }
+
+        }
+
     }//Class
 }

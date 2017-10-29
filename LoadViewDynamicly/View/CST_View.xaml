@@ -6,8 +6,15 @@
              xmlns:local="clr-namespace:LoadViewDynamicly.View"
              xmlns:vm="clr-namespace:LoadViewDynamicly.ViewModel"
              xmlns:igDP="http://infragistics.com/DataPresenter"
+             xmlns:igExcelExporter="http://infragistics.com/ExcelExporter"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <igExcelExporter:DataPresenterExcelExporter x:Key="Exporter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <StackPanel>
         <Label Content="{Binding Text}" />
 
@@ -27,7 +34,7 @@
 
             <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Content="Clear" Click="Clear_Click"></Button>
             <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Content="Load" Click="Load_Click"></Button>
-
+            <Button Name="Export2Excel"  Grid.Row="0" Grid.Column="2" Content="Export" Click="Export2Excel_Click"></Button>
             <igDP:XamDataPresenter   Name="CSTGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.ColumnSpan="6">
 
                 <igDP:XamDataPresenter.FieldLayoutSettings>
