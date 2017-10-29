@@ -17,12 +17,13 @@ namespace LoadViewDynamicly.ViewModel
     {
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
         private ICollectionView _customerView;
+         public LoadViewDynamicly.View.CSSelectionView _view { get; set; }
 
         public CSViewModel()
         {
             dataItems = new MyObservableCollection<ClassStudent>();
             StoreDB db = new StoreDB();
-                DataItems = db.GetClassStudents();
+            DataItems = db.GetClassStudents();
 
             //https://wpftutorial.net/DataViews.html
             //https://stackoverflow.com/questions/8597824/listbox-groupstyle-display-how-to-design-a-group-name
@@ -35,9 +36,9 @@ namespace LoadViewDynamicly.ViewModel
 
             //Use side by side with IsSynchronizedWithCurrentItem="True"
             //We can use DataGrid instead of ListBox [SelectedItem="{Binding SelectedProduct}">]
-            _customerView.CurrentChanged += CustomerSelectionChanged;
+            ///_customerView.CurrentChanged += CustomerSelectionChanged;
 
-            listBoxCommand = new RelayCommand(() => SelectionHasChanged());
+            listBoxSelectionChangeCommand = new RelayCommand(() => SelectionHasChanged());
             App.Messenger.Register("ProductCleared", (Action)(() => SelectedProduct = null));
             App.Messenger.Register("GetClassStudents", (Action)(() => GetClassStudents()));
             App.Messenger.Register("UpdateProduct", (Action<ClassStudent>)(param => UpdateProduct(param)));
@@ -45,7 +46,8 @@ namespace LoadViewDynamicly.ViewModel
             App.Messenger.Register("AddProduct", (Action<ClassStudent>)(param => AddProduct(param)));
         }
 
-        private void CustomerSelectionChanged(object sender, EventArgs e)
+        //Tempreally disabled; used for DataGrid
+        private void CustomerSelectionChangedXXX(object sender, EventArgs e)
         {
             // React to the changed selection
             SelectedProduct = (ClassStudent)DataItems1.CurrentItem;
@@ -74,17 +76,33 @@ namespace LoadViewDynamicly.ViewModel
         private void DeleteProduct()
         {
             DataItems.Remove(selectedProduct);
+            RefreshCustomerView();
         }
 
         private void AddProduct(ClassStudent p)
         {
             DataItems.Add(p);
+            RefreshCustomerView();
+        }
+
+        private void RefreshCustomerView()
+        {
+            //https://stackoverflow.com/questions/20188132/how-to-correctly-bind-update-a-datagrid-with-a-collectionviewsource
+            _customerView = CollectionViewSource.GetDefaultView(DataItems);
+            if (_customerView.GroupDescriptions == null || _customerView.GroupDescriptions.Count == 0)
+            {
+                _customerView.GroupDescriptions.Add(new PropertyGroupDescription("Grouping"));
+                _customerView.SortDescriptions.Add(new SortDescription("Grouping", ListSortDirection.Ascending));
+                _customerView.SortDescriptions.Add(new SortDescription("StudentName", ListSortDirection.Ascending));
+            }
+            _view.lstBoxCS.ItemsSource = null;
+            _view.lstBoxCS.ItemsSource = _customerView;
         }
 
         private void SelectionHasChanged()
         {
-            Messenger messenger = App.Messenger;
-            messenger.NotifyColleagues("ProductSelectionChanged", selectedProduct);
+            App.Messenger.NotifyColleagues("ProductSelectionChanged", selectedProduct);
+
         }
 
         private ClassStudent selectedProduct;
@@ -122,10 +140,10 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
-        private RelayCommand listBoxCommand;
-        public ICommand ListBoxCommand
+        private RelayCommand listBoxSelectionChangeCommand;
+        public ICommand ListBoxSelectionChangeCommand
         {
-            get { return listBoxCommand; }
+            get { return listBoxSelectionChangeCommand; }
         }
 
 

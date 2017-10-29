@@ -25,11 +25,17 @@ namespace LoadViewDynamicly.View
         {
             InitializeComponent();
             DataContext = new CSViewModel();
+            (DataContext as CSViewModel)._view = this as CSSelectionView;
+            
             /*
     <UserControl.DataContext >
         <vm:CSViewModel />
     </UserControl.DataContext >
             */
         }
-    }
+
+
+
+
+    }//class
 }

@@ -13,6 +13,7 @@
         <Grid Grid.Row="1" Grid.Column="1" x:Name="linqCtrl">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
+                <RowDefinition Height="80" />
                 <RowDefinition Height="*" MinHeight="100" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
@@ -28,7 +29,11 @@
             <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Content="Load" Click="Load_Click"></Button>
             <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Content="Save" Click="Save_Click"></Button>
             <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
-            <igDP:XamDataPresenter   Name="Grid" Margin="0,0,0,0"   Grid.Row="1" Grid.ColumnSpan="6">
+            <igDP:GroupByArea x:Name="ExternalGroupByArea" Grid.Row="1" Grid.ColumnSpan="5"/>
+            <igDP:XamDataPresenter   Name="Grid" Margin="0,0,0,0"   Grid.Row="2" Grid.ColumnSpan="6"                                     
+                    IsGroupByAreaExpanded="True"
+                    GroupByAreaMode="DefaultFieldLayoutOnly"
+                    GroupByArea="{Binding ElementName=ExternalGroupByArea}">
                 <igDP:XamDataPresenter.FieldLayoutSettings>
                     <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
                                           AddNewRecordLocation="OnBottom" AllowAddNew="True" 

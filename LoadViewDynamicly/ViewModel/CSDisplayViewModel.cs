@@ -230,6 +230,7 @@ namespace LoadViewDynamicly.ViewModel
             ClassStudent temp = new ClassStudent();
             temp.CopyProduct(p);
             DisplayedProduct = temp;
+            
             isSelected = true;
             stat.NoError();
         } // ProcessProduct()

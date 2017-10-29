@@ -18,14 +18,14 @@
     </UserControl.Resources>
     
         <Grid>
-        <ListBox Margin="10" Background="LightSkyBlue"
+        <ListBox Margin="10" Background="LightSkyBlue" Name="lstBoxCS"
             ItemsSource="{Binding DataItems1}" 
             DisplayMemberPath="StudentName"
             SelectedItem="{Binding SelectedProduct}">
             <!-- https://stackoverflow.com/questions/12297502/how-to-handle-wpf-listbox-selectionchanged-event-using-mvvm-->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ListBoxCommand}" />
+                    <i:InvokeCommandAction Command="{Binding ListBoxSelectionChangeCommand}" />
             </i:EventTrigger>
             </i:Interaction.Triggers>
 

@@ -56,7 +56,7 @@
             <!--https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
             <ComboBox x:Name="classCombo" Grid.Row="0" Grid.Column="1" 
                       ItemsSource="{Binding ClassTable}"                        
-                      DisplayMemberPath="ClassName"
+                      DisplayMemberPath="FullName"
                       SelectedValuePath="ID"                      
                       SelectedValue="{Binding Path=DisplayedProduct.ClassId}"
                       />

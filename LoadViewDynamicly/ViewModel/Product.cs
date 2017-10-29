@@ -140,12 +140,13 @@ namespace LoadViewDynamicly.ViewModel
         {
             this.id = p.ID;
             this.StudentId = p.StudentId;
-            this.ClassId = p.ClassId;
-            this.Comment = p.Comment;
-            this.UpdateDateTime = p.UpdateDateTime;
-            this.ClassName = p.ClassName;
             this.StudentName = p.StudentName;
-            this.TuitionPaid = p.TuitionPaid;
+            this.ClassId = p.ClassId;
+            this.ClassName = p.ClassName;
+            this.TuitionPaid = p.tuitionPaid;
+            this.Comment = p.Comment;
+            this.UpdateDateTime = p.UpdateDateTime;            
+            this.Grouping = p.grouping;
         }
 
         //Creating a new ClassStudent in the DB assigns the ProductId

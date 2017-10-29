@@ -29,7 +29,9 @@
             <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Content="Load" Click="Load_Click"></Button>
             <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Content="Save" Click="Save_Click"></Button>
             <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
+            
             <igDP:XamDataPresenter   Name="StudentGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.ColumnSpan="6">
+
                 <igDP:XamDataPresenter.FieldLayoutSettings>
                     <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
                                           AddNewRecordLocation="OnBottom" AllowAddNew="True" 
