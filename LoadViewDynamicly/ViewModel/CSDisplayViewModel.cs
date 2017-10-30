@@ -60,8 +60,8 @@ namespace LoadViewDynamicly.ViewModel
                 MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
                 var query = from s in studentTable
                             orderby s.FirstName
-                            select new MyStudent(s.ID, s.ID + 
-                            " " + s.FirstName + " " + s.LastName + " " + s.BirthDate,
+                            select new MyStudent(s.ID, "" + 
+                            s.FirstName + " " + s.LastName + " " + s.CellPhone,
                             s.FirstName, s.LastName )
                             ;
                             
@@ -81,8 +81,8 @@ namespace LoadViewDynamicly.ViewModel
         {
             MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
             var query = from s in studentTable
-                        select new MyStudent(s.ID, s.ID +
-                        " " + s.FirstName + " " + s.LastName + " " + s.BirthDate,
+                        select new MyStudent(s.ID, 
+                        "" + s.FirstName + " " + s.LastName + " " + s.CellPhone,
                         s.FirstName, s.LastName);
 
             foreach (MyStudent ss in query)

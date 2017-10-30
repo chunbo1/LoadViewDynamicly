@@ -46,6 +46,33 @@ namespace LoadViewDynamicly.View
             dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
             CSTGrid.DataSource = dc.vwCSTs;
 
+            Infragistics.Windows.DataPresenter.FieldSortDescription divisionSort = new Infragistics.Windows.DataPresenter.FieldSortDescription
+            {
+                FieldName = "Division",
+                IsGroupBy = true
+            };
+            Infragistics.Windows.DataPresenter.FieldSortDescription classNameSort = new Infragistics.Windows.DataPresenter.FieldSortDescription
+            {
+                FieldName = "ClassName",
+                IsGroupBy = true
+            };
+            Infragistics.Windows.DataPresenter.FieldSortDescription dayofweekSort = new Infragistics.Windows.DataPresenter.FieldSortDescription
+            {
+                FieldName = "Dayofweek",
+                IsGroupBy = true
+            };
+            Infragistics.Windows.DataPresenter.FieldSortDescription timeofweekSort = new Infragistics.Windows.DataPresenter.FieldSortDescription
+            {
+                FieldName = "Timeofweek",
+                IsGroupBy = true
+            };
+            CSTGrid.FieldLayouts[0].SortedFields.Add(divisionSort);
+            CSTGrid.FieldLayouts[0].SortedFields.Add(classNameSort);
+            CSTGrid.FieldLayouts[0].SortedFields.Add(dayofweekSort);
+            CSTGrid.FieldLayouts[0].SortedFields.Add(timeofweekSort);
+
+
+
         }
 
         private void Export2Excel_Click(object sender, RoutedEventArgs e)
