@@ -61,7 +61,7 @@ namespace LoadViewDynamicly.ViewModel
                 var query = from s in studentTable
                             orderby s.FirstName
                             select new MyStudent(s.ID, "" + 
-                            s.FirstName + " " + s.LastName + " " + s.CellPhone,
+                            s.FirstName + " " + s.LastName + " " + ((s.CellPhone.Length>0) ? s.CellPhone: s.HomePhone),
                             s.FirstName, s.LastName )
                             ;
                             
@@ -82,7 +82,7 @@ namespace LoadViewDynamicly.ViewModel
             MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
             var query = from s in studentTable
                         select new MyStudent(s.ID, 
-                        "" + s.FirstName + " " + s.LastName + " " + s.CellPhone,
+                        "" + s.FirstName + " " + s.LastName + " " + ((s.CellPhone.Length > 0) ? s.CellPhone : s.HomePhone),
                         s.FirstName, s.LastName);
 
             foreach (MyStudent ss in query)

@@ -49,9 +49,10 @@ namespace LoadViewDynamicly.ViewModel
         {
             StoreDB db = new StoreDB();
             DataItems = db.GetClassStudents();
-            
+
             //https://wpftutorial.net/DataViews.html
             //https://stackoverflow.com/questions/8597824/listbox-groupstyle-display-how-to-design-a-group-name
+            //https://stackoverflow.com/questions/20188132/how-to-correctly-bind-update-a-datagrid-with-a-collectionviewsource
             //The sorting technique explained above is really simple, but also quite slow for a large amount of data, 
             //because it internally uses reflection. But there is an alternative, more performant way to do sorting by providing a custom sorter.
             //when DataItems points to a new object, we need to GetDefaultView(DataItems) and add Grouping
