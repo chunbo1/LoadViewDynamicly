@@ -63,7 +63,7 @@
                 <!--2 TODO: Add Tabs here-->
                 <igRibbon:XamRibbon.Tabs>
 
-                    <igRibbon:RibbonTabItem Header="MktData"  FlowDirection="LeftToRight">
+                    <igRibbon:RibbonTabItem Header="Front Office"  FlowDirection="LeftToRight">
                         <igRibbon:RibbonGroup Caption="Static Data"  Id="grStaticData">
                             <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
                                 <!--TODO: Add tools here-->
@@ -92,6 +92,17 @@
                         </igRibbon:RibbonGroup>
                     
                     </igRibbon:RibbonTabItem>
+
+                    <igRibbon:RibbonTabItem Header="Back Office" FlowDirection="LeftToRight">
+                        <igRibbon:RibbonGroup Caption="Accounting" Id="grAccounting">
+                            <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
+                                <!--TODO: Add tools here-->
+                                <igRibbon:ButtonTool Caption="Book Keeping" Id="btnBookKeeping" Command="{Binding ChangeClassStudentViewCommand}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Semester Report" Id="btnSemesterReport" Command="{Binding ChangeScheduleViewCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                            </igRibbon:ToolHorizontalWrapPanel>
+                        </igRibbon:RibbonGroup>
+                    </igRibbon:RibbonTabItem>
+
 
                 </igRibbon:XamRibbon.Tabs>
 

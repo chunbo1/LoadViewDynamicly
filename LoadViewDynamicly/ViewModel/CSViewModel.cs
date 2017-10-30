@@ -22,17 +22,7 @@ namespace LoadViewDynamicly.ViewModel
         public CSViewModel()
         {
             dataItems = new MyObservableCollection<ClassStudent>();
-            StoreDB db = new StoreDB();
-            DataItems = db.GetClassStudents();
-
-            //https://wpftutorial.net/DataViews.html
-            //https://stackoverflow.com/questions/8597824/listbox-groupstyle-display-how-to-design-a-group-name
-            //The sorting technique explained above is really simple, but also quite slow for a large amount of data, 
-            //because it internally uses reflection. But there is an alternative, more performant way to do sorting by providing a custom sorter.
-            _customerView = CollectionViewSource.GetDefaultView(DataItems);
-            _customerView.GroupDescriptions.Add(new PropertyGroupDescription("Grouping"));
-            _customerView.SortDescriptions.Add(new SortDescription("Grouping", ListSortDirection.Ascending));
-            _customerView.SortDescriptions.Add(new SortDescription("StudentName", ListSortDirection.Ascending));
+            GetClassStudents();
 
             //Use side by side with IsSynchronizedWithCurrentItem="True"
             //We can use DataGrid instead of ListBox [SelectedItem="{Binding SelectedProduct}">]
@@ -50,7 +40,7 @@ namespace LoadViewDynamicly.ViewModel
         private void CustomerSelectionChangedXXX(object sender, EventArgs e)
         {
             // React to the changed selection
-            SelectedProduct = (ClassStudent)DataItems1.CurrentItem;
+            SelectedProduct = (ClassStudent)DataItems1XXX.CurrentItem;
             SelectionHasChanged();
             
         }
@@ -59,6 +49,21 @@ namespace LoadViewDynamicly.ViewModel
         {
             StoreDB db = new StoreDB();
             DataItems = db.GetClassStudents();
+            
+            //https://wpftutorial.net/DataViews.html
+            //https://stackoverflow.com/questions/8597824/listbox-groupstyle-display-how-to-design-a-group-name
+            //The sorting technique explained above is really simple, but also quite slow for a large amount of data, 
+            //because it internally uses reflection. But there is an alternative, more performant way to do sorting by providing a custom sorter.
+            //when DataItems points to a new object, we need to GetDefaultView(DataItems) and add Grouping
+            //CSSelectionView ItemsSource="{Binding DataItems}"; We dont need to bind to DataItems1 
+            _customerView = CollectionViewSource.GetDefaultView(DataItems);
+            if (_customerView.GroupDescriptions == null || _customerView.GroupDescriptions.Count == 0)
+            {
+                _customerView.GroupDescriptions.Add(new PropertyGroupDescription("Grouping"));
+                _customerView.SortDescriptions.Add(new SortDescription("Grouping", ListSortDirection.Ascending));
+                _customerView.SortDescriptions.Add(new SortDescription("StudentName", ListSortDirection.Ascending));
+            }
+
             if (db.hasError)
                 App.Messenger.NotifyColleagues("SetStatus", db.errorMessage);
         }
@@ -68,26 +73,32 @@ namespace LoadViewDynamicly.ViewModel
             if (selectedProduct != null)
             {
                 int index = dataItems.IndexOf(selectedProduct);
-                dataItems.ReplaceItem(index, p);
-                SelectedProduct = p;
+                if (index > -1)
+                {
+                    dataItems.ReplaceItem(index, p);
+                    SelectedProduct = p;
+                }
+                else
+                    Console.WriteLine("Index out of boundry " + selectedProduct.Grouping);
+
             }
         }
 
         private void DeleteProduct()
         {
             DataItems.Remove(selectedProduct);
-            RefreshCustomerView();
+            //RefreshCustomerView();
         }
 
         private void AddProduct(ClassStudent p)
         {
             DataItems.Add(p);
-            RefreshCustomerView();
+            //RefreshCustomerView();
         }
 
-        private void RefreshCustomerView()
+        private void RefreshCustomerViewXXX()
         {
-            //https://stackoverflow.com/questions/20188132/how-to-correctly-bind-update-a-datagrid-with-a-collectionviewsource
+            //https://stackoverflow.com/questions/20188132/how-to-correctly-bind-update-a-datagrid-with-a-collectionviewsource            
             _customerView = CollectionViewSource.GetDefaultView(DataItems);
             if (_customerView.GroupDescriptions == null || _customerView.GroupDescriptions.Count == 0)
             {
@@ -95,7 +106,6 @@ namespace LoadViewDynamicly.ViewModel
                 _customerView.SortDescriptions.Add(new SortDescription("Grouping", ListSortDirection.Ascending));
                 _customerView.SortDescriptions.Add(new SortDescription("StudentName", ListSortDirection.Ascending));
             }
-            _view.lstBoxCS.ItemsSource = null;
             _view.lstBoxCS.ItemsSource = _customerView;
         }
 
@@ -126,11 +136,14 @@ namespace LoadViewDynamicly.ViewModel
             set
             {
                 dataItems = value;
-                RaisePropertyChanged("DataItems");
+                RaisePropertyChanged("DataItems");//without this, adding new items doesnt reflect in ListBox
             }
         }
 
-        public ICollectionView DataItems1
+        //DataItems1 hooks up to _customerView: Navigation, Filtering, Grouping, Sorting
+        //https://wpftutorial.net/DataViews.html
+        //CSSelectionView ItemsSource="{Binding DataItems}"; We don't need to bind to DataItems1
+        public ICollectionView DataItems1XXX
         {
             get { return _customerView; }
             set

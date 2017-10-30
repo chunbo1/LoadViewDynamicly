@@ -32,7 +32,7 @@
         <elementListCompartment Id="7ba4b789-cd88-4b5d-8a75-d3bcc1b2d517" absoluteBounds="1.2650000000000001, 5.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="13f4eabc-388e-4bfa-a686-440ee696cb9a" absoluteBounds="1.125, 2, 2, 3.3093082682291666">
+    <classShape Id="13f4eabc-388e-4bfa-a686-440ee696cb9a" isExpanded="false" absoluteBounds="1.125, 2, 2, 0.45">
       <DataClassMoniker Name="/DataClasses1DataContext/Student" />
       <nestedChildShapes>
         <elementListCompartment Id="6f2e6116-246a-43cc-af97-f7abfb5f6715" absoluteBounds="1.1400000000000001, 2.46, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />

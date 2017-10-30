@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DesignHeight="300" d:DesignWidth="300">
+        <!--
         <UserControl.Resources>
             <CollectionViewSource Source="{Binding}" x:Key="customerView">
                 <CollectionViewSource.GroupDescriptions>
@@ -15,11 +16,11 @@
                 </CollectionViewSource.GroupDescriptions>
             </CollectionViewSource>
 
-    </UserControl.Resources>
-    
+        </UserControl.Resources>
+        -->
         <Grid>
         <ListBox Margin="10" Background="LightSkyBlue" Name="lstBoxCS"
-            ItemsSource="{Binding DataItems1}" 
+            ItemsSource="{Binding DataItems}" 
             DisplayMemberPath="StudentName"
             SelectedItem="{Binding SelectedProduct}">
             <!-- https://stackoverflow.com/questions/12297502/how-to-handle-wpf-listbox-selectionchanged-event-using-mvvm-->
