@@ -72,13 +72,11 @@ namespace LoadViewDynamicly.ViewModel
             ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
             ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
             ViewModelBase classViewModel = new ClassViewModel() { Text = "Class View" };
-            //ViewModelBase csViewModel = new CSViewModel() { };
-            //ViewModelBase csViewModel = new CSDisplayViewModel() { };
-
+            
             this.VMspaces.Add("StudentViewModel", studentViewModel);
             this.VMspaces.Add("TeacherViewModel", teacherViewModel);
             this.VMspaces.Add("ClassViewModel", classViewModel);
-           // this.VMspaces.Add("CSViewModel", csViewModel);
+           
 
         }
 

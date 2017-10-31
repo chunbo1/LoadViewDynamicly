@@ -229,6 +229,7 @@ namespace LoadViewDynamicly.ViewModel
                 isSelected = false;
                 return;
             }
+            //Deep copy to seperate DisplayedProduct in DisplayVM and CSViewModel; Each has its own context
             ClassStudent temp = new ClassStudent();
             temp.CopyProduct(p);
             DisplayedProduct = temp;

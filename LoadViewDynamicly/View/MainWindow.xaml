@@ -9,7 +9,7 @@
         xmlns:igDP="http://infragistics.com/DataPresenter"
         mc:Ignorable="d"
         Title="MainWindow" Height="333" Width="684">
-    <!--For testing purpose-->
+    <!--For testing purpose, not used in project-->
     <Window.Resources>
         <!--TODO: Add an ObjectDataProvider here-->
         <ObjectDataProvider x:Key="CarData" 
