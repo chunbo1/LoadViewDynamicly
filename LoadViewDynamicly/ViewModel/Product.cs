@@ -209,9 +209,10 @@ namespace LoadViewDynamicly.ViewModel
     {
         public int ID { get; set; }
 
+        public string FullName { get; set; }
+
         public string Comment { get; set; }
 
-        public string FullName { get; set; }
         public MyStudent(int id, string comment, string firstname, string lastname)
         {
             ID = id;
@@ -228,17 +229,35 @@ namespace LoadViewDynamicly.ViewModel
         public string Semester { get; set; }
         public string Dayofweek { get; set; }
         public string Timeofweek { get; set; }
-        public MyClass(int id, string division, string className, string semester, string dayofweek, string timeofweek)
+        public bool? Enabled { get; set; }
+        public MyClass(int id, string division, string className, string semester, string dayofweek, string timeofweek, bool? enabled)
         {
             ID = id;
             ClassName = className;
             Semester = semester;
             Dayofweek = dayofweek;
             Timeofweek = timeofweek;
+            Enabled = enabled;
             FullName = className + " " + semester + " " + dayofweek + " " + timeofweek;
         }
-    }//Class
+    }//MyClass
 
+    public class MyTeacher
+    {
+        public int ID { get; set; }
+
+        public string Cellphone { get; set; }
+
+        public string FullName { get; set; }
+        public bool? Enabled { get; set; }
+        public MyTeacher(int id, string cellphone, string firstname, string lastname, bool? enabled)
+        {
+            ID = id;
+            Cellphone = cellphone;
+            FullName = firstname + " " + lastname;
+            Enabled = enabled;
+        }
+    }//MyTeacher
 
 
 

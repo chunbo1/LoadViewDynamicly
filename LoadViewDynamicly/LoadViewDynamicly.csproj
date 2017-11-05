@@ -56,6 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files (x86)\Infragistics\NetAdvantage 2010.1\WPF\Bin\Infragistics3.Wpf.DataPresenter.v10.1.dll</HintPath>
     </Reference>
+    <Reference Include="Infragistics3.Wpf.Editors.v10.1, Version=10.1.20101.2090, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Infragistics\NetAdvantage 2010.1\WPF\Bin\Infragistics3.Wpf.Editors.v10.1.dll</HintPath>
+    </Reference>
     <Reference Include="Infragistics3.Wpf.Excel.v10.1, Version=10.1.20101.2090, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Program Files (x86)\Infragistics\NetAdvantage 2010.1\WPF\Bin\Infragistics3.Wpf.Excel.v10.1.dll</HintPath>
@@ -121,6 +125,8 @@
     <Compile Include="ViewModel\Product.cs" />
     <Compile Include="ViewModel\ProductDisplayModelStatus.cs" />
     <Compile Include="ViewModel\ExtensionMethods.cs" />
+    <Compile Include="ViewModel\ScheduleStudentViewModel.cs" />
+    <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="View\ClassView.xaml.cs">
       <DependentUpon>ClassView.xaml</DependentUpon>
     </Compile>
@@ -141,6 +147,9 @@
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TeacherView.xaml.cs">
       <DependentUpon>TeacherView.xaml</DependentUpon>
@@ -190,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

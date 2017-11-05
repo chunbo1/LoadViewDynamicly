@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Threading.Tasks;
 using LoadViewDynamicly.ViewModel;
-
+      
 namespace LoadViewDynamicly.Model
 {
     class StoreDB
@@ -101,6 +101,51 @@ namespace LoadViewDynamicly.Model
             }
             return !hasError;
         } //AddProduct()
+
+        public MyObservableCollection<ViewModel.MyStudent> GetStudentsByClass(int classId)
+        {
+            hasError = false;
+            MyObservableCollection<ViewModel.MyStudent> products = new MyObservableCollection<ViewModel.MyStudent>();
+            try
+            {
+                DataClasses1DataContext dc = new DataClasses1DataContext();
+                var query = from q in dc.vwStudentByClasses
+                            where q.ClassId == classId
+                            select new MyStudent(q.ID, q.BirthDate + " " + q.Gender, q.FirstName, q.LastName);
+                            
+                foreach (MyStudent sp in query)
+                    products.Add(sp);
+            } //try
+            catch (Exception ex)
+            {
+                errorMessage = "GetProducts() error, " + ex.Message;
+                hasError = true;
+            }
+            return products;
+        } //GetProducts()
+
+        public List<ScheduleStudentViewModel> GetStudentsByClassA(int classId)
+        {
+            hasError = false;
+            List<ScheduleStudentViewModel> products = new List<ScheduleStudentViewModel>();
+            try
+            {
+                DataClasses1DataContext dc = new DataClasses1DataContext();
+                var query = from q in dc.vwStudentByClasses
+                            where q.ClassId == classId
+                            select new ScheduleStudentViewModel(new MyStudent(q.ID, q.BirthDate + " " + q.Gender, q.FirstName, q.LastName));
+
+                foreach (ScheduleStudentViewModel sp in query)
+                    products.Add(sp);
+            } //try
+            catch (Exception ex)
+            {
+                errorMessage = "GetProducts() error, " + ex.Message;
+                hasError = true;
+            }
+            return products;
+        } //GetStudentsByClassA()
+
 
 
 
