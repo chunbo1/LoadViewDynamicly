@@ -46,7 +46,7 @@ namespace LoadViewDynamicly.View
             List<string> checkedNames = new List<string>();
             List<string> uncheckedNames = new List<string>();
 
-            var community = base.DataContext as CommunityViewModel;
+            var community = ScheduleGrid.DataContext as CommunityViewModel;
             foreach (ScheduleStudentViewModel p in community.Members)
             {
                 if (p.IsChecked)

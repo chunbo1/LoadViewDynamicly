@@ -16,16 +16,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-        <Grid Margin="10" Grid.Row="0" Width="680">
+        <Grid Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -35,7 +43,8 @@
             <Label Grid.Column="0" Content="Pick up Class" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
             <Label Grid.Column="1" Content="Teacher" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
             <Label Grid.Column="2" Content="Date" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-            <Label Grid.Column="3" Content="Time" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+            <Label Grid.Column="3" Content="StartTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+            <Label Grid.Column="4" Content="EndTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
 
 
             <!--https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
@@ -43,10 +52,9 @@
                       ItemsSource="{Binding ClassTable}"                        
                       DisplayMemberPath="FullName"
                       SelectedValuePath="ID"                      
-                      SelectedValue="{Binding Path=DisplayedProduct.ClassId}"
+                      SelectedValue="{Binding Path=ClassId}"
                       Grid.Row="1"
                       Grid.Column="0"
-                      
                       Height="22"
                       />
 
@@ -54,7 +62,7 @@
                       ItemsSource="{Binding TeacherTable}"                        
                       DisplayMemberPath="FullName"
                       SelectedValuePath="ID"                      
-                      SelectedValue="{Binding Path=DisplayedProduct.TeacherId}"
+                      SelectedValue="{Binding Path=TeacherId}"
                       Grid.Row="1"
                       Grid.Column="1"
                       Height="22"
@@ -64,46 +72,51 @@
                  
                        Height="21" 
                        Name="scheduleDate"  
-                       Width="120" 
                        Grid.Row="1"
                        Grid.Column="2"
                        Text="{Binding Asof, UpdateSourceTrigger=PropertyChanged}"   
                        VerticalAlignment="Center"   />
 
-            <TextBox x:Name="scheduleTime" 
-                     Text="{Binding LastAction}"  
+            <TextBox x:Name="startTime" 
+                     Text="{Binding ClassStartTime}"  
                      HorizontalAlignment="Left" 
                      Height="20" 
                      Margin="0,0,0,0"  
                      TextWrapping="Wrap"   
-                     Width="120" 
-                     ToolTip="Class Time" 
+                     Width="100" 
+                     ToolTip="Class Start Time" 
                      Cursor="Arrow"
                      Grid.Row="1"
                      Grid.Column="3"
                      Opacity="0.9"/>
 
+            <TextBox x:Name="endTime" 
+                     Text="{Binding ClassEndTime}"  
+                     HorizontalAlignment="Left" 
+                     Height="20" 
+                     Margin="0,0,0,0"  
+                     TextWrapping="Wrap"   
+                     Width="100" 
+                     ToolTip="Class Start Time" 
+                     Cursor="Arrow"
+                     Grid.Row="1"
+                     Grid.Column="4"
+                     Opacity="0.9"/>
+            
             <Button Margin="0,0,-20,0"  
                     Background="LightBlue" 
                     Height="25" 
-                    Width="120"
+                    Width="Auto"
                     Grid.Row="1"
-                    Grid.Column="4"
-                  Command="{Binding LoadStudentCommand}" Padding="1">Load Students</Button>
-
-            <Button Grid.Row="1"
-                     Grid.Column="5"
-                    Click="OnShowRecords"                    
-                    Height="25" Margin="5">
-                Checked?
-            </Button>
+                    Grid.Column="5"                    
+                    Command="{Binding LoadStudentCommand}" Padding="1">Load Students</Button>
 
         </Grid>
 
 
 
 
-        <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="ScheduleGrid" Margin="0,0,0,0"   Grid.Row="1" Width="500">
+        <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="ScheduleGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.Column="1" >
 
 
             <igDP:XamDataPresenter.Resources>
@@ -145,13 +158,13 @@
                         <igDP:Field Name="ID" Label="ID" />
                         <igDP:Field Name="FullName" Label="FullName" />
                         <igDP:Field Name="Comment" Label="Comment" />
-                        <igDP:Field Name="IsChecked" Visibility="Hidden" />
+                        <igDP:Field Name="IsChecked" Label="IsChecked" Visibility="Collapsed" />
                     </igDP:FieldLayout.Fields>
                 </igDP:FieldLayout>
             </igDP:XamDataPresenter.FieldLayouts>
 
             <igDP:XamDataPresenter.FieldLayoutSettings>
-                <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"                                          
+                <igDP:FieldLayoutSettings AutoGenerateFields="false" FilterUIType="FilterRecord"                                          
                                             HighlightAlternateRecords="True"
                                               HeaderPrefixAreaDisplayMode="FieldChooserButton"/>
             </igDP:XamDataPresenter.FieldLayoutSettings>
@@ -160,7 +173,19 @@
 
         </igDP:XamDataPresenter>
 
+        <TextBox  Grid.Row="2" 
+                Grid.Column="1"
+                Text="Please enter comment for this class: " 
+                Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
 
-        
+        <Button Grid.Row="3"
+                    Grid.Column="1"  
+                    Click="OnShowRecords" 
+                    Command="{Binding SaveAttendanceCommand}"
+                   >
+            Save Attendance
+        </Button>
+
     </Grid>
 </UserControl>
+

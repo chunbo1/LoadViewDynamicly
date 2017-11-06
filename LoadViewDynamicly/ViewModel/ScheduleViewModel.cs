@@ -105,26 +105,87 @@ namespace LoadViewDynamicly.ViewModel
             set
             {
                 asof = value;
-                //OnPropertyChanged("Asof");
+                RaisePropertyChanged("Asof");
             }
         }
 
         private RelayCommand loadStudentCommand;
         public ICommand LoadStudentCommand
         {
-            get { return loadStudentCommand ?? (loadStudentCommand = new RelayCommand(() => LoadStudent(), () => true)); }
+            get { return loadStudentCommand ?? (loadStudentCommand = new RelayCommand(() => LoadStudent(), 
+                        () => (Asof.Trim().Length > 0 && ClassId > 0 && TeacherId > 0 )));
+                }
         }
 
+        StoreDB db = null;
+        bool loadStudentClicked = false;
+        CommunityViewModel CommunityVM = null;
         private void LoadStudent()
         {
-
-            StoreDB db = new StoreDB();
+            if (db == null) db = new StoreDB();
             //Instead of binding ScheduleGrid here, we bind it in xaml
             //<igDP:XamDataPresenter DataSource="{Binding Path=Members}" 
-            //_view.ScheduleGrid.DataSource = db.GetStudentsByClassA(4);
-            _view.DataContext = new CommunityViewModel(db.GetStudentsByClassA(4));
+            CommunityVM = new CommunityViewModel(db.GetStudentsByClassA(ClassId)); //db.GetStudentsByClassA(4);
+            _view.ScheduleGrid.DataContext = CommunityVM;
+            //_view.DataContext = new CommunityViewModel(db.GetStudentsByClassA(4));
+            loadStudentClicked = true;
         }
 
+        private RelayCommand saveAttendanceCommand;
+        public ICommand SaveAttendanceCommand
+        {
+            get
+            {
+                return saveAttendanceCommand ?? (saveAttendanceCommand = new RelayCommand(
+                      () => SaveAttendance(),
+                      () => (Asof.Trim().Length > 0 && ClassId > 0 && TeacherId > 0 && loadStudentClicked)
+                      ));
+            }
+        }
+
+        private void SaveAttendance()
+        {
+            List<string> checkedNames = new List<string>();
+            List<string> uncheckedNames = new List<string>();
+
+            if (db == null) db = new StoreDB();
+            foreach (ScheduleStudentViewModel p in CommunityVM.Members)
+            {
+                if (p.IsChecked)
+                    checkedNames.Add(p.FullName);
+                else
+                    uncheckedNames.Add(p.FullName);
+            }
+            
+
+        }
+
+        private int classId = 0;
+        public int ClassId
+        {
+            get { return classId; }
+            set
+            {
+                classId = value;
+                RaisePropertyChanged("ClassId");
+
+            }
+
+        }
+
+
+        private int teacherId = 0;
+        public int TeacherId
+        {
+            get { return teacherId; }
+            set
+            {
+                teacherId = value;
+                RaisePropertyChanged("TeacherId");
+
+            }
+
+        }
 
 
     }//Class ScheduleViewModel
