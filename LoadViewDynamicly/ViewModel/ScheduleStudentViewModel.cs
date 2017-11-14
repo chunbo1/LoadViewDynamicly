@@ -33,7 +33,14 @@ namespace LoadViewDynamicly.ViewModel
 
         public int ID { get { return _person.ID; } }
         public string FullName { get { return _person.FullName; } }
-        public string Comment { get { return _person.Comment; } }
+        public string Comment {
+            get { return _person.Comment; }
+            //with a setter, the field is editable in datagrid
+            set {
+                _person.Comment = value;
+                this.RaisePropertyChanged("Comment");
+            }
+        }
 
 
     }//Class ScheduleStudentViewModel
@@ -62,7 +69,7 @@ namespace LoadViewDynamicly.ViewModel
                 };
         }
 
-        public List<ScheduleStudentViewModel> Members { get; private set; }
+        public List<ScheduleStudentViewModel> Members { get;  private set; }
 
         public bool? AllMembersAreChecked
         {
