@@ -146,6 +146,40 @@ namespace LoadViewDynamicly.Model
             return products;
         } //GetStudentsByClassA()
 
+        public int? AddSchedulesHeader(int classId, int teacherId, DateTime classDate, 
+            string startTime, string endTime, string status, string comment)
+        {
+            int? newId = 0;
+            hasError = false;
+            try
+            {
+                DataClasses1DataContext dc = new DataClasses1DataContext();                
+                dc.AddSchedulesHeader(classId, teacherId, classDate, startTime, endTime, status, comment, ref newId);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Add error, " + ex.Message;
+                hasError = true;
+            }
+            return newId;
+        } //AddSchedulesHeader
+
+        public bool AddSchedulesDetail(int headerId, int studentId, bool status, string comment)
+        {
+            hasError = false;
+            try
+            {
+                DataClasses1DataContext dc = new DataClasses1DataContext();
+                int? newId = 0;
+                dc.AddSchedulesDetail(headerId, studentId, status, comment, ref newId);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Add error, " + ex.Message;
+                hasError = true;
+            }
+            return !hasError;
+        } //AddSchedulesHeader
 
 
 

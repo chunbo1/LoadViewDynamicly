@@ -238,7 +238,7 @@ namespace LoadViewDynamicly.ViewModel
             Dayofweek = dayofweek;
             Timeofweek = timeofweek;
             Enabled = enabled;
-            FullName = className + " " + semester + " " + dayofweek + " " + timeofweek;
+            FullName = className.Trim() + " " + semester.Trim() + " " + dayofweek.Trim() + " " + timeofweek.Trim();
         }
     }//MyClass
 

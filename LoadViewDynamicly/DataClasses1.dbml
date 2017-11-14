@@ -1,18 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MDH2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=sscsdsql01;Initial Catalog=MDH2;Integrated Security=True" SettingsObjectName="LoadViewDynamicly.Properties.Settings" SettingsPropertyName="MDH2ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Schedules" Member="Schedules">
-    <Type Name="Schedule">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ClassId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TeacherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Weekday" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="EndTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.ClassStudents" Member="ClassStudents">
     <Type Name="ClassStudent">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -91,6 +78,42 @@
       <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.SchedulesHeader" Member="SchedulesHeaders">
+    <Type Name="SchedulesHeader">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClassId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TeacherId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClassDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SchedulesHeader_SchedulesDetail" Member="SchedulesDetails" ThisKey="ID" OtherKey="HeaderId" Type="SchedulesDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SchedulesDetail" Member="SchedulesDetails">
+    <Type Name="SchedulesDetail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HeaderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SchedulesHeader_SchedulesDetail" Member="SchedulesHeader" ThisKey="HeaderId" OtherKey="ID" Type="SchedulesHeader" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwClassAttendanceHeader" Member="vwClassAttendanceHeaders">
+    <Type Name="vwClassAttendanceHeader">
+      <Column Name="AttendanceHeader" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ClassDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.UpdateCS" Method="UpdateCS">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
@@ -110,5 +133,53 @@
   <Function Name="dbo.DeleteCS" Method="DeleteCS">
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddSchedulesHeader" Method="AddSchedulesHeader">
+    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TeacherId" Parameter="teacherId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassDate" Parameter="classDate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="StartTime" Parameter="startTime" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="EndTime" Parameter="endTime" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="Status" Parameter="status" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddSchedulesDetail" Method="AddSchedulesDetail">
+    <Parameter Name="HeaderId" Parameter="headerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Status" Parameter="status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.p_YieldCurveReport" Method="p_YieldCurveReport" IsComposable="true">
+    <Parameter Name="AsOf2" Parameter="asOf2" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.spDeleteSchedulesHeader" Method="spDeleteSchedulesHeader">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.spGetClassAttendanceDetail" Method="spGetClassAttendanceDetail">
+    <Parameter Name="HeaderId" Parameter="headerId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spGetClassAttendanceDetailResult">
+      <Column Name="Student" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spClassAttendanceHeader" Method="spClassAttendanceHeader">
+    <Parameter Name="ClassName" Parameter="className" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="spClassAttendanceHeaderResult">
+      <Column Name="AttendanceHeader" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClassDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StartTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EndTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

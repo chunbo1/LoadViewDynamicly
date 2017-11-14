@@ -30,9 +30,6 @@ namespace LoadViewDynamicly
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertSchedule(Schedule instance);
-    partial void UpdateSchedule(Schedule instance);
-    partial void DeleteSchedule(Schedule instance);
     partial void InsertClassStudent(ClassStudent instance);
     partial void UpdateClassStudent(ClassStudent instance);
     partial void DeleteClassStudent(ClassStudent instance);
@@ -45,6 +42,12 @@ namespace LoadViewDynamicly
     partial void InsertTeacher(Teacher instance);
     partial void UpdateTeacher(Teacher instance);
     partial void DeleteTeacher(Teacher instance);
+    partial void InsertSchedulesHeader(SchedulesHeader instance);
+    partial void UpdateSchedulesHeader(SchedulesHeader instance);
+    partial void DeleteSchedulesHeader(SchedulesHeader instance);
+    partial void InsertSchedulesDetail(SchedulesDetail instance);
+    partial void UpdateSchedulesDetail(SchedulesDetail instance);
+    partial void DeleteSchedulesDetail(SchedulesDetail instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -75,14 +78,6 @@ namespace LoadViewDynamicly
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Schedule> Schedules
-		{
-			get
-			{
-				return this.GetTable<Schedule>();
-			}
 		}
 		
 		public System.Data.Linq.Table<ClassStudent> ClassStudents
@@ -133,6 +128,30 @@ namespace LoadViewDynamicly
 			}
 		}
 		
+		public System.Data.Linq.Table<SchedulesHeader> SchedulesHeaders
+		{
+			get
+			{
+				return this.GetTable<SchedulesHeader>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SchedulesDetail> SchedulesDetails
+		{
+			get
+			{
+				return this.GetTable<SchedulesDetail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vwClassAttendanceHeader> vwClassAttendanceHeaders
+		{
+			get
+			{
+				return this.GetTable<vwClassAttendanceHeader>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateCS")]
 		public int UpdateCS([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="StudentId", DbType="Int")] System.Nullable<int> studentId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassId", DbType="Int")] System.Nullable<int> classId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TuitionPaid", DbType="Int")] System.Nullable<int> tuitionPaid, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="VarChar(50)")] string comment)
 		{
@@ -154,259 +173,48 @@ namespace LoadViewDynamicly
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
 			return ((int)(result.ReturnValue));
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Schedules")]
-	public partial class Schedule : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private System.Nullable<int> _ClassId;
-		
-		private System.Nullable<int> _TeacherId;
-		
-		private string _Weekday;
-		
-		private System.Nullable<System.DateTime> _StartTime;
-		
-		private System.Nullable<System.DateTime> _EndTime;
-		
-		private string _Status;
-		
-		private string _Comment;
-		
-		private System.DateTime _UpdateDateTime;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnClassIdChanging(System.Nullable<int> value);
-    partial void OnClassIdChanged();
-    partial void OnTeacherIdChanging(System.Nullable<int> value);
-    partial void OnTeacherIdChanged();
-    partial void OnWeekdayChanging(string value);
-    partial void OnWeekdayChanged();
-    partial void OnStartTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnStartTimeChanged();
-    partial void OnEndTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnEndTimeChanged();
-    partial void OnStatusChanging(string value);
-    partial void OnStatusChanged();
-    partial void OnCommentChanging(string value);
-    partial void OnCommentChanged();
-    partial void OnUpdateDateTimeChanging(System.DateTime value);
-    partial void OnUpdateDateTimeChanged();
-    #endregion
-		
-		public Schedule()
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddSchedulesHeader")]
+		public int AddSchedulesHeader([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassId", DbType="Int")] System.Nullable<int> classId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TeacherId", DbType="Int")] System.Nullable<int> teacherId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassDate", DbType="Date")] System.Nullable<System.DateTime> classDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="StartTime", DbType="VarChar(10)")] string startTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndTime", DbType="VarChar(10)")] string endTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="VarChar(50)")] string status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="VarChar(250)")] string comment, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] ref System.Nullable<int> id)
 		{
-			OnCreated();
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), classId, teacherId, classDate, startTime, endTime, status, comment, id);
+			id = ((System.Nullable<int>)(result.GetParameterValue(7)));
+			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddSchedulesDetail")]
+		public int AddSchedulesDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="HeaderId", DbType="Int")] System.Nullable<int> headerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="StudentId", DbType="Int")] System.Nullable<int> studentId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="Bit")] System.Nullable<bool> status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="VarChar(250)")] string comment, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] ref System.Nullable<int> id)
 		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), headerId, studentId, status, comment, id);
+			id = ((System.Nullable<int>)(result.GetParameterValue(4)));
+			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassId", DbType="Int")]
-		public System.Nullable<int> ClassId
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.p_YieldCurveReport", IsComposable=true)]
+		public object p_YieldCurveReport([global::System.Data.Linq.Mapping.ParameterAttribute(Name="AsOf2", DbType="DateTime")] System.Nullable<System.DateTime> asOf2)
 		{
-			get
-			{
-				return this._ClassId;
-			}
-			set
-			{
-				if ((this._ClassId != value))
-				{
-					this.OnClassIdChanging(value);
-					this.SendPropertyChanging();
-					this._ClassId = value;
-					this.SendPropertyChanged("ClassId");
-					this.OnClassIdChanged();
-				}
-			}
+			return ((object)(this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), asOf2).ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeacherId", DbType="Int")]
-		public System.Nullable<int> TeacherId
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spDeleteSchedulesHeader")]
+		public int spDeleteSchedulesHeader([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] System.Nullable<int> id)
 		{
-			get
-			{
-				return this._TeacherId;
-			}
-			set
-			{
-				if ((this._TeacherId != value))
-				{
-					this.OnTeacherIdChanging(value);
-					this.SendPropertyChanging();
-					this._TeacherId = value;
-					this.SendPropertyChanged("TeacherId");
-					this.OnTeacherIdChanged();
-				}
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), id);
+			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Weekday", DbType="VarChar(20)")]
-		public string Weekday
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spGetClassAttendanceDetail")]
+		public ISingleResult<spGetClassAttendanceDetailResult> spGetClassAttendanceDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="HeaderId", DbType="Int")] System.Nullable<int> headerId)
 		{
-			get
-			{
-				return this._Weekday;
-			}
-			set
-			{
-				if ((this._Weekday != value))
-				{
-					this.OnWeekdayChanging(value);
-					this.SendPropertyChanging();
-					this._Weekday = value;
-					this.SendPropertyChanged("Weekday");
-					this.OnWeekdayChanged();
-				}
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), headerId);
+			return ((ISingleResult<spGetClassAttendanceDetailResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> StartTime
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spClassAttendanceHeader")]
+		public ISingleResult<spClassAttendanceHeaderResult> spClassAttendanceHeader([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassName", DbType="VarChar(50)")] string className)
 		{
-			get
-			{
-				return this._StartTime;
-			}
-			set
-			{
-				if ((this._StartTime != value))
-				{
-					this.OnStartTimeChanging(value);
-					this.SendPropertyChanging();
-					this._StartTime = value;
-					this.SendPropertyChanged("StartTime");
-					this.OnStartTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EndTime
-		{
-			get
-			{
-				return this._EndTime;
-			}
-			set
-			{
-				if ((this._EndTime != value))
-				{
-					this.OnEndTimeChanging(value);
-					this.SendPropertyChanging();
-					this._EndTime = value;
-					this.SendPropertyChanged("EndTime");
-					this.OnEndTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(50)")]
-		public string Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
-		public string Comment
-		{
-			get
-			{
-				return this._Comment;
-			}
-			set
-			{
-				if ((this._Comment != value))
-				{
-					this.OnCommentChanging(value);
-					this.SendPropertyChanging();
-					this._Comment = value;
-					this.SendPropertyChanged("Comment");
-					this.OnCommentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime NOT NULL")]
-		public System.DateTime UpdateDateTime
-		{
-			get
-			{
-				return this._UpdateDateTime;
-			}
-			set
-			{
-				if ((this._UpdateDateTime != value))
-				{
-					this.OnUpdateDateTimeChanging(value);
-					this.SendPropertyChanging();
-					this._UpdateDateTime = value;
-					this.SendPropertyChanged("UpdateDateTime");
-					this.OnUpdateDateTimeChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), className);
+			return ((ISingleResult<spClassAttendanceHeaderResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -1776,6 +1584,860 @@ namespace LoadViewDynamicly
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SchedulesHeader")]
+	public partial class SchedulesHeader : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _ClassId;
+		
+		private System.Nullable<int> _TeacherId;
+		
+		private System.Nullable<System.DateTime> _ClassDate;
+		
+		private string _StartTime;
+		
+		private string _EndTime;
+		
+		private string _Status;
+		
+		private string _Comment;
+		
+		private System.Nullable<System.DateTime> _UpdateDateTime;
+		
+		private EntitySet<SchedulesDetail> _SchedulesDetails;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnClassIdChanging(System.Nullable<int> value);
+    partial void OnClassIdChanged();
+    partial void OnTeacherIdChanging(System.Nullable<int> value);
+    partial void OnTeacherIdChanged();
+    partial void OnClassDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnClassDateChanged();
+    partial void OnStartTimeChanging(string value);
+    partial void OnStartTimeChanged();
+    partial void OnEndTimeChanging(string value);
+    partial void OnEndTimeChanged();
+    partial void OnStatusChanging(string value);
+    partial void OnStatusChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnUpdateDateTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdateDateTimeChanged();
+    #endregion
+		
+		public SchedulesHeader()
+		{
+			this._SchedulesDetails = new EntitySet<SchedulesDetail>(new Action<SchedulesDetail>(this.attach_SchedulesDetails), new Action<SchedulesDetail>(this.detach_SchedulesDetails));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassId", DbType="Int")]
+		public System.Nullable<int> ClassId
+		{
+			get
+			{
+				return this._ClassId;
+			}
+			set
+			{
+				if ((this._ClassId != value))
+				{
+					this.OnClassIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClassId = value;
+					this.SendPropertyChanged("ClassId");
+					this.OnClassIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeacherId", DbType="Int")]
+		public System.Nullable<int> TeacherId
+		{
+			get
+			{
+				return this._TeacherId;
+			}
+			set
+			{
+				if ((this._TeacherId != value))
+				{
+					this.OnTeacherIdChanging(value);
+					this.SendPropertyChanging();
+					this._TeacherId = value;
+					this.SendPropertyChanged("TeacherId");
+					this.OnTeacherIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassDate", DbType="Date")]
+		public System.Nullable<System.DateTime> ClassDate
+		{
+			get
+			{
+				return this._ClassDate;
+			}
+			set
+			{
+				if ((this._ClassDate != value))
+				{
+					this.OnClassDateChanging(value);
+					this.SendPropertyChanging();
+					this._ClassDate = value;
+					this.SendPropertyChanged("ClassDate");
+					this.OnClassDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="VarChar(10)")]
+		public string StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this.OnStartTimeChanging(value);
+					this.SendPropertyChanging();
+					this._StartTime = value;
+					this.SendPropertyChanged("StartTime");
+					this.OnStartTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="VarChar(10)")]
+		public string EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this.OnEndTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EndTime = value;
+					this.SendPropertyChanged("EndTime");
+					this.OnEndTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="VarChar(50)")]
+		public string Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdateDateTime
+		{
+			get
+			{
+				return this._UpdateDateTime;
+			}
+			set
+			{
+				if ((this._UpdateDateTime != value))
+				{
+					this.OnUpdateDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._UpdateDateTime = value;
+					this.SendPropertyChanged("UpdateDateTime");
+					this.OnUpdateDateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SchedulesHeader_SchedulesDetail", Storage="_SchedulesDetails", ThisKey="ID", OtherKey="HeaderId")]
+		public EntitySet<SchedulesDetail> SchedulesDetails
+		{
+			get
+			{
+				return this._SchedulesDetails;
+			}
+			set
+			{
+				this._SchedulesDetails.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SchedulesDetails(SchedulesDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SchedulesHeader = this;
+		}
+		
+		private void detach_SchedulesDetails(SchedulesDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.SchedulesHeader = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SchedulesDetail")]
+	public partial class SchedulesDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _HeaderId;
+		
+		private System.Nullable<int> _StudentId;
+		
+		private System.Nullable<bool> _Status;
+		
+		private string _Comment;
+		
+		private System.Nullable<System.DateTime> _UpdateDateTime;
+		
+		private EntityRef<SchedulesHeader> _SchedulesHeader;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnHeaderIdChanging(System.Nullable<int> value);
+    partial void OnHeaderIdChanged();
+    partial void OnStudentIdChanging(System.Nullable<int> value);
+    partial void OnStudentIdChanged();
+    partial void OnStatusChanging(System.Nullable<bool> value);
+    partial void OnStatusChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnUpdateDateTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdateDateTimeChanged();
+    #endregion
+		
+		public SchedulesDetail()
+		{
+			this._SchedulesHeader = default(EntityRef<SchedulesHeader>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeaderId", DbType="Int")]
+		public System.Nullable<int> HeaderId
+		{
+			get
+			{
+				return this._HeaderId;
+			}
+			set
+			{
+				if ((this._HeaderId != value))
+				{
+					if (this._SchedulesHeader.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnHeaderIdChanging(value);
+					this.SendPropertyChanging();
+					this._HeaderId = value;
+					this.SendPropertyChanged("HeaderId");
+					this.OnHeaderIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentId", DbType="Int")]
+		public System.Nullable<int> StudentId
+		{
+			get
+			{
+				return this._StudentId;
+			}
+			set
+			{
+				if ((this._StudentId != value))
+				{
+					this.OnStudentIdChanging(value);
+					this.SendPropertyChanging();
+					this._StudentId = value;
+					this.SendPropertyChanged("StudentId");
+					this.OnStudentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
+		public System.Nullable<bool> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdateDateTime
+		{
+			get
+			{
+				return this._UpdateDateTime;
+			}
+			set
+			{
+				if ((this._UpdateDateTime != value))
+				{
+					this.OnUpdateDateTimeChanging(value);
+					this.SendPropertyChanging();
+					this._UpdateDateTime = value;
+					this.SendPropertyChanged("UpdateDateTime");
+					this.OnUpdateDateTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SchedulesHeader_SchedulesDetail", Storage="_SchedulesHeader", ThisKey="HeaderId", OtherKey="ID", IsForeignKey=true)]
+		public SchedulesHeader SchedulesHeader
+		{
+			get
+			{
+				return this._SchedulesHeader.Entity;
+			}
+			set
+			{
+				SchedulesHeader previousValue = this._SchedulesHeader.Entity;
+				if (((previousValue != value) 
+							|| (this._SchedulesHeader.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SchedulesHeader.Entity = null;
+						previousValue.SchedulesDetails.Remove(this);
+					}
+					this._SchedulesHeader.Entity = value;
+					if ((value != null))
+					{
+						value.SchedulesDetails.Add(this);
+						this._HeaderId = value.ID;
+					}
+					else
+					{
+						this._HeaderId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("SchedulesHeader");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwClassAttendanceHeader")]
+	public partial class vwClassAttendanceHeader
+	{
+		
+		private int _AttendanceHeader;
+		
+		private string _ClassName;
+		
+		private string _Semester;
+		
+		private System.Nullable<System.DateTime> _ClassDate;
+		
+		private string _StartTime;
+		
+		private string _EndTime;
+		
+		private string _Comment;
+		
+		public vwClassAttendanceHeader()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttendanceHeader", DbType="Int NOT NULL")]
+		public int AttendanceHeader
+		{
+			get
+			{
+				return this._AttendanceHeader;
+			}
+			set
+			{
+				if ((this._AttendanceHeader != value))
+				{
+					this._AttendanceHeader = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ClassName
+		{
+			get
+			{
+				return this._ClassName;
+			}
+			set
+			{
+				if ((this._ClassName != value))
+				{
+					this._ClassName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Semester", DbType="VarChar(50)")]
+		public string Semester
+		{
+			get
+			{
+				return this._Semester;
+			}
+			set
+			{
+				if ((this._Semester != value))
+				{
+					this._Semester = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassDate", DbType="Date")]
+		public System.Nullable<System.DateTime> ClassDate
+		{
+			get
+			{
+				return this._ClassDate;
+			}
+			set
+			{
+				if ((this._ClassDate != value))
+				{
+					this._ClassDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="VarChar(10)")]
+		public string StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this._StartTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="VarChar(10)")]
+		public string EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this._EndTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+	}
+	
+	public partial class spGetClassAttendanceDetailResult
+	{
+		
+		private string _Student;
+		
+		private System.Nullable<bool> _Status;
+		
+		private string _Comment;
+		
+		public spGetClassAttendanceDetailResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Student", DbType="VarChar(101) NOT NULL", CanBeNull=false)]
+		public string Student
+		{
+			get
+			{
+				return this._Student;
+			}
+			set
+			{
+				if ((this._Student != value))
+				{
+					this._Student = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
+		public System.Nullable<bool> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this._Status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+	}
+	
+	public partial class spClassAttendanceHeaderResult
+	{
+		
+		private int _AttendanceHeader;
+		
+		private System.Nullable<System.DateTime> _ClassDate;
+		
+		private string _Comment;
+		
+		private System.Nullable<System.DateTime> _UpdateDateTime;
+		
+		private string _ClassName;
+		
+		private string _Semester;
+		
+		private string _StartTime;
+		
+		private string _EndTime;
+		
+		public spClassAttendanceHeaderResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttendanceHeader", DbType="Int NOT NULL")]
+		public int AttendanceHeader
+		{
+			get
+			{
+				return this._AttendanceHeader;
+			}
+			set
+			{
+				if ((this._AttendanceHeader != value))
+				{
+					this._AttendanceHeader = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassDate", DbType="Date")]
+		public System.Nullable<System.DateTime> ClassDate
+		{
+			get
+			{
+				return this._ClassDate;
+			}
+			set
+			{
+				if ((this._ClassDate != value))
+				{
+					this._ClassDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdateDateTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdateDateTime
+		{
+			get
+			{
+				return this._UpdateDateTime;
+			}
+			set
+			{
+				if ((this._UpdateDateTime != value))
+				{
+					this._UpdateDateTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string ClassName
+		{
+			get
+			{
+				return this._ClassName;
+			}
+			set
+			{
+				if ((this._ClassName != value))
+				{
+					this._ClassName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Semester", DbType="VarChar(50)")]
+		public string Semester
+		{
+			get
+			{
+				return this._Semester;
+			}
+			set
+			{
+				if ((this._Semester != value))
+				{
+					this._Semester = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="VarChar(10)")]
+		public string StartTime
+		{
+			get
+			{
+				return this._StartTime;
+			}
+			set
+			{
+				if ((this._StartTime != value))
+				{
+					this._StartTime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="VarChar(10)")]
+		public string EndTime
+		{
+			get
+			{
+				return this._EndTime;
+			}
+			set
+			{
+				if ((this._EndTime != value))
+				{
+					this._EndTime = value;
+				}
 			}
 		}
 	}

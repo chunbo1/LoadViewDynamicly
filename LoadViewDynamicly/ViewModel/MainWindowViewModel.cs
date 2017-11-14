@@ -51,6 +51,17 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
+        private String statusBar;
+        public String StatusBar
+        {
+            get { return statusBar; }
+            set
+            {
+                statusBar = value;
+                RaisePropertyChanged("StatusBar");
+            }
+        }
+
         public MainWindowViewModel()
         {
             //http://dotnetpattern.com/mvvm-light-messenger
@@ -78,7 +89,7 @@ namespace LoadViewDynamicly.ViewModel
             this.VMspaces.Add("StudentViewModel", studentViewModel);
             this.VMspaces.Add("TeacherViewModel", teacherViewModel);
             this.VMspaces.Add("ClassViewModel", classViewModel);
-           
+            StatusBar = "App Started at " + DateTime.Now;
 
         }
 
@@ -139,7 +150,6 @@ namespace LoadViewDynamicly.ViewModel
                 });
             }
         }
-
 
 
         public void SwitchView(string viewName)

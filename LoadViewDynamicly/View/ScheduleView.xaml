@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              xmlns:igDP="http://infragistics.com/DataPresenter"
              xmlns:igExcelExporter="http://infragistics.com/ExcelExporter"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DesignHeight="300" d:DesignWidth="300">
 
 
@@ -21,12 +22,11 @@
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Margin="0,0,0,0" Grid.Row="0" Grid.Column="1" >
+        <Grid Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="6*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -38,15 +38,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Content="Pick up Class" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
             <Label Grid.Column="1" Content="Teacher" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-            <Label Grid.Column="2" Content="Date" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-            <Label Grid.Column="3" Content="StartTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-            <Label Grid.Column="4" Content="EndTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
-
-
+           
             <!--https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
             <ComboBox x:Name="classCombo"
                       ItemsSource="{Binding ClassTable}"                        
@@ -68,17 +66,20 @@
                       Height="22"
                       />
 
+            <Label Grid.Row="2" Grid.Column="0" Content="Date" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="StartTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+            <Label Grid.Row="2" Grid.Column="2" Content="EndTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+
             <igEditors:XamDateTimeEditor 
-                 
                        Height="21" 
                        Name="scheduleDate"  
-                       Grid.Row="1"
-                       Grid.Column="2"
-                       Text="{Binding Asof, UpdateSourceTrigger=PropertyChanged}"   
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Text="{Binding ClassDate, UpdateSourceTrigger=PropertyChanged}"
                        VerticalAlignment="Center"   />
 
             <TextBox x:Name="startTime" 
-                     Text="{Binding ClassStartTime}"  
+                     Text="{Binding StartTime}"
                      HorizontalAlignment="Left" 
                      Height="20" 
                      Margin="0,0,0,0"  
@@ -86,12 +87,12 @@
                      Width="100" 
                      ToolTip="Class Start Time" 
                      Cursor="Arrow"
-                     Grid.Row="1"
-                     Grid.Column="3"
+                     Grid.Row="3"
+                     Grid.Column="1"
                      Opacity="0.9"/>
 
             <TextBox x:Name="endTime" 
-                     Text="{Binding ClassEndTime}"  
+                     Text="{Binding EndTime}"  
                      HorizontalAlignment="Left" 
                      Height="20" 
                      Margin="0,0,0,0"  
@@ -99,24 +100,22 @@
                      Width="100" 
                      ToolTip="Class Start Time" 
                      Cursor="Arrow"
-                     Grid.Row="1"
-                     Grid.Column="4"
+                     Grid.Row="3"
+                     Grid.Column="2"
                      Opacity="0.9"/>
-            
+
             <Button Margin="0,0,-20,0"  
                     Background="LightBlue" 
                     Height="25" 
                     Width="Auto"
                     Grid.Row="1"
-                    Grid.Column="5"                    
+                    Grid.Column="2"                    
                     Command="{Binding LoadStudentCommand}" Padding="1">Load Students</Button>
 
         </Grid>
 
-
-
-
-        <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="ScheduleGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.Column="1" >
+        <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="StudentAttendanceGrid" VerticalAlignment="Top"  Margin="0,0,0,0"   
+                               Grid.Row="1" Grid.Column="0" >
 
 
             <igDP:XamDataPresenter.Resources>
@@ -174,17 +173,99 @@
         </igDP:XamDataPresenter>
 
         <TextBox  Grid.Row="2" 
-                Grid.Column="1"
-                Text="Please enter comment for this class: " 
-                Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+                Grid.Column="0"                
+                Text="{Binding HeaderComment}"
+                Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto" Background="DarkBlue" Foreground="White"/>
 
         <Button Grid.Row="3"
-                    Grid.Column="1"  
-                    Click="OnShowRecords" 
+                    Grid.Column="0"  
+                    Background="LightBlue"
                     Command="{Binding SaveAttendanceCommand}"
                    >
             Save Attendance
         </Button>
+
+
+        <Grid Margin="0,0,0,0" Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ComboBox x:Name="classCombo1"
+                      ItemsSource="{Binding ClassTable}"                        
+                      DisplayMemberPath="FullName"
+                      SelectedValuePath="FullName"                      
+                      SelectedValue="{Binding Path=ClassFullName}"
+                      Grid.Row="0" Grid.RowSpan="1"
+                      Grid.Column="0"
+                      Height="22"
+                      >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding LoadCLassAttendanceCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+
+            <igDP:XamDataPresenter ActiveDataItem="{Binding ActiveHeader, Mode=TwoWay}" 
+                                   Name="ClassAttendanceGrid" Margin="0,0,0,0"   
+                               Grid.Row="1" Grid.Column="0" >
+
+                <igDP:XamDataPresenter.FieldLayoutSettings>
+                    <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
+                                          AddNewRecordLocation="OnBottom" AllowAddNew="False" 
+                                            HighlightAlternateRecords="True"
+                                              HeaderPrefixAreaDisplayMode="FieldChooserButton"
+                                          />
+                </igDP:XamDataPresenter.FieldLayoutSettings>
+
+                <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
+                <igDP:XamDataPresenter.FieldSettings>
+                    <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
+                </igDP:XamDataPresenter.FieldSettings>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="RecordActivated">
+                        <i:InvokeCommandAction Command="{Binding LoadStudentAttendanceCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </igDP:XamDataPresenter>
+
+            <Button Margin="0,0,-20,0"  
+                    Background="LightBlue" 
+                    Height="25" 
+                    Width="Auto"
+                    Grid.Row="0"
+                    Grid.Column="1"                    
+                    Command="{Binding DeleteAttendanceHeaderCommand}" Padding="1">Delete Attendance Header</Button>
+
+            <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="StudentAttendance1Grid" Margin="0,0,0,0"   
+                               Grid.Row="1" Grid.Column="1" >
+
+                <igDP:XamDataPresenter.FieldLayoutSettings>
+                    <igDP:FieldLayoutSettings AutoGenerateFields="true" 
+                                        HighlightAlternateRecords="True"                                        
+                                          />
+                </igDP:XamDataPresenter.FieldLayoutSettings>
+
+                <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
+                <igDP:XamDataPresenter.FieldSettings>
+                    <igDP:FieldSettings LabelTextAlignment="Right" />
+                </igDP:XamDataPresenter.FieldSettings>
+            </igDP:XamDataPresenter>
+
+        </Grid>
+
+
+
+
+
 
     </Grid>
 </UserControl>

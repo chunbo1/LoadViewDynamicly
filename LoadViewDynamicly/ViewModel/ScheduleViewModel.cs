@@ -30,7 +30,8 @@ namespace LoadViewDynamicly.ViewModel
                 teacherTable = dc.Teachers;
             }
 
-            if (Asof == null) Asof = String.Format("{0:MM/dd/yyyy}", DateTime.Today);
+            ClassDate = DateTime.Today;
+            HeaderComment = "Please enter comment for this class: ";
         } //ctor
 
         System.Data.Linq.Table<Class> classTable = null;
@@ -95,17 +96,59 @@ namespace LoadViewDynamicly.ViewModel
             return myTeachers;
         }
 
-        private String asof;
-        public String Asof
+        private DateTime classDate;
+        public DateTime ClassDate
         {
             get
             {
-                return asof;
+                return classDate;
             }
             set
             {
-                asof = value;
-                RaisePropertyChanged("Asof");
+                classDate = value;
+                RaisePropertyChanged("ClassDate");
+            }
+        }
+
+        private String startTime;
+        public String StartTime
+        {
+            get
+            {
+                return startTime;
+            }
+            set
+            {
+                startTime = value;
+                RaisePropertyChanged("StartTime");
+            }
+        }
+
+        private String endTime;
+        public String EndTime
+        {
+            get
+            {
+                return endTime;
+            }
+            set
+            {
+                endTime = value;
+                RaisePropertyChanged("EndTime");
+            }
+        }
+
+        private String headerComment;
+        public String HeaderComment
+        {
+            get
+            {
+                return headerComment;
+            }
+            set
+            {
+                headerComment = value;
+                RaisePropertyChanged("HeaderComment");
             }
         }
 
@@ -113,7 +156,7 @@ namespace LoadViewDynamicly.ViewModel
         public ICommand LoadStudentCommand
         {
             get { return loadStudentCommand ?? (loadStudentCommand = new RelayCommand(() => LoadStudent(), 
-                        () => (Asof.Trim().Length > 0 && ClassId > 0 && TeacherId > 0 )));
+                        () => (ClassDate != null && ClassId > 0 && TeacherId > 0 )));
                 }
         }
 
@@ -123,13 +166,59 @@ namespace LoadViewDynamicly.ViewModel
         private void LoadStudent()
         {
             if (db == null) db = new StoreDB();
-            //Instead of binding ScheduleGrid here, we bind it in xaml
+            //Instead of binding StudentAttendanceGrid here, we bind it in xaml
             //<igDP:XamDataPresenter DataSource="{Binding Path=Members}" 
             CommunityVM = new CommunityViewModel(db.GetStudentsByClassA(ClassId)); //db.GetStudentsByClassA(4);
-            _view.ScheduleGrid.DataContext = CommunityVM;
+            _view.StudentAttendanceGrid.DataContext = CommunityVM;
             //_view.DataContext = new CommunityViewModel(db.GetStudentsByClassA(4));
             loadStudentClicked = true;
         }
+
+        
+        private RelayCommand loadCLassAttendanceCommand;
+        public ICommand LoadCLassAttendanceCommand
+        {
+            get
+            {
+                return loadCLassAttendanceCommand ?? (loadCLassAttendanceCommand = new RelayCommand(() => loadCLassAttendance(),
+                      () => true));
+            }
+        }
+
+        //need to pass in a classname parameter ???????
+        private void loadCLassAttendance()
+        {
+            RefreshClassAttendanceGrid(ClassFullName);
+            ResetStudentAttendanceGrid();
+            classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
+        }
+
+        private void ResetStudentAttendanceGrid()
+        {
+            //dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+            _view.StudentAttendance1Grid.DataSource = null;
+
+        }
+
+        private RelayCommand loadStudentAttendanceCommand;
+        public ICommand LoadStudentAttendanceCommand
+        {
+            get
+            {
+                return loadStudentAttendanceCommand ?? (loadStudentAttendanceCommand = new RelayCommand(() => LoadStudentAttendance(),
+                      () => (ClassDate != null && ClassId > 0 && TeacherId > 0)));
+            }
+        }
+
+        //Trigger is not used because it's invoked before ActiveDataItem bind to ActiveHeader 
+        //ActiveDataItem="{Binding ActiveHeader, Mode=TwoWay}"
+        private void LoadStudentAttendance()
+        {
+            //dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+            //_view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(ActiveHeader.AttendanceHeader);
+             
+        }
+
 
         private RelayCommand saveAttendanceCommand;
         public ICommand SaveAttendanceCommand
@@ -138,7 +227,7 @@ namespace LoadViewDynamicly.ViewModel
             {
                 return saveAttendanceCommand ?? (saveAttendanceCommand = new RelayCommand(
                       () => SaveAttendance(),
-                      () => (Asof.Trim().Length > 0 && ClassId > 0 && TeacherId > 0 && loadStudentClicked)
+                      () => (ClassDate != null && ClassId > 0 && TeacherId > 0 && loadStudentClicked)
                       ));
             }
         }
@@ -149,15 +238,76 @@ namespace LoadViewDynamicly.ViewModel
             List<string> uncheckedNames = new List<string>();
 
             if (db == null) db = new StoreDB();
+            int? headerId = App.StoreDB.AddSchedulesHeader(ClassId, TeacherId, ClassDate, StartTime, EndTime, null, HeaderComment);
+            bool flag = false;
             foreach (ScheduleStudentViewModel p in CommunityVM.Members)
             {
                 if (p.IsChecked)
+                {
                     checkedNames.Add(p.FullName);
+                    flag = true;
+                }
                 else
+                {
                     uncheckedNames.Add(p.FullName);
-            }
-            
+                    flag = false;
+                }
+                App.StoreDB.AddSchedulesDetail((int)headerId, p.ID, flag, p.Comment);
+                //RefreshClassAttendanceGrid();
 
+            }
+
+        }
+
+        private void RefreshClassAttendanceGrid(string className)
+        {
+            if (dc.DatabaseExists())
+            {
+                dc.SubmitChanges();
+                dc = null;
+            }
+            dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+            _view.ClassAttendanceGrid.DataSource = dc.spClassAttendanceHeader(className);
+            classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
+        }
+
+        private RelayCommand deleteAttendanceHeaderCommand;
+        public ICommand DeleteAttendanceHeaderCommand
+        {
+            get
+            {
+                return deleteAttendanceHeaderCommand ?? (deleteAttendanceHeaderCommand = new RelayCommand(
+                      () => DeleteAttendanceHeader(),
+                      () => (classAttendanceRecordClicked)
+                      ));
+            }
+        }
+
+        private void DeleteAttendanceHeader()
+        {
+            dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+            dc.spDeleteSchedulesHeader(ActiveHeader.AttendanceHeader);
+
+            if (ClassFullName.Trim().Length > 0)
+            {
+                RefreshClassAttendanceGrid(ClassFullName);
+                ResetStudentAttendanceGrid();
+            }
+        }
+
+        bool classAttendanceRecordClicked = false;
+        private spClassAttendanceHeaderResult activeHeader;
+        public spClassAttendanceHeaderResult ActiveHeader
+        {
+            get { return activeHeader; }
+            set
+            {
+                activeHeader = value;
+                RaisePropertyChanged("ActiveHeader");
+                dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
+                classAttendanceRecordClicked = true;
+            }
         }
 
         private int classId = 0;
@@ -173,6 +323,17 @@ namespace LoadViewDynamicly.ViewModel
 
         }
 
+        private string classFullName;
+        public string ClassFullName
+        {
+            get { return classFullName; }
+            set
+            {
+                classFullName = value;
+                RaisePropertyChanged("ClassFullName");
+
+            }
+        }
 
         private int teacherId = 0;
         public int TeacherId

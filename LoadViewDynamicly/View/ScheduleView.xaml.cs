@@ -35,7 +35,7 @@ namespace LoadViewDynamicly.View
         private void Load_ClickXXX(object sender, RoutedEventArgs e)
         {
             StoreDB db = new StoreDB();
-            ScheduleGrid.DataSource = db.GetStudentsByClass(4);
+            StudentAttendanceGrid.DataSource = db.GetStudentsByClass(4);
 
         }
 
@@ -46,7 +46,7 @@ namespace LoadViewDynamicly.View
             List<string> checkedNames = new List<string>();
             List<string> uncheckedNames = new List<string>();
 
-            var community = ScheduleGrid.DataContext as CommunityViewModel;
+            var community = StudentAttendanceGrid.DataContext as CommunityViewModel;
             foreach (ScheduleStudentViewModel p in community.Members)
             {
                 if (p.IsChecked)
