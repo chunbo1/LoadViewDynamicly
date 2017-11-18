@@ -19,7 +19,41 @@ namespace LoadViewDynamicly.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        #region Exit
+
+        private static MainWindowViewModel _instance = new MainWindowViewModel();
+        public static MainWindowViewModel Instance { get { return _instance; } }
+        
+        public MainWindowViewModel()
+        {
+            //http://dotnetpattern.com/mvvm-light-messenger
+            gala.Messenger.Default.Register<SwitchViewMessage>(this, (switchViewMessage) =>
+            {
+                SwitchView(switchViewMessage.ViewName);
+            });
+
+            UserControl studentView = new StudentView();
+            UserControl teacherView = new TeacherView();
+            UserControl classView = new ClassView();
+            UserControl csSelectionView = new CSMain();
+            UserControl scheduleView = new ScheduleView();
+
+            this.VIEWSpsaces.Add("StudentView", studentView);
+            this.VIEWSpsaces.Add("TeacherView", teacherView);
+            this.VIEWSpsaces.Add("ClassView", classView);
+            this.VIEWSpsaces.Add("ClassManagementView", csSelectionView);
+            this.VIEWSpsaces.Add("AttendanceView", scheduleView);
+
+            ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
+            ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
+            ViewModelBase classViewModel = new ClassViewModel() { Text = "Class View" };
+
+            this.VMspaces.Add("StudentViewModel", studentViewModel);
+            this.VMspaces.Add("TeacherViewModel", teacherViewModel);
+            this.VMspaces.Add("ClassViewModel", classViewModel);
+            StatusBar = "App Started at " + DateTime.Now;
+
+        }
+        
         private RelayCommand exitCommand;
         public ICommand ExitCommand
         {
@@ -32,13 +66,13 @@ namespace LoadViewDynamicly.ViewModel
                 return exitCommand;
             }
         }
+
         private void exit()
         {
             //try { c.Close(); }//CLose WCF Client
             //catch { }
             Application.Current.Shutdown();
         }
-        #endregion
 
         private FrameworkElement _contentControlView;
         public FrameworkElement ContentControlView
@@ -62,37 +96,6 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
-        public MainWindowViewModel()
-        {
-            //http://dotnetpattern.com/mvvm-light-messenger
-            gala.Messenger.Default.Register<SwitchViewMessage>(this, (switchViewMessage) =>
-            {
-                SwitchView(switchViewMessage.ViewName);
-            });
-
-            UserControl studentView = new StudentView();
-            UserControl teacherView = new TeacherView();
-            UserControl classView = new ClassView();
-            UserControl csSelectionView = new CSMain();
-            UserControl scheduleView = new ScheduleView();
-
-            this.VIEWSpsaces.Add("StudentView", studentView);
-            this.VIEWSpsaces.Add("TeacherView", teacherView);
-            this.VIEWSpsaces.Add("ClassView", classView);
-            this.VIEWSpsaces.Add("CSSelectionView", csSelectionView);
-            this.VIEWSpsaces.Add("ScheduleView", scheduleView);
-
-            ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
-            ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
-            ViewModelBase classViewModel = new ClassViewModel() { Text = "Class View" };
-            
-            this.VMspaces.Add("StudentViewModel", studentViewModel);
-            this.VMspaces.Add("TeacherViewModel", teacherViewModel);
-            this.VMspaces.Add("ClassViewModel", classViewModel);
-            StatusBar = "App Started at " + DateTime.Now;
-
-        }
-
         public ICommand ChangeStudentViewCommand
         {
             get
@@ -104,8 +107,7 @@ namespace LoadViewDynamicly.ViewModel
                 });
             }
         }
-
-
+        
         public ICommand ChangeTeacherViewCommand
         {
             get
@@ -134,11 +136,10 @@ namespace LoadViewDynamicly.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    SwitchView("CSSelectionView");
+                    SwitchView("ClassManagementView");
                 });
             }
         }
-
         
         public ICommand ChangeScheduleViewCommand
         {
@@ -146,12 +147,11 @@ namespace LoadViewDynamicly.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    SwitchView("ScheduleView");
+                    SwitchView("AttendanceView");
                 });
             }
         }
-
-
+        
         public void SwitchView(string viewName)
         {
             switch (viewName)
@@ -171,16 +171,16 @@ namespace LoadViewDynamicly.ViewModel
                     ContentControlView.DataContext = VMspaces["ClassViewModel"];
                     break;
 
-                case "CSSelectionView":
-                    ContentControlView = VIEWSpsaces["CSSelectionView"];
+                case "ClassManagementView":
+                    ContentControlView = VIEWSpsaces["ClassManagementView"];
                     //ContentControlView.DataContext = VMspaces["CSViewModel"];
                     break;
 
-                case "ScheduleView":
-                    ContentControlView = VIEWSpsaces["ScheduleView"];
+                case "AttendanceView":
+                    ContentControlView = VIEWSpsaces["AttendanceView"];
                     break;
-
             }
+            MainWindowViewModel.Instance.StatusBar = $"Loaded {viewName}";
         }
 
         Dictionary<String, ViewModelBase> _vmSpaces;

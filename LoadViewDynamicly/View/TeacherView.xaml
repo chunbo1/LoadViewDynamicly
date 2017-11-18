@@ -14,14 +14,12 @@
         </ResourceDictionary>
     </UserControl.Resources>
    
-    <StackPanel>
-        <Label Content="{Binding Text}" />
 
         <Grid Grid.Row="1" Grid.Column="1" x:Name="linqCtrl">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" MinHeight="100" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="10" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -31,33 +29,28 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Content="Clear" Click="Clear_Click"></Button>
-            <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Content="Load" Click="Load_Click"></Button>
-            <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Content="Save" Click="Save_Click"></Button>
-            <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToStudentViewCommand}">Change to Student View</Button>
-            <Button Name="Export2Excel"  Grid.Row="0" Grid.Column="4" Content="Export" Click="Export2Excel_Click"></Button>
+        <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Margin="20,0,0,0" Content="Clear" Click="Clear_Click"></Button>
+        <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Content="Load" Click="Load_Click"></Button>
+        <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Content="Save" Click="Save_Click"></Button>
+        <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Margin="0,0,0,0" Command="{Binding ChangeToStudentViewCommand}">Change to Student View</Button>
+        <Button Name="Export2Excel"  Grid.Row="0" Grid.Column="4" Margin="0,0,0,0" Content="Export" Click="Export2Excel_Click"></Button>
 
-            <igDP:XamDataPresenter   Name="TeacherGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.ColumnSpan="6">
+        <igDP:XamDataPresenter   Name="TeacherGrid" Margin="20,0,20,0"   Grid.Row="1" Grid.ColumnSpan="6">
 
-                <igDP:XamDataPresenter.FieldLayoutSettings>
-                    <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
+            <igDP:XamDataPresenter.FieldLayoutSettings>
+                <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
                                           AddNewRecordLocation="OnBottom" AllowAddNew="True" 
                                           HighlightAlternateRecords="True"
                                           HeaderPrefixAreaDisplayMode="FieldChooserButton"
                                           />
-                </igDP:XamDataPresenter.FieldLayoutSettings>
+            </igDP:XamDataPresenter.FieldLayoutSettings>
 
-                <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
-                <igDP:XamDataPresenter.FieldSettings>
-                    <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
-                </igDP:XamDataPresenter.FieldSettings>
+            <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
+            <igDP:XamDataPresenter.FieldSettings>
+                <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
+            </igDP:XamDataPresenter.FieldSettings>
+        </igDP:XamDataPresenter>
 
+    </Grid>
 
-                
-
-            </igDP:XamDataPresenter>
-
-             
-        </Grid>
-    </StackPanel>
 </UserControl>

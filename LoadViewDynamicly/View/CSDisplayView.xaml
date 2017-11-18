@@ -28,10 +28,8 @@
                   Command="{Binding DeleteCommand}">Delete</Button>
             <Button Margin="2,5,0,0"  Background="LightBlue" Height="35" Width="50"
                   Command="{Binding AddCommand}" Padding="2">Add</Button>
-            <Button Margin="2,5,0,0"  Background="LightBlue" Height="35" Width="50"
-                    Padding="2">XXX</Button>
-
         </StackPanel>
+        
         <Grid Margin="10" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -86,8 +84,8 @@
             <TextBox Margin="7" Grid.Row="4" Grid.Column="1"  
                  TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding Path=DisplayedProduct.UpdateDateTime}"></TextBox>
 
-            <TextBlock Margin="7,25,15,0" Grid.Row="6">Status:</TextBlock>
-            <TextBox Margin="7" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+            <TextBlock Margin="7,-10,0,0" Grid.Row="6">Status:</TextBlock>
+            <TextBox Margin="7" Grid.Row="6" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" 
                  Text="{Binding Path=Stat.Status}"></TextBox>
         </Grid>
 

@@ -28,25 +28,24 @@
 
         <Grid Margin="0,0,0,0" Grid.Row="0" Grid.Column="0" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
+               
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Content="Pick up Class" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+            <Label Grid.Column="0" Content="Pick up Class" HorizontalAlignment="Left"   Margin="20,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
             <Label Grid.Column="1" Content="Teacher" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
            
             <!--https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
-            <ComboBox x:Name="classCombo"
+            <ComboBox x:Name="classAttendanceHeaderCombo1"
                       ItemsSource="{Binding ClassTable}"                        
                       DisplayMemberPath="FullName"
                       SelectedValuePath="ID"                      
@@ -54,6 +53,7 @@
                       Grid.Row="1"
                       Grid.Column="0"
                       Height="22"
+                      Margin="20,0,0,0"
                       />
 
             <ComboBox x:Name="teacherCombo"
@@ -66,7 +66,7 @@
                       Height="22"
                       />
 
-            <Label Grid.Row="2" Grid.Column="0" Content="Date" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Date" HorizontalAlignment="Left"   Margin="20,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
             <Label Grid.Row="2" Grid.Column="1" Content="StartTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
             <Label Grid.Row="2" Grid.Column="2" Content="EndTime" HorizontalAlignment="Left"   Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto"/>
 
@@ -76,7 +76,8 @@
                        Grid.Row="3"
                        Grid.Column="0"
                        Text="{Binding ClassDate, UpdateSourceTrigger=PropertyChanged}"
-                       VerticalAlignment="Center"   />
+                       VerticalAlignment="Center" 
+                       Margin="20,0,0,0"/>
 
             <TextBox x:Name="startTime" 
                      Text="{Binding StartTime}"
@@ -95,7 +96,7 @@
                      Text="{Binding EndTime}"  
                      HorizontalAlignment="Left" 
                      Height="20" 
-                     Margin="0,0,0,0"  
+                     Margin="0,0,20,0"  
                      TextWrapping="Wrap"   
                      Width="100" 
                      ToolTip="Class Start Time" 
@@ -104,7 +105,7 @@
                      Grid.Column="2"
                      Opacity="0.9"/>
 
-            <Button Margin="0,0,-20,0"  
+            <Button Margin="0,0,20,0"  
                     Background="LightBlue" 
                     Height="25" 
                     Width="Auto"
@@ -114,7 +115,8 @@
 
         </Grid>
 
-        <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="StudentAttendanceGrid" VerticalAlignment="Top"  Margin="0,0,0,0"   
+        <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="StudentAttendanceGrid" 
+                               VerticalAlignment="Top"  Margin="20,0,20,0"   
                                Grid.Row="1" Grid.Column="0" >
 
 
@@ -153,10 +155,10 @@
             <igDP:XamDataPresenter.FieldLayouts>
                 <igDP:FieldLayout>
                     <igDP:FieldLayout.Fields>
-                        
-                        <igDP:Field Name="ID" Label="ID" />
+
+                        <igDP:Field Name="ID" Label="ID" Width="30"/>
                         <igDP:Field Name="FullName" Label="FullName" />
-                        <igDP:Field Name="Comment" Label="Comment" />
+                        <igDP:Field Name="Comment" Label="Comment" Width="350"/>
                         <igDP:Field Name="IsChecked" Label="IsChecked" Visibility="Collapsed" />
                     </igDP:FieldLayout.Fields>
                 </igDP:FieldLayout>
@@ -172,13 +174,17 @@
 
         </igDP:XamDataPresenter>
 
-        <TextBox  Grid.Row="2" 
-                Grid.Column="0"                
-                Text="{Binding HeaderComment}"
-                Margin="0,0,0,0" VerticalAlignment="Bottom" Width="Auto" Background="DarkBlue" Foreground="White"/>
+        <TextBox  Grid.Row="2" Grid.RowSpan="2"
+                  Grid.Column="0"                
+                  Text="{Binding HeaderComment}"
+                  Margin="20,0,20,0" 
+                  TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" 
+                  VerticalAlignment="Bottom" Height="60" Width="Auto" 
+                  Background="DarkBlue" Foreground="White"/>
 
-        <Button Grid.Row="3"
+        <Button Grid.Row="4"
                     Grid.Column="0"  
+                    Margin="20,0,20,0" 
                     Background="LightBlue"
                     Command="{Binding SaveAttendanceCommand}"
                    >
@@ -189,14 +195,16 @@
         <Grid Margin="0,0,0,0" Grid.Row="0" Grid.RowSpan="5" Grid.Column="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <ComboBox x:Name="classCombo1"
+            <ComboBox x:Name="classAttendanceHeaderCombo2"
                       ItemsSource="{Binding ClassTable}"                        
                       DisplayMemberPath="FullName"
                       SelectedValuePath="FullName"                      
@@ -204,6 +212,7 @@
                       Grid.Row="0" Grid.RowSpan="1"
                       Grid.Column="0"
                       Height="22"
+                      Margin="10,0,0,0" 
                       >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
@@ -213,8 +222,9 @@
             </ComboBox>
 
             <igDP:XamDataPresenter ActiveDataItem="{Binding ActiveHeader, Mode=TwoWay}" 
-                                   Name="ClassAttendanceGrid" Margin="0,0,0,0"   
-                               Grid.Row="1" Grid.Column="0" >
+                                   Name="ClassAttendanceGrid" Margin="10,0,0,0"   
+                               Grid.Row="1" Grid.Column="0" 
+>
 
                 <igDP:XamDataPresenter.FieldLayoutSettings>
                     <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
@@ -237,16 +247,16 @@
 
             </igDP:XamDataPresenter>
 
-            <Button Margin="0,0,-20,0"  
+            <Button Margin="20,10,20,0"  
                     Background="LightBlue" 
                     Height="25" 
                     Width="Auto"
-                    Grid.Row="0"
-                    Grid.Column="1"                    
+                    Grid.Row="2"
+                    Grid.Column="0"                    
                     Command="{Binding DeleteAttendanceHeaderCommand}" Padding="1">Delete Attendance Header</Button>
 
-            <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="StudentAttendance1Grid" Margin="0,0,0,0"   
-                               Grid.Row="1" Grid.Column="1" >
+            <igDP:XamDataPresenter DataSource="{Binding Path=Members}"  Name="StudentAttendance1Grid" Margin="20,10,0,0"   
+                               Grid.Row="3" Grid.Column="0" >
 
                 <igDP:XamDataPresenter.FieldLayoutSettings>
                     <igDP:FieldLayoutSettings AutoGenerateFields="true" 

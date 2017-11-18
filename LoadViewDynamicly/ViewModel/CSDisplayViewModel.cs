@@ -9,12 +9,16 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
 using System.ComponentModel;
+using System.Configuration;
 
 namespace LoadViewDynamicly.ViewModel
 {
     class CSDisplayViewModel : ViewModelBase
     {
+        private static int ClassDropDownItems = Int32.Parse( ConfigurationManager.AppSettings["ClassDropDownItems"]);
+        private static int StudentDropDownItems = Int32.Parse(ConfigurationManager.AppSettings["StudentDropDownItems"]); 
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+        
         private bool isSelected = false;
         
         public CSDisplayViewModel()
@@ -39,10 +43,12 @@ namespace LoadViewDynamicly.ViewModel
             get
             {
                 MyObservableCollection<MyClass> myClasses = new MyObservableCollection<MyClass>();
-                var query = from s in classTable
+                var query = (from s in classTable
                             where s.Enabled == true
-                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled);
-                            
+                            orderby s.ID descending
+                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled)
+                            ).Take(ClassDropDownItems)
+                            ;
                 foreach (MyClass ss in query)
                     myClasses.Add(ss);
                 return myClasses;
@@ -59,11 +65,12 @@ namespace LoadViewDynamicly.ViewModel
         {
             get {
                 MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
-                var query = from s in studentTable
+                var query = (from s in studentTable
                             orderby s.FirstName
                             select new MyStudent(s.ID, "" + 
                             s.FirstName + " " + s.LastName + " " + ((s.CellPhone.Length>0) ? s.CellPhone: s.HomePhone),
                             s.FirstName, s.LastName )
+                            ).Take(StudentDropDownItems)
                             ;
                             
                 foreach (MyStudent ss in query)
@@ -81,10 +88,12 @@ namespace LoadViewDynamicly.ViewModel
         public MyObservableCollection<MyStudent> refreshStudentTable()
         {
             MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
-            var query = from s in studentTable
+            var query = (from s in studentTable
                         select new MyStudent(s.ID, 
                         "" + s.FirstName + " " + s.LastName + " " + ((s.CellPhone.Length > 0) ? s.CellPhone : s.HomePhone),
-                        s.FirstName, s.LastName);
+                        s.FirstName, s.LastName)
+                        ).Take(StudentDropDownItems)
+                        ;
 
             foreach (MyStudent ss in query)
                 myStudents.Add(ss);
@@ -94,10 +103,12 @@ namespace LoadViewDynamicly.ViewModel
         public MyObservableCollection<MyClass> refreshClassTable()
         {
             MyObservableCollection<MyClass> myClasses = new MyObservableCollection<MyClass>();
-            var query = from s in classTable
+            var query = (from s in classTable
                         where s.Enabled == true
-                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled);
-
+                        orderby s.ID descending
+                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled)
+                        ).Take(ClassDropDownItems)
+                        ;
             foreach (MyClass ss in query)
                 myClasses.Add(ss);
             return myClasses;
@@ -128,6 +139,7 @@ namespace LoadViewDynamicly.ViewModel
             stat.NoError();
             DisplayedProduct = new ClassStudent();
             App.Messenger.NotifyColleagues("GetClassStudents");
+            MainWindowViewModel.Instance.StatusBar = $"DB Refreshed";
         }
 
 
@@ -143,6 +155,7 @@ namespace LoadViewDynamicly.ViewModel
             stat.NoError();
             DisplayedProduct = new ClassStudent();
             App.Messenger.NotifyColleagues("ProductCleared");
+            ///MainWindowViewModel.Instance.StatusBar = $"Screen Cleared";
         } //ClearProductDisplay()
 
 
@@ -168,6 +181,7 @@ namespace LoadViewDynamicly.ViewModel
                 return;
             }
             App.Messenger.NotifyColleagues("UpdateProduct", DisplayedProduct);
+            MainWindowViewModel.Instance.StatusBar = $"DB Updated for {DisplayedProduct.ClassName} {DisplayedProduct.StudentName}";
         } //UpdateProduct()
 
        
@@ -186,17 +200,19 @@ namespace LoadViewDynamicly.ViewModel
                 return;
             }
             isSelected = false;
+            MainWindowViewModel.Instance.StatusBar = $"Record deleted for {DisplayedProduct.ID}";
             App.Messenger.NotifyColleagues("DeleteProduct");
 
             //This is necessary to create a brand-new instance for DisplayedProduct
             ClearClassStudentDisplay();
+            
         } //DeleteProduct
 
 
         private RelayCommand addCommand;
         public ICommand AddCommand
         {
-            get { return addCommand ?? (addCommand = new RelayCommand(() => AddProduct(), () => !isSelected)); }
+            get { return addCommand ?? (addCommand = new RelayCommand(() => AddProduct(), () => !isSelected )); }
         }
 
 
@@ -211,16 +227,27 @@ namespace LoadViewDynamicly.ViewModel
             DisplayedProduct.StudentName = StudentTable.SingleOrDefault(s => s.ID == (DisplayedProduct.StudentId ?? 0)).FullName;
             //GetClassStudents() has Grouping, DisplayedProduct does the same
             DisplayedProduct.Grouping = cc.ClassName + " " + cc.Semester + " " + cc.Dayofweek + " " + cc.Timeofweek;
+            DisplayedProduct.UpdateDateTime = DateTime.Now;
 
             if (!stat.ChkClassStudentForAdd(DisplayedProduct)) return;
+            if (CSViewModel.Instance.DataItems.Contains(DisplayedProduct))
+            {
+                stat.Status = $"{DisplayedProduct.StudentName} exists in class {DisplayedProduct.ClassName}";
+                MainWindowViewModel.Instance.StatusBar = $"{DisplayedProduct.StudentName} exists in class {DisplayedProduct.ClassName}";
+                return;
+            }
             if (!App.StoreDB.AddProduct(DisplayedProduct))
             {
                 stat.Status = App.StoreDB.errorMessage;
+                MainWindowViewModel.Instance.StatusBar = App.StoreDB.errorMessage;
                 return;
             }
             App.Messenger.NotifyColleagues("AddProduct", DisplayedProduct);
+            MainWindowViewModel.Instance.StatusBar = $"Record Added for {DisplayedProduct.Grouping} {DisplayedProduct.StudentName}";
+
             //This is necessary to create a brand-new instance for DisplayedProduct
             ClearClassStudentDisplay();
+            
         } //AddProduct()
 
 
@@ -238,6 +265,7 @@ namespace LoadViewDynamicly.ViewModel
             
             isSelected = true;
             stat.NoError();
+            MainWindowViewModel.Instance.StatusBar = $"Record selection changed";
         } // ProcessProduct()
 
 

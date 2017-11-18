@@ -16,8 +16,12 @@ namespace LoadViewDynamicly.ViewModel
     public class CSViewModel : ViewModelBase
     {
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+
+        private static CSViewModel _instance = new CSViewModel();
+        public static CSViewModel Instance { get { return _instance; } }
+
         private ICollectionView _customerView;
-         public LoadViewDynamicly.View.CSSelectionView _view { get; set; }
+        public LoadViewDynamicly.View.CSSelectionView _view { get; set; }
 
         public CSViewModel()
         {

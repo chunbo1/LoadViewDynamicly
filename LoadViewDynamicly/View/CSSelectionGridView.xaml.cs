@@ -24,7 +24,7 @@ namespace LoadViewDynamicly.View
         public CSSelectionGridView()
         {
             InitializeComponent();
-            DataContext = new CSViewModel();
+            DataContext = CSViewModel.Instance;
         }
     }
 }

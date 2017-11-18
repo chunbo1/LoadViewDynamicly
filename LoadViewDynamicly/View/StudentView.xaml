@@ -7,15 +7,12 @@
              xmlns:vm="clr-namespace:LoadViewDynamicly.ViewModel"
              xmlns:igDP="http://infragistics.com/DataPresenter"
              d:DesignHeight="300" d:DesignWidth="300">
-  
-    <StackPanel>
-        <Label Content="{Binding Text}" />
-        
-        <Grid Grid.Row="1" Grid.Column="1" x:Name="linqCtrl">
+    
+    <Grid Grid.Row="1" Grid.Column="1" x:Name="linqCtrl">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" MinHeight="100" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="10" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -25,12 +22,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Content="Clear" Click="Clear_Click"></Button>
-            <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Content="Load" Click="Load_Click"></Button>
-            <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Content="Save" Click="Save_Click"></Button>
+        <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Margin="20,0,0,0" Content="Clear" Click="Clear_Click"></Button>
+        <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Content="Load" Click="Load_Click"></Button>
+        <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Content="Save" Click="Save_Click"></Button>
             <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
             
-            <igDP:XamDataPresenter   Name="StudentGrid" Margin="0,0,0,0"   Grid.Row="1" Grid.ColumnSpan="6">
+            <igDP:XamDataPresenter   Name="StudentGrid" Margin="20,0,20,0"   Grid.Row="1" Grid.ColumnSpan="6">
 
                 <igDP:XamDataPresenter.FieldLayoutSettings>
                     <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
@@ -47,5 +44,5 @@
             </igDP:XamDataPresenter>
 
         </Grid>
-    </StackPanel>
+    
 </UserControl>

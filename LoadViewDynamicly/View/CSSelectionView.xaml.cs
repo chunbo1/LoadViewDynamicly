@@ -24,7 +24,7 @@ namespace LoadViewDynamicly.View
         public CSSelectionView()
         {
             InitializeComponent();
-            DataContext = new CSViewModel();
+            DataContext = CSViewModel.Instance;
             (DataContext as CSViewModel)._view = this as CSSelectionView;
             
             /*

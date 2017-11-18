@@ -13,8 +13,13 @@ namespace LoadViewDynamicly.ViewModel
     //It is assigned by the DB when it creates a new product.  It is used
     //to identify a product and must not be modified by the GUI.
     [Serializable]
-    public class ClassStudent
+    public class ClassStudent : IEquatable<ClassStudent>
     {
+        bool IEquatable<ClassStudent>.Equals(ClassStudent other)
+        {
+            return Grouping == other.Grouping && StudentId == other.StudentId;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propName)
         {
@@ -135,6 +140,7 @@ namespace LoadViewDynamicly.ViewModel
             UpdateDateTime = updateDateTime;
             Grouping = grouping;
         }
+        
 
         public void CopyProduct(ClassStudent p)
         {

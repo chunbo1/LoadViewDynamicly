@@ -85,6 +85,12 @@ namespace LoadViewDynamicly.ViewModel
             return myClasses;
         }
 
+        public string GetClassName(int classId)
+        {
+            MyClass mc= ClassTable.Where(n => n.ID == classId).First();
+            return mc.FullName;
+        }
+
         public MyObservableCollection<MyTeacher> refreshTeacherTable()
         {
             MyObservableCollection<MyTeacher> myTeachers = new MyObservableCollection<MyTeacher>();
@@ -99,10 +105,7 @@ namespace LoadViewDynamicly.ViewModel
         private DateTime classDate;
         public DateTime ClassDate
         {
-            get
-            {
-                return classDate;
-            }
+            get { return classDate; }
             set
             {
                 classDate = value;
@@ -170,8 +173,8 @@ namespace LoadViewDynamicly.ViewModel
             //<igDP:XamDataPresenter DataSource="{Binding Path=Members}" 
             CommunityVM = new CommunityViewModel(db.GetStudentsByClassA(ClassId)); //db.GetStudentsByClassA(4);
             _view.StudentAttendanceGrid.DataContext = CommunityVM;
-            //_view.DataContext = new CommunityViewModel(db.GetStudentsByClassA(4));
             loadStudentClicked = true;
+            MainWindowViewModel.Instance.StatusBar = $"Load Students for class {ClassId}";
         }
 
         
@@ -180,17 +183,18 @@ namespace LoadViewDynamicly.ViewModel
         {
             get
             {
-                return loadCLassAttendanceCommand ?? (loadCLassAttendanceCommand = new RelayCommand(() => loadCLassAttendance(),
+                return loadCLassAttendanceCommand ?? (loadCLassAttendanceCommand = new RelayCommand(() => loadClassAttendance(),
                       () => true));
             }
         }
 
         //need to pass in a classname parameter ???????
-        private void loadCLassAttendance()
+        private void loadClassAttendance()
         {
             RefreshClassAttendanceGrid(ClassFullName);
             ResetStudentAttendanceGrid();
             classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
+            MainWindowViewModel.Instance.StatusBar = $"Load attendance history for class {ClassFullName}";
         }
 
         private void ResetStudentAttendanceGrid()
@@ -234,26 +238,22 @@ namespace LoadViewDynamicly.ViewModel
 
         private void SaveAttendance()
         {
-            List<string> checkedNames = new List<string>();
-            List<string> uncheckedNames = new List<string>();
+            //List<string> checkedNames = new List<string>();
+            //List<string> uncheckedNames = new List<string>();
 
             if (db == null) db = new StoreDB();
             int? headerId = App.StoreDB.AddSchedulesHeader(ClassId, TeacherId, ClassDate, StartTime, EndTime, null, HeaderComment);
             bool flag = false;
             foreach (ScheduleStudentViewModel p in CommunityVM.Members)
             {
-                if (p.IsChecked)
-                {
-                    checkedNames.Add(p.FullName);
-                    flag = true;
-                }
-                else
-                {
-                    uncheckedNames.Add(p.FullName);
-                    flag = false;
-                }
+                if (p.IsChecked) flag = true; else flag = false;                
                 App.StoreDB.AddSchedulesDetail((int)headerId, p.ID, flag, p.Comment);
-                //RefreshClassAttendanceGrid();
+
+                //Only when classAttendanceHeaderCombo has same class, then refresh classAttendanceHeader
+                //Combo2 has classFullname, combo1
+                _view.classAttendanceHeaderCombo2.SelectedValue = GetClassName(ClassId);
+                //if (_view.classAttendanceHeaderCombo2.SelectedValue.ToString().Equals(GetClassName(ClassId)))
+                //    RefreshClassAttendanceGrid(ClassFullName);
 
             }
 
@@ -287,11 +287,13 @@ namespace LoadViewDynamicly.ViewModel
         {
             dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
             dc.spDeleteSchedulesHeader(ActiveHeader.AttendanceHeader);
+            int headerId = ActiveHeader.AttendanceHeader;
 
             if (ClassFullName.Trim().Length > 0)
             {
                 RefreshClassAttendanceGrid(ClassFullName);
                 ResetStudentAttendanceGrid();
+                MainWindowViewModel.Instance.StatusBar = $"Deleted attendance header {headerId} for {ClassFullName}";
             }
         }
 
@@ -307,6 +309,7 @@ namespace LoadViewDynamicly.ViewModel
                 dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
                 _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
                 classAttendanceRecordClicked = true;
+                MainWindowViewModel.Instance.StatusBar = $"You just selected class attendance header {activeHeader.AttendanceHeader}";
             }
         }
 

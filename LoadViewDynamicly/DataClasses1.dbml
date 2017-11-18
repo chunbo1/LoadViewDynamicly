@@ -10,20 +10,6 @@
       <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.vwCST" Member="vwCSTs">
-    <Type Name="vwCST">
-      <Column Name="Division" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="ClassName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Dayofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Timeofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Tuition" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Teacher" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
-      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Student" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Students" Member="Students">
     <Type Name="Student">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -112,6 +98,20 @@
       <Column Name="StartTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="EndTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwCST" Member="vwCSTs">
+    <Type Name="vwCST">
+      <Column Name="Division" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Dayofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Timeofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuition" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Teacher" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Student" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.UpdateCS" Method="UpdateCS">

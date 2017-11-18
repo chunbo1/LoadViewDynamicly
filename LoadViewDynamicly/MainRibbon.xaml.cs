@@ -23,7 +23,8 @@ namespace LoadViewDynamicly
         public MainRibbon()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            //DataContext = new MainWindowViewModel();
+            DataContext = MainWindowViewModel.Instance;
         }
     }
 }

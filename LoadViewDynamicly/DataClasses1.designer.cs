@@ -88,14 +88,6 @@ namespace LoadViewDynamicly
 			}
 		}
 		
-		public System.Data.Linq.Table<vwCST> vwCSTs
-		{
-			get
-			{
-				return this.GetTable<vwCST>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Student> Students
 		{
 			get
@@ -149,6 +141,14 @@ namespace LoadViewDynamicly
 			get
 			{
 				return this.GetTable<vwClassAttendanceHeader>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vwCST> vwCSTs
+		{
+			get
+			{
+				return this.GetTable<vwCST>();
 			}
 		}
 		
@@ -396,195 +396,6 @@ namespace LoadViewDynamicly
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwCST")]
-	public partial class vwCST
-	{
-		
-		private string _Division;
-		
-		private string _ClassName;
-		
-		private string _Location;
-		
-		private string _Semester;
-		
-		private string _Dayofweek;
-		
-		private string _Timeofweek;
-		
-		private System.Nullable<double> _Tuition;
-		
-		private string _Teacher;
-		
-		private System.Nullable<int> _StudentId;
-		
-		private string _Student;
-		
-		public vwCST()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="VarChar(50)")]
-		public string Division
-		{
-			get
-			{
-				return this._Division;
-			}
-			set
-			{
-				if ((this._Division != value))
-				{
-					this._Division = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassName", DbType="VarChar(50)")]
-		public string ClassName
-		{
-			get
-			{
-				return this._ClassName;
-			}
-			set
-			{
-				if ((this._ClassName != value))
-				{
-					this._ClassName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(50)")]
-		public string Location
-		{
-			get
-			{
-				return this._Location;
-			}
-			set
-			{
-				if ((this._Location != value))
-				{
-					this._Location = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Semester", DbType="VarChar(50)")]
-		public string Semester
-		{
-			get
-			{
-				return this._Semester;
-			}
-			set
-			{
-				if ((this._Semester != value))
-				{
-					this._Semester = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dayofweek", DbType="VarChar(50)")]
-		public string Dayofweek
-		{
-			get
-			{
-				return this._Dayofweek;
-			}
-			set
-			{
-				if ((this._Dayofweek != value))
-				{
-					this._Dayofweek = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timeofweek", DbType="VarChar(50)")]
-		public string Timeofweek
-		{
-			get
-			{
-				return this._Timeofweek;
-			}
-			set
-			{
-				if ((this._Timeofweek != value))
-				{
-					this._Timeofweek = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuition", DbType="Float")]
-		public System.Nullable<double> Tuition
-		{
-			get
-			{
-				return this._Tuition;
-			}
-			set
-			{
-				if ((this._Tuition != value))
-				{
-					this._Tuition = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teacher", DbType="VarChar(101)")]
-		public string Teacher
-		{
-			get
-			{
-				return this._Teacher;
-			}
-			set
-			{
-				if ((this._Teacher != value))
-				{
-					this._Teacher = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentId", DbType="Int")]
-		public System.Nullable<int> StudentId
-		{
-			get
-			{
-				return this._StudentId;
-			}
-			set
-			{
-				if ((this._StudentId != value))
-				{
-					this._StudentId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Student", DbType="VarChar(101)")]
-		public string Student
-		{
-			get
-			{
-				return this._Student;
-			}
-			set
-			{
-				if ((this._Student != value))
-				{
-					this._Student = value;
-				}
 			}
 		}
 	}
@@ -2223,6 +2034,195 @@ namespace LoadViewDynamicly
 				if ((this._Comment != value))
 				{
 					this._Comment = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwCST")]
+	public partial class vwCST
+	{
+		
+		private string _Division;
+		
+		private string _ClassName;
+		
+		private string _Location;
+		
+		private string _Semester;
+		
+		private string _Dayofweek;
+		
+		private string _Timeofweek;
+		
+		private System.Nullable<double> _Tuition;
+		
+		private string _Teacher;
+		
+		private System.Nullable<int> _StudentId;
+		
+		private string _Student;
+		
+		public vwCST()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="VarChar(50)")]
+		public string Division
+		{
+			get
+			{
+				return this._Division;
+			}
+			set
+			{
+				if ((this._Division != value))
+				{
+					this._Division = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassName", DbType="VarChar(50)")]
+		public string ClassName
+		{
+			get
+			{
+				return this._ClassName;
+			}
+			set
+			{
+				if ((this._ClassName != value))
+				{
+					this._ClassName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="VarChar(50)")]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this._Location = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Semester", DbType="VarChar(50)")]
+		public string Semester
+		{
+			get
+			{
+				return this._Semester;
+			}
+			set
+			{
+				if ((this._Semester != value))
+				{
+					this._Semester = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dayofweek", DbType="VarChar(50)")]
+		public string Dayofweek
+		{
+			get
+			{
+				return this._Dayofweek;
+			}
+			set
+			{
+				if ((this._Dayofweek != value))
+				{
+					this._Dayofweek = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timeofweek", DbType="VarChar(50)")]
+		public string Timeofweek
+		{
+			get
+			{
+				return this._Timeofweek;
+			}
+			set
+			{
+				if ((this._Timeofweek != value))
+				{
+					this._Timeofweek = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tuition", DbType="Float")]
+		public System.Nullable<double> Tuition
+		{
+			get
+			{
+				return this._Tuition;
+			}
+			set
+			{
+				if ((this._Tuition != value))
+				{
+					this._Tuition = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Teacher", DbType="VarChar(101)")]
+		public string Teacher
+		{
+			get
+			{
+				return this._Teacher;
+			}
+			set
+			{
+				if ((this._Teacher != value))
+				{
+					this._Teacher = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentId", DbType="Int")]
+		public System.Nullable<int> StudentId
+		{
+			get
+			{
+				return this._StudentId;
+			}
+			set
+			{
+				if ((this._StudentId != value))
+				{
+					this._StudentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Student", DbType="VarChar(101)")]
+		public string Student
+		{
+			get
+			{
+				return this._Student;
+			}
+			set
+			{
+				if ((this._Student != value))
+				{
+					this._Student = value;
 				}
 			}
 		}
