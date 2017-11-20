@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LoadViewDynamicly.ViewModel;
 using LoadViewDynamicly.Model;
-
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly.View
 {
@@ -23,6 +24,7 @@ namespace LoadViewDynamicly.View
     /// </summary>
     public partial class ScheduleView : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
 
         public ScheduleView()

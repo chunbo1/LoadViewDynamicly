@@ -5,11 +5,14 @@ using System.Text;
 using System.Data;
 using System.Threading.Tasks;
 using LoadViewDynamicly.ViewModel;
-      
+using log4net;
+using System.Reflection;
+
 namespace LoadViewDynamicly.Model
 {
     class StoreDB
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public bool hasError = false;
         public string errorMessage;
         public StoreDB()
@@ -62,6 +65,7 @@ namespace LoadViewDynamicly.Model
             {
                 errorMessage = "Update error, " + ex.Message;
                 hasError = true;
+                log.Error("In StoreDB..UpdateProduct: " + ex.StackTrace);
             }
             return (!hasError);
         } //UpdateProduct()
@@ -78,6 +82,7 @@ namespace LoadViewDynamicly.Model
             {
                 errorMessage = "Delete error, " + ex.Message;
                 hasError = true;
+                log.Error("In StoreDB..DeleteProduct: " + ex.StackTrace);
             }
             return !hasError;
         }// DeleteProduct()
@@ -98,6 +103,7 @@ namespace LoadViewDynamicly.Model
             {
                 errorMessage = "Add error, " + ex.Message;
                 hasError = true;
+                log.Error("In StoreDB..AddProduct: " + ex.StackTrace);
             }
             return !hasError;
         } //AddProduct()
@@ -160,6 +166,7 @@ namespace LoadViewDynamicly.Model
             {
                 errorMessage = "Add error, " + ex.Message;
                 hasError = true;
+                log.Error("In StoreDB..AddSchedulesHeader: " + ex.StackTrace);
             }
             return newId;
         } //AddSchedulesHeader
@@ -177,6 +184,7 @@ namespace LoadViewDynamicly.Model
             {
                 errorMessage = "Add error, " + ex.Message;
                 hasError = true;
+                log.Error("In StoreDB..AddSchedulesDetail: " + ex.StackTrace);
             }
             return !hasError;
         } //AddSchedulesHeader

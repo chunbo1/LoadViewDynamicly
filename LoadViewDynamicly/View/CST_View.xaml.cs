@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using Infragistics.Windows.DataPresenter.ExcelExporter;
 using Infragistics.Excel;
 using System.Diagnostics;
+using log4net;
+using System.Reflection;
+
 namespace LoadViewDynamicly.View
 {
     /// <summary>
@@ -22,6 +25,7 @@ namespace LoadViewDynamicly.View
     /// </summary>
     public partial class CST_View : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
         public CST_View()
         {

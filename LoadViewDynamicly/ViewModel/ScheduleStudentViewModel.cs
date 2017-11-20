@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
+using log4net;
+using System.Reflection;
+
 
 namespace LoadViewDynamicly.ViewModel
 {
     public class ScheduleStudentViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         readonly MyStudent _person;
         bool _isChecked;
         

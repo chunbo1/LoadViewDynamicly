@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly.ViewModel
 {
@@ -15,6 +17,7 @@ namespace LoadViewDynamicly.ViewModel
     [Serializable]
     public class ClassStudent : IEquatable<ClassStudent>
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         bool IEquatable<ClassStudent>.Equals(ClassStudent other)
         {
             return Grouping == other.Grouping && StudentId == other.StudentId;

@@ -16,6 +16,8 @@ using Infragistics.Windows.DataPresenter.Events;
 using Infragistics.Windows.DataPresenter.ExcelExporter;
 using Infragistics.Excel;
 using System.Diagnostics;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly
 {
@@ -24,13 +26,26 @@ namespace LoadViewDynamicly
     /// </summary>
     public partial class TeacherView : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
         public TeacherView()
         {
             InitializeComponent();
-            if (dc.DatabaseExists())
-                TeacherGrid.DataSource = dc.Teachers;
-            TeacherGrid.RecordAdded += new EventHandler<RecordAddedEventArgs>(TeacherGrid_RecordAdded);
+            try
+            {
+                if (dc.DatabaseExists())
+                    TeacherGrid.DataSource = dc.Teachers;
+                TeacherGrid.RecordAdded += new EventHandler<RecordAddedEventArgs>(TeacherGrid_RecordAdded);
+            }
+            catch (Exception e)
+            {
+                log.Error("In TeacherView: " + e.StackTrace);
+                Environment.Exit(-1);
+            }
+            finally
+            {
+            }
+            
         }
 
         private void TeacherGrid_RecordAdded(object sender, RecordAddedEventArgs e)

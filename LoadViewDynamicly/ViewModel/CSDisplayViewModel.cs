@@ -10,11 +10,14 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
 using System.ComponentModel;
 using System.Configuration;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly.ViewModel
 {
     class CSDisplayViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static int ClassDropDownItems = Int32.Parse( ConfigurationManager.AppSettings["ClassDropDownItems"]);
         private static int StudentDropDownItems = Int32.Parse(ConfigurationManager.AppSettings["StudentDropDownItems"]); 
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
@@ -30,11 +33,23 @@ namespace LoadViewDynamicly.ViewModel
             messenger.Register("RefreshStudentTable", (Action)(() => StudentTable = refreshStudentTable()));
             messenger.Register("RefreshClassTable", (Action)(() => ClassTable = refreshClassTable()));
 
-            if (dc.DatabaseExists())
+            try
             {
-                classTable = dc.Classes;
-                studentTable = dc.Students;
+                if (dc.DatabaseExists())
+                {
+                    classTable = dc.Classes;
+                    studentTable = dc.Students;
+                }
             }
+            catch (Exception e)
+            {
+                log.Error("In CSDisplayViewModel: " + e.StackTrace);
+                Environment.Exit(-1);
+            }
+            finally
+            {
+            }
+
         } //ctor
 
         System.Data.Linq.Table<Class> classTable = null;
@@ -175,6 +190,7 @@ namespace LoadViewDynamicly.ViewModel
             DisplayedProduct.Grouping = cc.ClassName + " " + cc.Semester + " " + cc.Dayofweek + " " + cc.Timeofweek;
 
             if (!stat.ChkProductForUpdate(DisplayedProduct)) return;
+
             if (!App.StoreDB.UpdateProduct(DisplayedProduct))
             {
                 stat.Status = App.StoreDB.errorMessage;

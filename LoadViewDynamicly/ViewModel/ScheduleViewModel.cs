@@ -9,11 +9,15 @@ using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Input;
 using System.ComponentModel;
 using LoadViewDynamicly.Model;
+using log4net;
+using System.Reflection;
+
 
 namespace LoadViewDynamicly.ViewModel
 {
     class ScheduleViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
         public LoadViewDynamicly.View.ScheduleView _view { get; set; }
 
@@ -238,9 +242,6 @@ namespace LoadViewDynamicly.ViewModel
 
         private void SaveAttendance()
         {
-            //List<string> checkedNames = new List<string>();
-            //List<string> uncheckedNames = new List<string>();
-
             if (db == null) db = new StoreDB();
             int? headerId = App.StoreDB.AddSchedulesHeader(ClassId, TeacherId, ClassDate, StartTime, EndTime, null, HeaderComment);
             bool flag = false;
@@ -248,14 +249,14 @@ namespace LoadViewDynamicly.ViewModel
             {
                 if (p.IsChecked) flag = true; else flag = false;                
                 App.StoreDB.AddSchedulesDetail((int)headerId, p.ID, flag, p.Comment);
-
-                //Only when classAttendanceHeaderCombo has same class, then refresh classAttendanceHeader
-                //Combo2 has classFullname, combo1
-                _view.classAttendanceHeaderCombo2.SelectedValue = GetClassName(ClassId);
-                //if (_view.classAttendanceHeaderCombo2.SelectedValue.ToString().Equals(GetClassName(ClassId)))
-                //    RefreshClassAttendanceGrid(ClassFullName);
-
             }
+
+            //Only when classAttendanceHeaderCombo has same class, then refresh classAttendanceHeader
+            //Combo2 has classFullname, combo1
+            _view.classAttendanceHeaderCombo2.SelectedValue = GetClassName(ClassId);
+            //if (_view.classAttendanceHeaderCombo2.SelectedValue.ToString().Equals(GetClassName(ClassId)))
+            RefreshClassAttendanceGrid(ClassFullName);
+
 
         }
 

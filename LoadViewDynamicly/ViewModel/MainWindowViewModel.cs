@@ -12,14 +12,15 @@ using LoadViewDynamicly.View;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Controls;
-
+using log4net;
+using System.Reflection;
 
 //TEST GitHub
 namespace LoadViewDynamicly.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static MainWindowViewModel _instance = new MainWindowViewModel();
         public static MainWindowViewModel Instance { get { return _instance; } }
         

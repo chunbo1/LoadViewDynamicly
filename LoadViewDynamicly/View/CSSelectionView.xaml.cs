@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LoadViewDynamicly.ViewModel;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly.View
 {
@@ -21,6 +23,7 @@ namespace LoadViewDynamicly.View
     /// </summary>
     public partial class CSSelectionView : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public CSSelectionView()
         {
             InitializeComponent();

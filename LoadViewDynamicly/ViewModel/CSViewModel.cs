@@ -9,12 +9,15 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Data;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly.ViewModel
 {
     
     public class CSViewModel : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
 
         private static CSViewModel _instance = new CSViewModel();
@@ -52,8 +55,16 @@ namespace LoadViewDynamicly.ViewModel
         private void GetClassStudents()
         {
             StoreDB db = new StoreDB();
-            DataItems = db.GetClassStudents();
-
+            try
+            {
+                DataItems = db.GetClassStudents();
+            }
+            catch (Exception e)
+            {
+                log.Error("In CSViewModel..GetClassStudents: " + e.StackTrace);
+                Environment.Exit(-1);
+            }
+            
             //https://wpftutorial.net/DataViews.html
             //https://stackoverflow.com/questions/8597824/listbox-groupstyle-display-how-to-design-a-group-name
             //https://stackoverflow.com/questions/20188132/how-to-correctly-bind-update-a-datagrid-with-a-collectionviewsource

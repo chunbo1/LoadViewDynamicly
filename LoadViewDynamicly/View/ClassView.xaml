@@ -27,21 +27,21 @@
         <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Content="Save" Click="Save_Click"></Button>
         <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Margin="0,0,0,0" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
             <!--igDP:GroupByArea x:Name="ExternalGroupByArea" Grid.Row="1" Grid.ColumnSpan="5"/-->
-            <igDP:XamDataPresenter   Name="Grid" Margin="20,0,20,0"   Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="6">
-                <igDP:XamDataPresenter.FieldLayoutSettings>
-                    <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
+        <igDP:XamDataPresenter   Name="Grid" Margin="20,0,20,0"   Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="6">
+            <igDP:XamDataPresenter.FieldLayoutSettings>
+                <igDP:FieldLayoutSettings AutoGenerateFields="true" FilterUIType="FilterRecord"
                                           AddNewRecordLocation="OnBottom" AllowAddNew="True" 
                                             HighlightAlternateRecords="True"
                                               HeaderPrefixAreaDisplayMode="FieldChooserButton"
                                           />
-                </igDP:XamDataPresenter.FieldLayoutSettings>
+            </igDP:XamDataPresenter.FieldLayoutSettings>
 
-                <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
-                <igDP:XamDataPresenter.FieldSettings>
-                    <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
-                </igDP:XamDataPresenter.FieldSettings>
-            </igDP:XamDataPresenter>
+            <!-- To enable the filter functionality, set the AllowRecordFiltering property of the FieldSettings. -->
+            <igDP:XamDataPresenter.FieldSettings>
+                <igDP:FieldSettings AllowRecordFiltering="true" AllowSummaries="true" SummaryUIType="Default" SummaryDisplayArea="BottomFixed" LabelTextAlignment="Right" />
+            </igDP:XamDataPresenter.FieldSettings>
+        </igDP:XamDataPresenter>
 
-        </Grid>
-
+    </Grid>
+    
 </UserControl>

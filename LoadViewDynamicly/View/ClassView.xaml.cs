@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly.View
 {
@@ -20,13 +22,24 @@ namespace LoadViewDynamicly.View
     /// </summary>
     public partial class ClassView : UserControl
     {
-
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
         public ClassView()
         {
             InitializeComponent();
-            if (dc.DatabaseExists())
-                Grid.DataSource = dc.Classes;
+            try
+            {
+                if (dc.DatabaseExists())
+                    Grid.DataSource = dc.Classes;
+            }
+            catch (Exception e)
+            {
+                log.Error("In ClassView: " + e.StackTrace);
+                Environment.Exit(-1);
+            }
+            finally
+            {
+            }
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)

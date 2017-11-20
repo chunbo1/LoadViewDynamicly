@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LoadViewDynamicly.ViewModel;
+using log4net;
+using System.Reflection;
 
 namespace LoadViewDynamicly
 {
@@ -20,11 +22,13 @@ namespace LoadViewDynamicly
     /// </summary>
     public partial class MainRibbon : Infragistics.Windows.Ribbon.XamRibbonWindow
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public MainRibbon()
         {
             InitializeComponent();
             //DataContext = new MainWindowViewModel();
             DataContext = MainWindowViewModel.Instance;
+            log.Info("MainRibbon Started");
         }
     }
 }

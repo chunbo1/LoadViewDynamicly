@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using log4net;
+using System.Reflection;
+
 
 namespace LoadViewDynamicly.ViewModel
 {
     public class StudentViewModel : ViewModelBase
     {
-
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private string _text;
         public string Text
         {

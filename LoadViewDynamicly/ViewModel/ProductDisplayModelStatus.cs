@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using System.Windows.Media;
+using log4net;
+using System.Reflection;
+
 
 namespace LoadViewDynamicly.ViewModel
 {
@@ -12,6 +15,7 @@ namespace LoadViewDynamicly.ViewModel
     //Note, a Delete may be performed without checking any Productt fields
     public class ProductDisplayModelStatus : ViewModelBase
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
 
         //Error status msg and field Brushes to indicate product field errors
