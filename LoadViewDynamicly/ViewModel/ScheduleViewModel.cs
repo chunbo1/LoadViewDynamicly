@@ -46,7 +46,7 @@ namespace LoadViewDynamicly.ViewModel
                 MyObservableCollection<MyClass> myClasses = new MyObservableCollection<MyClass>();
                 var query = from s in classTable
                             where s.Enabled == true
-                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled);
+                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled, s.Tuition);
 
                 foreach (MyClass ss in query)
                     myClasses.Add(ss);
@@ -82,7 +82,7 @@ namespace LoadViewDynamicly.ViewModel
             MyObservableCollection<MyClass> myClasses = new MyObservableCollection<MyClass>();
             var query = from s in classTable
                         where s.Enabled == true
-                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled);
+                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled, s.Tuition);
 
             foreach (MyClass ss in query)
                 myClasses.Add(ss);

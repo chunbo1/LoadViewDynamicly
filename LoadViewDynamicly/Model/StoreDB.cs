@@ -37,6 +37,7 @@ namespace LoadViewDynamicly.Model
                                 StudentName = s.FirstName + " " + s.LastName,
                                 ClassId = q.ClassId,
                                 ClassName = c.ClassName,
+                                ClassTuition = c.Tuition,
                                 TuitionPaid = q.TuitionPaid,            
                                 Comment = q.Comment,
                                 UpdateDateTime = q.UpdateDateTime,
@@ -49,6 +50,7 @@ namespace LoadViewDynamicly.Model
             {
                 errorMessage = "GetProducts() error, " + ex.Message;
                 hasError = true;
+                log.Error("In StoreDB..GetClassStudents: " + ex.Message);
             }
             return products;
         } //GetProducts()

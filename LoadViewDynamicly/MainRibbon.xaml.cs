@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using LoadViewDynamicly.ViewModel;
 using log4net;
 using System.Reflection;
+using System.Configuration;
 
 namespace LoadViewDynamicly
 {
@@ -29,6 +30,8 @@ namespace LoadViewDynamicly
             //DataContext = new MainWindowViewModel();
             DataContext = MainWindowViewModel.Instance;
             log.Info("MainRibbon Started");
+            Title = ConfigurationManager.AppSettings["Title"];
         }
+
     }
 }

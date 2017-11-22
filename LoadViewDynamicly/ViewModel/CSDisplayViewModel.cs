@@ -61,7 +61,7 @@ namespace LoadViewDynamicly.ViewModel
                 var query = (from s in classTable
                             where s.Enabled == true
                             orderby s.ID descending
-                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled)
+                            select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled, s.Tuition)
                             ).Take(ClassDropDownItems)
                             ;
                 foreach (MyClass ss in query)
@@ -121,7 +121,7 @@ namespace LoadViewDynamicly.ViewModel
             var query = (from s in classTable
                         where s.Enabled == true
                         orderby s.ID descending
-                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled)
+                        select new MyClass(s.ID, s.Division, s.ClassName, s.Semester, s.Dayofweek, s.Timeofweek, s.Enabled, s.Tuition)
                         ).Take(ClassDropDownItems)
                         ;
             foreach (MyClass ss in query)

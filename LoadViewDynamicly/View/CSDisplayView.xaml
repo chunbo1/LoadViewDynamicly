@@ -39,6 +39,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -73,15 +74,20 @@
 
             <TextBlock Margin="7" Grid.Row="2">Tuition Paid:</TextBlock>
             <TextBox Margin="5" Grid.Row="2" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.TuitionPaid, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.TuitionPaid, UpdateSourceTrigger=LostFocus}"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="3">Comment:</TextBlock>
-            <TextBox Margin="5" Grid.Row="3" Grid.Column="1"  BorderBrush="{Binding Path=Stat.CategoryNameBrush}" BorderThickness="1"
+            <TextBlock Margin="7" Grid.Row="3">Tuition Discount:</TextBlock>
+            <TextBox Margin="5" Grid.Row="3" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.TuitionDiscount}" IsEnabled="False"></TextBox>
+
+            
+            <TextBlock Margin="7" Grid.Row="4">Comment:</TextBlock>
+            <TextBox Margin="5" Grid.Row="4" Grid.Column="1"  BorderBrush="{Binding Path=Stat.CategoryNameBrush}" BorderThickness="1"
                      TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" 
                      Text="{Binding Path=DisplayedProduct.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-            <TextBlock Margin="7,7,7,0" Grid.Row="4">UpdateDateTime:</TextBlock>
-            <TextBox Margin="7" Grid.Row="4" Grid.Column="1"  
+            <TextBlock Margin="7,7,7,0" Grid.Row="5">UpdateDateTime:</TextBlock>
+            <TextBox Margin="7" Grid.Row="5" Grid.Column="1"  
                  TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding Path=DisplayedProduct.UpdateDateTime}"></TextBox>
 
             <TextBlock Margin="7,-10,0,0" Grid.Row="6">Status:</TextBlock>

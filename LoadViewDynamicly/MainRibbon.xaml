@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         xmlns:igRibbon="http://infragistics.com/Ribbon"
         xmlns:igEditors="http://infragistics.com/Editors"
-        xmlns:s="clr-namespace:System;assembly=mscorlib"         
-        Title="MainRibbon" Height="714" Width="1220"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        Title="From App Config" Height="714" Width="1220"
         Icon="Image/ancor.ico"                          
                           >
 

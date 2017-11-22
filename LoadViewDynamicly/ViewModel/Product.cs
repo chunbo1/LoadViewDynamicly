@@ -78,6 +78,17 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
+        private double? classTuition;
+        public double? ClassTuition
+        {
+            get { return classTuition; }
+            set
+            {
+                classTuition = value;
+                OnPropertyChanged("ClassTuition");
+            }
+        }
+
         private string stucls_name;
         public string StuClsName
         {
@@ -96,6 +107,19 @@ namespace LoadViewDynamicly.ViewModel
             {
                 tuitionPaid = value;
                 OnPropertyChanged("TuitionPaid");
+                if (tuitionPaid.HasValue && ClassTuition.HasValue)
+                    TuitionDiscount = 1-((double) tuitionPaid) / ClassTuition;
+            }
+        }
+
+        private double? tuitionDiscount;
+        public double? TuitionDiscount
+        {
+            get { return tuitionDiscount; }
+            set
+            {
+                tuitionDiscount = value;
+                OnPropertyChanged("TuitionDiscount");
             }
         }
 
@@ -130,15 +154,17 @@ namespace LoadViewDynamicly.ViewModel
         }
 
         public ClassStudent(int _Id, int? studentId, string studentName, 
-            int? classId, string className, int? tuitionPaid,
-                       string comment, DateTime updateDateTime, string grouping)
+            int? classId, string className, double? classTuition, int? tuitionPaid,
+                       string comment, DateTime updateDateTime, string grouping, double? tuitionDiscount)
         {
             this.id = _Id;
             StudentId = studentId;
             StudentName = studentName;
             ClassId = classId;
             ClassName = className;
+            ClassTuition = classTuition;
             TuitionPaid = tuitionPaid;
+            TuitionDiscount = tuitionDiscount;
             Comment = comment;
             UpdateDateTime = updateDateTime;
             Grouping = grouping;
@@ -152,6 +178,8 @@ namespace LoadViewDynamicly.ViewModel
             this.StudentName = p.StudentName;
             this.ClassId = p.ClassId;
             this.ClassName = p.ClassName;
+            this.ClassTuition = p.ClassTuition;
+            this.TuitionDiscount = p.TuitionDiscount;
             this.TuitionPaid = p.tuitionPaid;
             this.Comment = p.Comment;
             this.UpdateDateTime = p.UpdateDateTime;            
@@ -178,7 +206,9 @@ namespace LoadViewDynamicly.ViewModel
         public string StudentName { get; set; }
         public int? ClassId { get; set; }
         public string ClassName { get; set; }
+        public double? ClassTuition { get; set; }
         public int? TuitionPaid { get; set; }
+        public double? TuitionDiscount { get; set; }
         public string Comment { get; set; }
         public DateTime UpdateDateTime { get; set; }
         public string Grouping { get; set; }
@@ -205,11 +235,12 @@ namespace LoadViewDynamicly.ViewModel
             TuitionPaid = p.TuitionPaid;
             Comment = p.Comment;
             UpdateDateTime = p.UpdateDateTime;
+            TuitionDiscount = p.TuitionDiscount;
         }
 
         public ClassStudent SqlProduct2Product()
         {
-            return new ClassStudent(Id, StudentId, StudentName, ClassId, ClassName, TuitionPaid, Comment,  UpdateDateTime, Grouping);
+            return new ClassStudent(Id, StudentId, StudentName, ClassId, ClassName, ClassTuition, TuitionPaid, Comment,  UpdateDateTime, Grouping, 1-TuitionPaid/ClassTuition);
         } //SqlProduct2Product()
     }//Class SqlClassStudent
 
@@ -239,7 +270,8 @@ namespace LoadViewDynamicly.ViewModel
         public string Dayofweek { get; set; }
         public string Timeofweek { get; set; }
         public bool? Enabled { get; set; }
-        public MyClass(int id, string division, string className, string semester, string dayofweek, string timeofweek, bool? enabled)
+        public double? TuitionPaid { get; set; }
+        public MyClass(int id, string division, string className, string semester, string dayofweek, string timeofweek, bool? enabled, double? tuitionPaid)
         {
             ID = id;
             ClassName = className;
@@ -248,6 +280,7 @@ namespace LoadViewDynamicly.ViewModel
             Timeofweek = timeofweek;
             Enabled = enabled;
             FullName = className.Trim() + " " + semester.Trim() + " " + dayofweek.Trim() + " " + timeofweek.Trim();
+            TuitionPaid = tuitionPaid;
         }
     }//MyClass
 
