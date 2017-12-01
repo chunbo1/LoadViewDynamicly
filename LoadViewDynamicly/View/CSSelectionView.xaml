@@ -23,6 +23,7 @@
             ItemsSource="{Binding DataItems}" 
             DisplayMemberPath="StudentName"
             SelectedItem="{Binding SelectedProduct}">
+            <!-- https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
             <!-- https://stackoverflow.com/questions/12297502/how-to-handle-wpf-listbox-selectionchanged-event-using-mvvm-->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
