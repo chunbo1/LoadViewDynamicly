@@ -161,14 +161,6 @@
     <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.spGetClassAttendanceDetail" Method="spGetClassAttendanceDetail">
-    <Parameter Name="HeaderId" Parameter="headerId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="spGetClassAttendanceDetailResult">
-      <Column Name="Student" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
-      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.spClassAttendanceHeader" Method="spClassAttendanceHeader">
     <Parameter Name="ClassName" Parameter="className" Type="System.String" DbType="VarChar(50)" />
     <ElementType Name="spClassAttendanceHeaderResult">
@@ -180,6 +172,15 @@
       <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="StartTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
       <Column Name="EndTime" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spGetClassAttendanceDetail" Method="spGetClassAttendanceDetail">
+    <Parameter Name="HeaderId" Parameter="headerId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spGetClassAttendanceDetailResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Student" Type="System.String" DbType="VarChar(101) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

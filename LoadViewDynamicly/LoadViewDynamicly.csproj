@@ -132,6 +132,7 @@
     <Compile Include="ViewModel\ExtensionMethods.cs" />
     <Compile Include="ViewModel\ScheduleStudentViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
+    <Compile Include="ViewModel\StudentDetailViewModel.cs" />
     <Compile Include="View\ClassView.xaml.cs">
       <DependentUpon>ClassView.xaml</DependentUpon>
     </Compile>
@@ -155,6 +156,9 @@
     </Compile>
     <Compile Include="View\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentDetailView.xaml.cs">
+      <DependentUpon>StudentDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TeacherView.xaml.cs">
       <DependentUpon>TeacherView.xaml</DependentUpon>
@@ -208,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -203,18 +203,18 @@ namespace LoadViewDynamicly
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spGetClassAttendanceDetail")]
-		public ISingleResult<spGetClassAttendanceDetailResult> spGetClassAttendanceDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="HeaderId", DbType="Int")] System.Nullable<int> headerId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), headerId);
-			return ((ISingleResult<spGetClassAttendanceDetailResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spClassAttendanceHeader")]
 		public ISingleResult<spClassAttendanceHeaderResult> spClassAttendanceHeader([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassName", DbType="VarChar(50)")] string className)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), className);
 			return ((ISingleResult<spClassAttendanceHeaderResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spGetClassAttendanceDetail")]
+		public ISingleResult<spGetClassAttendanceDetailResult> spGetClassAttendanceDetail([global::System.Data.Linq.Mapping.ParameterAttribute(Name="HeaderId", DbType="Int")] System.Nullable<int> headerId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), headerId);
+			return ((ISingleResult<spGetClassAttendanceDetailResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -2228,68 +2228,6 @@ namespace LoadViewDynamicly
 		}
 	}
 	
-	public partial class spGetClassAttendanceDetailResult
-	{
-		
-		private string _Student;
-		
-		private System.Nullable<bool> _Status;
-		
-		private string _Comment;
-		
-		public spGetClassAttendanceDetailResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Student", DbType="VarChar(101) NOT NULL", CanBeNull=false)]
-		public string Student
-		{
-			get
-			{
-				return this._Student;
-			}
-			set
-			{
-				if ((this._Student != value))
-				{
-					this._Student = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
-		public System.Nullable<bool> Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this._Status = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
-		public string Comment
-		{
-			get
-			{
-				return this._Comment;
-			}
-			set
-			{
-				if ((this._Comment != value))
-				{
-					this._Comment = value;
-				}
-			}
-		}
-	}
-	
 	public partial class spClassAttendanceHeaderResult
 	{
 		
@@ -2437,6 +2375,86 @@ namespace LoadViewDynamicly
 				if ((this._EndTime != value))
 				{
 					this._EndTime = value;
+				}
+			}
+		}
+	}
+	
+	public partial class spGetClassAttendanceDetailResult
+	{
+		
+		private int _ID;
+		
+		private string _Student;
+		
+		private System.Nullable<bool> _Status;
+		
+		private string _Comment;
+		
+		public spGetClassAttendanceDetailResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL")]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this._ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Student", DbType="VarChar(101) NOT NULL", CanBeNull=false)]
+		public string Student
+		{
+			get
+			{
+				return this._Student;
+			}
+			set
+			{
+				if ((this._Student != value))
+				{
+					this._Student = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
+		public System.Nullable<bool> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this._Status = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="VarChar(250)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
 				}
 			}
 		}

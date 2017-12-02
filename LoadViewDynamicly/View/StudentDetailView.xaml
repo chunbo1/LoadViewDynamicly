@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="LoadViewDynamicly.View.StudentDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LoadViewDynamicly.View"
+             xmlns:ige="http://infragistics.com/Editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10.627" />
+            <ColumnDefinition Width="119.373"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="FirstName"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+        <TextBox Grid.Row="0"
+                                     Grid.Column="2"                                     
+                                     Text="{Binding Path=ActiveRecord.DataItem.Alias, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                     DataContext="{Binding}" />
+
+        <TextBlock Grid.Row="0"
+                                       Grid.Column="3"
+                                       Text="LastName"
+                                       FontWeight="Bold" />
+        
+        <TextBox Grid.Row="0"
+                                     Grid.Column="4"  
+                                     Text="{Binding Path=ActiveRecord.DataItem.Alias, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                     DataContext="{Binding}" />
+
+        <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="Gender"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+        <TextBox Grid.Row="1"
+                                     Grid.Column="2"
+                                     
+                                     ToolTip="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Text}"
+                                     Text="{Binding Path=ActiveRecord.DataItem.BridgeName, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+
+        <TextBlock Grid.Row="1"
+                                       Grid.Column="3"
+                                       Text="BirthDate"
+                                       FontWeight="Bold" />
+
+        <ige:XamDateTimeEditor Grid.Row="1"
+                                                   Grid.Column="4"
+                                                   Value="{Binding Path=ActiveRecord.DataItem.StartDate, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                                   Width="Auto" />
+        
+        <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="ContactName"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+        <TextBox Grid.Row="2"
+                                     Grid.Column="2"
+                                     
+                                     Text="{Binding Path=ActiveRecord.DataItem.BridgeAlias, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="2"
+                                       Grid.Column="3"
+                                       Text="Address"
+                                       FontWeight="Bold" />
+
+        <TextBox Grid.Row="2"
+                                     Grid.Column="4"  
+                                     Text="{Binding Path=ActiveRecord.DataItem.Alias, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                     DataContext="{Binding}" />
+
+
+        <TextBlock Grid.Row="3"
+                                       Grid.Column="3"
+                                       Text="CellPhone"
+                                       FontWeight="Bold" />
+
+        <TextBox Grid.Row="3"
+                                     Grid.Column="4"  
+                                     Text="{Binding Path=ActiveRecord.DataItem.Alias, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                     DataContext="{Binding}" />
+
+        <TextBlock Grid.Row="3"
+                                       Grid.Column="0"
+                                       Text="Email"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+        <TextBox Grid.Row="3"
+                                     Grid.Column="2"
+                                     
+                                     ToolTip="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Text}"
+                                     Text="{Binding Path=ActiveRecord.DataItem.PertracName, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}">
+
+        </TextBox>
+
+        <TextBlock Grid.Row="4"
+                                       Grid.Column="0"
+                                       Text="HomePhone"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+        <TextBox Grid.Row="4"
+                                     Grid.Column="2"
+                                     
+                                     ToolTip="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Text}"
+                                     Text="{Binding Path=ActiveRecord.DataItem.PertracName, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}">
+
+        </TextBox>
+
+
+        <TextBlock Grid.Row="4"
+                                       Grid.Column="3"
+                                       Text="StudentPhone"
+                                       FontWeight="Bold" />
+
+        <TextBox Grid.Row="4"
+                                     Grid.Column="4"  
+                                     Text="{Binding Path=ActiveRecord.DataItem.Alias, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                     DataContext="{Binding}" />
+
+
+
+        <TextBlock Grid.Row="6"
+                                       Grid.Column="0"
+                                       Text="Comment"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+       
+
+        <TextBlock Grid.Row="6"
+                                       Grid.Column="3"
+                                       Text="UpdateDateTime"
+                                       FontWeight="Bold" />
+
+        <ige:XamDateTimeEditor Grid.Row="6"
+                                                   Grid.Column="4"
+                                                   Value="{Binding Path=ActiveRecord.DataItem.PMApprovalDate, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                                   Width="Auto" />
+
+        <TextBlock Grid.Row="7"
+                                       Grid.Column="0"
+                                       Text="Terminated"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+       
+        <TextBlock Grid.Row="7"
+                                       Grid.Column="3"
+                                       Text="Termination Date"
+                                       FontWeight="Bold" />
+
+        <ige:XamDateTimeEditor Grid.Row="7"
+                                                   Grid.Column="4"
+                                                   IsEnabled="{Binding Path=ActiveRecord.DataItem.IsTerminated, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                                   Value="{Binding Path=ActiveRecord.DataItem.TerminationDate, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                                   Width="Auto" />
+
+        <TextBlock Grid.Row="8"
+                                       Grid.Column="0"
+                                       Text="Include Equity Margin"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+   
+        <TextBlock Grid.Row="8"
+                                       Grid.Column="3"
+                                       Text="PL View Sort"
+                                       FontWeight="Bold" />
+
+        <ige:XamMaskedEditor Grid.Row="8"
+                                                 Grid.Column="4"
+                                                 HorizontalContentAlignment="Right"
+                                                 Mask="nnnnnnn"
+                                                 Value="{Binding Path=ActiveRecord.DataItem.PLSortOrder, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                                 Width="Auto" />
+
+
+        <TextBlock Grid.Row="9"
+                                       Grid.Column="0"
+                                       Text="PL Start Date"
+                                       FontWeight="Bold" Grid.ColumnSpan="2" />
+
+        <ige:XamDateTimeEditor Grid.Row="9"
+                                                   Grid.Column="2"
+                                                   Value="{Binding Path=ActiveRecord.DataItem.PnLStartDate, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}"
+                                                   Width="Auto" />
+
+        <TextBlock Grid.Row="9"
+                                       Grid.Column="3"
+                                       Text="Hedge Account"
+                                       FontWeight="Bold" Height="30" VerticalAlignment="Bottom" />
+
+        <CheckBox Grid.Row="9"
+                                      Grid.Column="4"
+                                      x:Name="HedgeAccountCheckBox"
+                                      VerticalAlignment="Center"
+                                      IsChecked="{Binding Path=ActiveRecord.DataItem.IsHedge, ElementName=AccountsGrid, UpdateSourceTrigger=PropertyChanged}" Margin="3,8" />
+
+    </Grid>
+</UserControl>

@@ -223,8 +223,8 @@ namespace LoadViewDynamicly.ViewModel
         private void LoadStudentAttendance()
         {
             //dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-            //_view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(ActiveHeader.AttendanceHeader);
-             
+          //_view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(ActiveHeader.AttendanceHeader);
+               
         }
 
 

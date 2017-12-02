@@ -303,4 +303,180 @@ namespace LoadViewDynamicly.ViewModel
 
 
 
+    //Used by ScheduleView
+    public class StudentDetail
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
+
+        //For DB use only!
+        private int id;
+        public int ID {
+            get { return id; }
+            set
+            {
+                id = value;
+                OnPropertyChanged("ID");
+            }
+        }
+
+        private string firstName;
+        public string FirstName
+        {
+            get { return firstName; }
+            set
+            {
+                firstName = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
+
+        private string lastName;
+        public string LastName
+        {
+            get { return lastName; }
+            set
+            {
+                lastName = value;
+                OnPropertyChanged("LastName");
+            }
+        }
+        
+        private string gender;
+        public string Gender
+        {
+            get { return gender; }
+            set
+            {
+                gender = value;
+                OnPropertyChanged("Gender");
+            }
+        }
+
+        private DateTime? birthDate;
+        public DateTime? BirthDate
+        {
+            get { return birthDate; }
+            set
+            {
+                birthDate = value;
+                OnPropertyChanged("BirthDate");
+            }
+        }
+
+        private string contactName;
+        public string ContactName
+        {
+            get { return contactName; }
+            set
+            {
+                contactName = value;
+                OnPropertyChanged("ContactName");
+            }
+        }
+
+        private string address;
+        public string Address
+        {
+            get { return address; }
+            set
+            {
+                address = value;
+                OnPropertyChanged("Address");
+            }
+        }
+
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value;
+                OnPropertyChanged("Email");
+            }
+        }
+
+        private string cellPhone;
+        public string CellPhone
+        {
+            get { return cellPhone; }
+            set
+            {
+                cellPhone = value;
+                OnPropertyChanged("CellPhone");
+            }
+        }
+
+        private string homePhone;
+        public string HomePhone
+        {
+            get { return homePhone; }
+            set
+            {
+                homePhone = value;
+                OnPropertyChanged("HomePhone");
+            }
+        }
+
+        private string studentPhone;
+        public string StudentPhone
+        {
+            get { return studentPhone; }
+            set
+            {
+                studentPhone = value;
+                OnPropertyChanged("StudentPhone");
+            }
+        }
+
+        private string comment;
+        public string Comment
+        {
+            get { return comment; }
+            set
+            {
+                comment = value;
+                OnPropertyChanged("Comment");
+            }
+        }
+
+        private DateTime? updateDateTime;
+        public DateTime? UpdateDateTime
+        {
+            get { return updateDateTime; }
+            set
+            {
+                updateDateTime = value;
+                OnPropertyChanged("UpdateDateTime");
+            }
+        }
+
+        public StudentDetail()
+        { }
+
+        public StudentDetail(int id, string firstName, string lastName, string gender,
+            DateTime birthDate, string contactName, string address, string email, string cellPhone,
+            string homePhone, string studentPhone, string comment, DateTime updateDateTime)
+        {
+            ID = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Gender = gender;
+            BirthDate = birthDate;
+            ContactName = contactName;
+            Address = address;
+            Email = email;
+            CellPhone = cellPhone;
+            HomePhone = homePhone;
+            StudentPhone = studentPhone;
+            Comment = comment;
+            UpdateDateTime = updateDateTime;
+        }
+    }//Class StudentDetail
+
 }//NS
