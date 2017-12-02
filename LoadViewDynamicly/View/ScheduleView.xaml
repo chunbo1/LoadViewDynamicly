@@ -313,10 +313,10 @@
 
         <Grid Grid.Row="0" Grid.RowSpan="4" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="2"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
             </Grid.RowDefinitions>
             
             <GroupBox Grid.Row="0" 
@@ -406,7 +406,7 @@
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch">
             <ScrollViewer>
-                    <igDP:XamDataPresenter ActiveDataItem="{Binding ActiveStudent, Mode=TwoWay}" 
+                    <igDP:XamDataPresenter ActiveDataItem="{Binding ActiveAttendanceDetail, Mode=TwoWay}" 
                                            DataSource="{Binding Path=Members}"  
                                        Name="StudentAttendance1Grid" Margin="20,10,0,0"   
                                Grid.Row="3" Grid.Column="0" >
@@ -421,6 +421,12 @@
                         <igDP:XamDataPresenter.FieldSettings>
                             <igDP:FieldSettings LabelTextAlignment="Right" />
                         </igDP:XamDataPresenter.FieldSettings>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="RecordActivated">
+                                <i:InvokeCommandAction Command="{Binding LoadStudentDetailCommandXXX}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
                     </igDP:XamDataPresenter>
 

@@ -460,8 +460,8 @@ namespace LoadViewDynamicly.ViewModel
         { }
 
         public StudentDetail(int id, string firstName, string lastName, string gender,
-            DateTime birthDate, string contactName, string address, string email, string cellPhone,
-            string homePhone, string studentPhone, string comment, DateTime updateDateTime)
+            DateTime? birthDate, string contactName, string address, string email, string cellPhone,
+            string homePhone, string studentPhone, string comment, DateTime? updateDateTime)
         {
             ID = id;
             FirstName = firstName;

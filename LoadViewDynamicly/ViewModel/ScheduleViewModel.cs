@@ -223,10 +223,27 @@ namespace LoadViewDynamicly.ViewModel
         private void LoadStudentAttendance()
         {
             //dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-          //_view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(ActiveHeader.AttendanceHeader);
-               
+            //_view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(ActiveHeader.AttendanceHeader);
+          
         }
 
+        private RelayCommand loadStudentDetailCommand;
+        public ICommand LoadStudentDetailCommandXXX
+        {
+            get
+            {
+                return loadStudentDetailCommand ?? (loadStudentDetailCommand = new RelayCommand(() => LoadStudentDetailXXX(),
+                      () => (true)));
+            }
+        }
+
+        private void LoadStudentDetailXXX()//loadClassAttandenceDetail
+        {
+
+            //Occurs befoire ActiveDataItem="{Binding ActiveAttendanceDetail}
+            //so at this point, ActiveAttendanceDetail = null
+            //int a = ActiveAttendanceDetail.ID;
+        }
 
         private RelayCommand saveAttendanceCommand;
         public ICommand SaveAttendanceCommand
@@ -311,6 +328,22 @@ namespace LoadViewDynamicly.ViewModel
                 _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
                 classAttendanceRecordClicked = true;
                 MainWindowViewModel.Instance.StatusBar = $"You just selected class attendance header {activeHeader.AttendanceHeader}";
+            }
+        }
+
+        bool classAttendanceDetailClicked = false;
+        private spGetClassAttendanceDetailResult activeAttendanceDetail;
+        public spGetClassAttendanceDetailResult ActiveAttendanceDetail
+        {
+            get { return activeAttendanceDetail; }
+            set
+            {
+                activeAttendanceDetail = value;
+                RaisePropertyChanged("ActiveAttendanceDetail");
+                classAttendanceDetailClicked = true;
+                App.Messenger.NotifyColleagues("StudentSelectionChanged", activeAttendanceDetail.ID);
+
+                //MainWindowViewModel.Instance.StatusBar = $"You just selected student {ActiveAttendanceDetail.Student}";
             }
         }
 
