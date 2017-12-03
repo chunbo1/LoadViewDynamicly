@@ -97,11 +97,25 @@
                         <igRibbon:RibbonGroup Caption="Accounting" Id="grAccounting">
                             <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
                                 <!--TODO: Add tools here-->
-                                <igRibbon:ButtonTool Caption="Book Keeping" Id="btnBookKeeping" Command="{Binding ChangeClassStudentViewCommand}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
-                                <igRibbon:ButtonTool Caption="Semester Report" Id="btnSemesterReport" Command="{Binding ChangeScheduleViewCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Class PnL" Id="btnClassPnL" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Student Attendance Card" Id="btnStudentAttendanceCard" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Student Performance Card" Id="btnStudentPerformanceCard" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Class Book Keeping Report" Id="btnBookKeeping" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Semester PnL Report" Id="btnSemesterReport" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+
                             </igRibbon:ToolHorizontalWrapPanel>
                         </igRibbon:RibbonGroup>
+
+                        <igRibbon:RibbonGroup Caption="Staff Management" Id="grStaffManagement">
+                            <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
+                                <!--TODO: Add tools here-->
+                                <igRibbon:ButtonTool Caption="StaffSalary" Id="btnStaffSalary" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Staff Attendance Card" Id="btnStaffAttendanceCard" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                            </igRibbon:ToolHorizontalWrapPanel>
+                        </igRibbon:RibbonGroup>
+
                     </igRibbon:RibbonTabItem>
+
 
 
                 </igRibbon:XamRibbon.Tabs>

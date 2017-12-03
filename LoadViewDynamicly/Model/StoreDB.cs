@@ -94,6 +94,11 @@ namespace LoadViewDynamicly.Model
             hasError = false;
             try
             {
+                //double mynum;
+                //if (displayP.TuitionDiscount.HasValue)
+                //    ;
+                //else
+                //    displayP.TuitionDiscount = null;
                 SqlClassStudent p = new SqlClassStudent(displayP);
                 DataClasses1DataContext dc = new DataClasses1DataContext();
                 int? newId = 0;

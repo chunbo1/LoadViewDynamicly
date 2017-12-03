@@ -15,11 +15,17 @@ namespace LoadViewDynamicly.ViewModel
     //It is assigned by the DB when it creates a new product.  It is used
     //to identify a product and must not be modified by the GUI.
     [Serializable]
-    public class ClassStudent : IEquatable<ClassStudent>
+
+    //if forghet inherit INotifyPropertyChanged, TuitionDiscount never get auto calculated because PropertyChanged always = null
+    //By inheriting INotifyPropertyChanged, WPF data-binding infrastructure will add a PropertyChanged handler when you set the object as a DataContext
+    public class ClassStudent : IEquatable<ClassStudent>, INotifyPropertyChanged//if forghet inherit INotifyPropertyChanged
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        DataClasses1DataContext dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+
         bool IEquatable<ClassStudent>.Equals(ClassStudent other)
-        {
+        {//Used by dataItems.IndexOf(selectedProduct);
+         //used by DataItems.Contains(DisplayedProduct)
             return Grouping == other.Grouping && StudentId == other.StudentId;
         }
 
@@ -107,15 +113,27 @@ namespace LoadViewDynamicly.ViewModel
             {
                 tuitionPaid = value;
                 OnPropertyChanged("TuitionPaid");
+                //https://stackoverflow.com/questions/2235890/inotifypropertychanged-and-calculated-property
                 if (tuitionPaid.HasValue && ClassTuition.HasValue)
-                    TuitionDiscount = 1-((double) tuitionPaid) / ClassTuition;
+                    OnPropertyChanged("TuitionDiscount");
             }
         }
 
         private double? tuitionDiscount;
         public double? TuitionDiscount
         {
-            get { return tuitionDiscount; }
+            get {
+                //After adding a new student in Class, we need to retrieve ClassTuition; StoreDB..GetClassStudents gets ClassTuition
+                //If it comes here from Delete student, we dont want to invoke spGetClassTuition
+                
+                if ( ClassTuition == null && App.last_action.Equals("Add") )
+                {
+                    dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                    ClassTuition = dc.spGetClassTuition(ClassId).First().Tuition;
+                    log.Info("In Products ClassStudent..TuitionDiscount, it invoked dc.spGetClassTuition(ClassId)!!! Extra Cost!!!");
+                }
+                return 1 - ((double)tuitionPaid) / ClassTuition;                             
+                }
             set
             {
                 tuitionDiscount = value;
@@ -171,6 +189,7 @@ namespace LoadViewDynamicly.ViewModel
         }
         
 
+        //Deep copy logic is not used 
         public void CopyProduct(ClassStudent p)
         {
             this.id = p.ID;
@@ -235,7 +254,7 @@ namespace LoadViewDynamicly.ViewModel
             TuitionPaid = p.TuitionPaid;
             Comment = p.Comment;
             UpdateDateTime = p.UpdateDateTime;
-            TuitionDiscount = p.TuitionDiscount;
+            //TuitionDiscount = p.TuitionDiscount;
         }
 
         public ClassStudent SqlProduct2Product()

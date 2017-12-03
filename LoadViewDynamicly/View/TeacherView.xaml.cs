@@ -80,6 +80,9 @@ namespace LoadViewDynamicly
         private void Save_Click(object sender, RoutedEventArgs e)
         {            
             dc.SubmitChanges();
+            Messenger messenger = App.Messenger;
+            //After adding a new class, need to refresh TeacherTable
+            messenger.NotifyColleagues("RefreshTeacherTable");
         }
 
         private void Export2Excel_Click(object sender, RoutedEventArgs e)

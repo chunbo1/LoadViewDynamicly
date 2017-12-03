@@ -35,7 +35,7 @@ namespace LoadViewDynamicly.ViewModel
             //We can use DataGrid instead of ListBox [SelectedItem="{Binding SelectedProduct}">]
             ///_customerView.CurrentChanged += CustomerSelectionChanged;
 
-            listBoxSelectionChangeCommand = new RelayCommand(() => SelectionHasChanged());
+            listBoxSelectionChangeCommand = new RelayCommand(() => SelectionHasChanged() );
             App.Messenger.Register("ProductCleared", (Action)(() => SelectedProduct = null));
             App.Messenger.Register("GetClassStudents", (Action)(() => GetClassStudents()));
             App.Messenger.Register("UpdateProduct", (Action<ClassStudent>)(param => UpdateProduct(param)));
@@ -108,6 +108,7 @@ namespace LoadViewDynamicly.ViewModel
 
         private void AddProduct(ClassStudent p)
         {
+            //No need for deep copy
             DataItems.Add(p);
             //RefreshCustomerView();
         }

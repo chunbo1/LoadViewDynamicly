@@ -27,7 +27,7 @@ namespace LoadViewDynamicly
 
         readonly static Messenger _messenger = new Messenger();
 
-
+        internal static string last_action= "";
 
     }//App
 }

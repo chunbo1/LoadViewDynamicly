@@ -81,7 +81,8 @@ namespace LoadViewDynamicly.ViewModel
             get {
                 MyObservableCollection<MyStudent> myStudents = new MyObservableCollection<MyStudent>();
                 var query = (from s in studentTable
-                            orderby s.FirstName
+                             where s.Enabled == true
+                             orderby s.FirstName
                             select new MyStudent(s.ID, "" + 
                             s.FirstName + " " + s.LastName + " " + ((s.CellPhone.Length>0) ? s.CellPhone: s.HomePhone),
                             s.FirstName, s.LastName )
@@ -137,8 +138,10 @@ namespace LoadViewDynamicly.ViewModel
         public ClassStudent DisplayedProduct
         {
             get { return displayedProduct; }
-            set { displayedProduct = value;
-                RaisePropertyChanged("DisplayedProduct"); }
+            set {
+                displayedProduct = value;
+                RaisePropertyChanged("DisplayedProduct");
+                }
         }
 
 
@@ -150,9 +153,16 @@ namespace LoadViewDynamicly.ViewModel
 
         private void GetClassStudent()
         {
+            App.last_action = "Refresh";
             isSelected = false;
             stat.NoError();
-            DisplayedProduct = new ClassStudent();
+            if (DisplayedProduct != null && DisplayedProduct.ClassId == null && DisplayedProduct.StudentId == null)
+                log.Info("In GetClassStudent: No need to create a new ClassStudent()");
+            else
+            {
+                DisplayedProduct = new ClassStudent();
+                log.Info("GetClassStudent() invokes DisplayedProduct = new ClassStudent()");
+            }
             App.Messenger.NotifyColleagues("GetClassStudents");
             MainWindowViewModel.Instance.StatusBar = $"DB Refreshed";
         }
@@ -166,9 +176,16 @@ namespace LoadViewDynamicly.ViewModel
 
         private void ClearClassStudentDisplay()
         {
+            //App.last_action = "Clear"; Clear is always appended to other major Actions
             isSelected = false;
             stat.NoError();
-            DisplayedProduct = new ClassStudent();
+            if (DisplayedProduct!= null && DisplayedProduct.ClassId == null && DisplayedProduct.StudentId == null)
+                log.Info("In ClearClassStudentDisplay: No need to create a new ClassStudent()");
+            else
+            {
+                DisplayedProduct = new ClassStudent();
+                log.Info("ClearClassStudentDisplay() invokes DisplayedProduct = new ClassStudent()");
+            }
             App.Messenger.NotifyColleagues("ProductCleared");
             ///MainWindowViewModel.Instance.StatusBar = $"Screen Cleared";
         } //ClearProductDisplay()
@@ -182,6 +199,7 @@ namespace LoadViewDynamicly.ViewModel
 
         private void UpdateClassStudent()
         {
+            App.last_action = "Update";
             //Sync DisplayedProduct's ID with Name
             MyClass cc = (MyClass)ClassTable.SingleOrDefault(c => c.ID == (DisplayedProduct.ClassId ?? 0));
             DisplayedProduct.ClassName = cc.ClassName;
@@ -196,6 +214,7 @@ namespace LoadViewDynamicly.ViewModel
                 stat.Status = App.StoreDB.errorMessage;
                 return;
             }
+            log.Info("In UpdateClassStudent: " + $"Record updated for  {DisplayedProduct.ClassName} {DisplayedProduct.StudentName}");
             App.Messenger.NotifyColleagues("UpdateProduct", DisplayedProduct);
             MainWindowViewModel.Instance.StatusBar = $"DB Updated for {DisplayedProduct.ClassName} {DisplayedProduct.StudentName}";
         } //UpdateProduct()
@@ -210,17 +229,20 @@ namespace LoadViewDynamicly.ViewModel
 
         private void DeleteClassStudent()
         {
+            App.last_action = "Delete";
             if (!App.StoreDB.DeleteProduct(DisplayedProduct.ID))
             {
                 stat.Status = App.StoreDB.errorMessage;
                 return;
             }
             isSelected = false;
-            MainWindowViewModel.Instance.StatusBar = $"Record deleted for {DisplayedProduct.ID}";
-            App.Messenger.NotifyColleagues("DeleteProduct");
+            MainWindowViewModel.Instance.StatusBar = $"Record deleted for record# {DisplayedProduct.ID}";
+            log.Info("In DeleteClassStudent: " + $"Record deleted for record# {DisplayedProduct.ID}");
 
+            App.Messenger.NotifyColleagues("DeleteProduct");
             //This is necessary to create a brand-new instance for DisplayedProduct
             ClearClassStudentDisplay();
+            
             
         } //DeleteProduct
 
@@ -234,7 +256,7 @@ namespace LoadViewDynamicly.ViewModel
 
         private void AddProduct()
         {
-
+            App.last_action = "Add";
             if (DisplayedProduct.ClassId == null) { stat.Status = "Please pick up a Class"; return; }
             if (DisplayedProduct.StudentId == null) { stat.Status = "Please pick up a Student"; return; }
             //Sync DisplayedProduct's ID with Name
@@ -260,7 +282,8 @@ namespace LoadViewDynamicly.ViewModel
             }
             App.Messenger.NotifyColleagues("AddProduct", DisplayedProduct);
             MainWindowViewModel.Instance.StatusBar = $"Record Added for {DisplayedProduct.Grouping} {DisplayedProduct.StudentName}";
-
+            log.Info("In AddProduct: " + $"Record Added for {DisplayedProduct.Grouping} {DisplayedProduct.StudentName}");
+            
             //This is necessary to create a brand-new instance for DisplayedProduct
             ClearClassStudentDisplay();
             
@@ -269,16 +292,20 @@ namespace LoadViewDynamicly.ViewModel
 
         public void ProcessProduct(ClassStudent p)
         {
+            //Delete will trigger SelectionChanged, So SelectionChanged is ambigous, let's disable this flag to remove abiguity
+            //App.last_action = "SelectionChanged";
             if (p == null) {
                 /*DisplayedProduct = null;*/
                 isSelected = false;
                 return;
             }
-            //Deep copy to seperate DisplayedProduct in DisplayVM and CSViewModel; Each has its own context
-            ClassStudent temp = new ClassStudent();
-            temp.CopyProduct(p);
-            DisplayedProduct = temp;
-            
+            //Deep copy to seperate DisplayVM..DisplayedProduct and CSViewModel..SelectedProduct; Each has its own context
+            //but after testing, we dont need to do a deep copy, it still works
+            ///ClassStudent temp = new ClassStudent();
+            ///temp.CopyProduct(p);
+            //DisplayedProduct = temp;
+            DisplayedProduct = p;
+
             isSelected = true;
             stat.NoError();
             MainWindowViewModel.Instance.StatusBar = $"Record selection changed";
