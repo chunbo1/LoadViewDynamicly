@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Reports.ReportViewerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:rpt="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <WindowsFormsHost x:Name="WinFormsHostCtl"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Stretch"
+                                           HorizontalAlignment="Stretch"
+                                           Background="White">
+            <rpt:ReportViewer Name="ReportViewerCtl"
+                              ProcessingMode="Local" />
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>

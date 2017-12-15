@@ -124,12 +124,16 @@
     <Compile Include="Messenger.cs" />
     <Compile Include="Model\StoreDB.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Report\StudentRoster.xaml.cs">
+      <DependentUpon>StudentRoster.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ClassViewModel.cs" />
     <Compile Include="ViewModel\CSDisplayViewModel.cs" />
     <Compile Include="ViewModel\CSViewModel.cs" />
     <Compile Include="ViewModel\Product.cs" />
     <Compile Include="ViewModel\ProductDisplayModelStatus.cs" />
     <Compile Include="ViewModel\ExtensionMethods.cs" />
+    <Compile Include="ViewModel\Report\StudentRosterViewModel.cs" />
     <Compile Include="ViewModel\ScheduleStudentViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="ViewModel\StudentDetailViewModel.cs" />
@@ -180,6 +184,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\StudentRoster.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -974,6 +982,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reports\Reports.csproj">
+      <Project>{8b98a979-be37-4609-9138-e91032c54e17}</Project>
+      <Name>Reports</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

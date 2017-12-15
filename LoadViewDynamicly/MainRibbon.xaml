@@ -94,12 +94,12 @@
                     </igRibbon:RibbonTabItem>
 
                     <igRibbon:RibbonTabItem Header="Back Office" FlowDirection="LeftToRight">
-                        <igRibbon:RibbonGroup Caption="Accounting" Id="grAccounting">
+                        <igRibbon:RibbonGroup Caption="Reporting" Id="grReporting">
                             <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
                                 <!--TODO: Add tools here-->
-                                <igRibbon:ButtonTool Caption="Class PnL" Id="btnClassPnL" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Student Roster" Id="btnStudentRoster" Command="{Binding ChangeStudentRosterCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Student Attendance Card" Id="btnStudentAttendanceCard" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
-                                <igRibbon:ButtonTool Caption="Student Performance Card" Id="btnStudentPerformanceCard" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Class PnL" Id="btnClassPnL" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Class Book Keeping Report" Id="btnBookKeeping" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Semester PnL Report" Id="btnSemesterReport" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
 

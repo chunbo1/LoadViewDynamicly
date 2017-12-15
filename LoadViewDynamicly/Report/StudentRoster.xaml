@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="LoadViewDynamicly.Report.StudentRoster"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:reports="clr-namespace:Reports;assembly=Reports"
+             xmlns:ige="http://infragistics.com/Editors"
+             >
+    
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style x:Key="ButtonStyle"
+                       TargetType="{x:Type Button}">
+                    <Setter Property="Margin"
+                            Value="5" />
+                </Style>
+                <Style x:Key="LabelTextBoxStyle"
+                       TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin"
+                            Value="5" />
+                    <Setter Property="FontWeight"
+                            Value="Bold" />
+                </Style>
+
+            </Grid.Resources>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Style="{StaticResource LabelTextBoxStyle}"
+                       Text="Date"
+                        VerticalAlignment="Center"/>
+
+            <ige:XamDateTimeEditor x:Name="AsOfDateCtl"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
+                                   DropDownButtonDisplayMode="Always"
+                                   Value="{Binding AsOfDate, UpdateSourceTrigger=PropertyChanged}"
+                                   Margin="5"
+                                   Mask="{}{date}"
+                                   Width="110"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center">
+            </ige:XamDateTimeEditor>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="2"
+                       Style="{StaticResource LabelTextBoxStyle}" VerticalAlignment="Center"
+                       Text="Entity: " />
+
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="4"
+                       Style="{StaticResource LabelTextBoxStyle}"
+                       Text="Cash Source:" />
+            <ComboBox x:Name="ViewsComboBox" 
+                      ItemsSource="{Binding Path=CashSources, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Name" SelectedValuePath="Code" 
+                      SelectedItem="{Binding Path=SelectedCashSource, Mode=TwoWay}"
+                      ToolTip="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Name}"
+                      Width="70" Height="20"  Grid.Row="0" Grid.Column="5" Margin="5" VerticalAlignment="Top"></ComboBox>
+
+
+            <CheckBox Content="Stress Test"
+                      IsChecked="{Binding IsStressTest}"
+                      Grid.Row="0"
+                      Grid.Column="6"
+                      Margin="5" />
+
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Style="{StaticResource LabelTextBoxStyle}" VerticalAlignment="Center"
+                       Text="Instruments: " />
+
+
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="2"
+                       Style="{StaticResource LabelTextBoxStyle}" VerticalAlignment="Center"
+                       Text="Accounts: " />
+
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="4"
+                       Style="{StaticResource LabelTextBoxStyle}"
+                       Text="Account Types"
+                       />
+
+            <CheckBox Content="Internal"
+                         IsChecked="{Binding ShowInternalAccounts}"                         
+                         Grid.Row="1"
+                         Grid.Column="5"
+                         Margin="5" />
+
+            <CheckBox Content="Managed"
+                         IsChecked="{Binding ShowManagedAccounts}"                        
+                         Grid.Row="1"
+                         Grid.Column="6"
+                         Margin="5" />
+
+            <CheckBox Content="SPV"
+                         IsChecked="{Binding ShowSPVAccounts}"
+                       
+                         Grid.Row="1"
+                         Grid.Column="7"
+                         Margin="5" />
+            <CheckBox Content="FOF"
+                      IsChecked="{Binding ShowFOFAccounts}"
+                      Grid.Row="1"
+                      Grid.Column="8"
+                      Margin="5" />
+            <Button Grid.Row="1"
+                    Grid.Column="9"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="Generate Report"
+                    Command="{Binding GenerateReportCommand}" />
+
+        </Grid>
+        <reports:ReportViewerControl x:Name="ReportViewerCtl" />
+    </DockPanel>
+</UserControl>

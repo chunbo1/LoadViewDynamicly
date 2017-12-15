@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Windows.Controls;
 using log4net;
 using System.Reflection;
+using LoadViewDynamicly.Report;
 
 //TEST GitHub
 namespace LoadViewDynamicly.ViewModel
@@ -37,16 +38,19 @@ namespace LoadViewDynamicly.ViewModel
             UserControl classView = new ClassView();
             UserControl csSelectionView = new CSMain();
             UserControl scheduleView = new ScheduleView();
+            UserControl studentRosterView = new StudentRoster();
 
             this.VIEWSpsaces.Add("StudentView", studentView);
             this.VIEWSpsaces.Add("TeacherView", teacherView);
             this.VIEWSpsaces.Add("ClassView", classView);
             this.VIEWSpsaces.Add("ClassManagementView", csSelectionView);
-            this.VIEWSpsaces.Add("AttendanceView", scheduleView);
+            this.VIEWSpsaces.Add("ScheduleView", scheduleView);
+            this.VIEWSpsaces.Add("StudentRosterView", studentRosterView);
 
             ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
             ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
             ViewModelBase classViewModel = new ClassViewModel() { Text = "Class View" };
+            
 
             this.VMspaces.Add("StudentViewModel", studentViewModel);
             this.VMspaces.Add("TeacherViewModel", teacherViewModel);
@@ -148,11 +152,22 @@ namespace LoadViewDynamicly.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    SwitchView("AttendanceView");
+                    SwitchView("ScheduleView");
                 });
             }
         }
-        
+
+        public ICommand ChangeStudentRosterCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    SwitchView("StudentRosterView");
+                });
+            }
+        }
+
         public void SwitchView(string viewName)
         {
             switch (viewName)
@@ -177,9 +192,15 @@ namespace LoadViewDynamicly.ViewModel
                     //ContentControlView.DataContext = VMspaces["CSViewModel"];
                     break;
 
-                case "AttendanceView":
-                    ContentControlView = VIEWSpsaces["AttendanceView"];
+                case "ScheduleView":
+                    ContentControlView = VIEWSpsaces["ScheduleView"];
                     break;
+
+                case "StudentRosterView":
+                    ContentControlView = VIEWSpsaces["StudentRosterView"];
+                    break;
+
+
             }
             MainWindowViewModel.Instance.StatusBar = $"Loaded {viewName}";
         }
