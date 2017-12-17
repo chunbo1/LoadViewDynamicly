@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 using LoadViewDynamicly.ViewModel.Report;
 using Microsoft.Reporting.WinForms;
 using System.Configuration;
+using log4net;
+using System.Reflection;
+
 
 namespace LoadViewDynamicly.Report
 {
@@ -23,6 +26,8 @@ namespace LoadViewDynamicly.Report
     /// </summary>
     public partial class StudentRoster : UserControl
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public StudentRoster()
         {
             InitializeComponent();
@@ -38,11 +43,18 @@ namespace LoadViewDynamicly.Report
 
         public void ShowReport(DateTime asOfDate)
         {
+            try { 
             var param = new List<ReportParameter>();
             param.Add(new ReportParameter("asof2", asOfDate.ToString()));
             ReportViewerCtl.ShowServerReport(ConfigurationManager.AppSettings["ReportServerUrl"],
-                                                        @"/Market Data Validations/WHStalePrice",
+                                                        ConfigurationManager.AppSettings["StudentRosterReport"],
                                              param);
+            }
+            catch (Exception e)
+            {
+                log.Error("In StudentRoster.xaml.cs..ShowReport: " + e.Message);
+                Environment.Exit(-1);
+            }
         }
         // Client Side Report
 

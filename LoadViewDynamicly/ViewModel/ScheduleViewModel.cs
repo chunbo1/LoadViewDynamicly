@@ -172,13 +172,21 @@ namespace LoadViewDynamicly.ViewModel
         CommunityViewModel CommunityVM = null;
         private void LoadStudent()
         {
-            if (db == null) db = new StoreDB();
-            //Instead of binding StudentAttendanceGrid here, we bind it in xaml
-            //<igDP:XamDataPresenter DataSource="{Binding Path=Members}" 
-            CommunityVM = new CommunityViewModel(db.GetStudentsByClassA(ClassId)); //db.GetStudentsByClassA(4);
-            _view.StudentAttendanceGrid.DataContext = CommunityVM;
-            loadStudentClicked = true;
-            MainWindowViewModel.Instance.StatusBar = $"Load Students for class {ClassId}";
+            try
+            {
+                if (db == null) db = new StoreDB();
+                //Instead of binding StudentAttendanceGrid here, we bind it in xaml
+                //<igDP:XamDataPresenter DataSource="{Binding Path=Members}" 
+                CommunityVM = new CommunityViewModel(db.GetStudentsByClassA(ClassId)); //db.GetStudentsByClassA(4);
+                _view.StudentAttendanceGrid.DataContext = CommunityVM;
+                loadStudentClicked = true;
+                MainWindowViewModel.Instance.StatusBar = $"Load Students for class {ClassId}";
+            }
+            catch (Exception e)
+            {
+                log.Error("In ScheduleViewModel.cs..LoadStudent: " + e.Message);
+                Environment.Exit(-1);
+            }
         }
 
         
@@ -195,11 +203,19 @@ namespace LoadViewDynamicly.ViewModel
         //need to pass in a classname parameter ???????
         private void loadClassAttendance()
         {
-            RefreshClassAttendanceGrid(ClassFullName);
-            ResetStudentAttendanceGrid();
-            classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
-            MainWindowViewModel.Instance.StatusBar = $"Load attendance history for class {ClassFullName}";
-        }
+            try
+            {
+                RefreshClassAttendanceGrid(ClassFullName);
+                ResetStudentAttendanceGrid();
+                classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
+                MainWindowViewModel.Instance.StatusBar = $"Load attendance history for class {ClassFullName}";
+            }           
+            catch (Exception e)
+            {
+                log.Error("In ScheduleViewModel.cs..loadClassAttendance: " + e.Message);
+                Environment.Exit(-1);
+            }
+}
 
         private void ResetStudentAttendanceGrid()
         {
@@ -259,34 +275,51 @@ namespace LoadViewDynamicly.ViewModel
 
         private void SaveAttendance()
         {
-            if (db == null) db = new StoreDB();
-            int? headerId = App.StoreDB.AddSchedulesHeader(ClassId, TeacherId, ClassDate, StartTime, EndTime, null, HeaderComment);
-            bool flag = false;
-            foreach (ScheduleStudentViewModel p in CommunityVM.Members)
+            try
             {
-                if (p.IsChecked) flag = true; else flag = false;                
-                App.StoreDB.AddSchedulesDetail((int)headerId, p.ID, flag, p.Comment);
-            }
+                if (db == null) db = new StoreDB();
+                int? headerId = App.StoreDB.AddSchedulesHeader(ClassId, TeacherId, ClassDate, StartTime, EndTime, null, HeaderComment);
+                bool flag = false;
+                foreach (ScheduleStudentViewModel p in CommunityVM.Members)
+                {
+                    if (p.IsChecked) flag = true; else flag = false;
+                    App.StoreDB.AddSchedulesDetail((int)headerId, p.ID, flag, p.Comment);
+                }
 
-            //Only when classAttendanceHeaderCombo has same class, then refresh classAttendanceHeader
-            //Combo2 has classFullname, combo1
-            _view.classAttendanceHeaderCombo2.SelectedValue = GetClassName(ClassId);
-            //if (_view.classAttendanceHeaderCombo2.SelectedValue.ToString().Equals(GetClassName(ClassId)))
-            RefreshClassAttendanceGrid(ClassFullName);
+                //Only when classAttendanceHeaderCombo has same class, then refresh classAttendanceHeader
+                //Combo2 has classFullname, combo1
+                _view.classAttendanceHeaderCombo2.SelectedValue = GetClassName(ClassId);
+                //if (_view.classAttendanceHeaderCombo2.SelectedValue.ToString().Equals(GetClassName(ClassId)))
+                RefreshClassAttendanceGrid(ClassFullName);
+            }
+            catch (Exception e)
+            {
+                log.Error("In ScheduleViewModel.cs..SaveAttendance: " + e.Message);
+                Environment.Exit(-1);
+            }
 
 
         }
 
         private void RefreshClassAttendanceGrid(string className)
         {
-            if (dc.DatabaseExists())
+            try
             {
-                dc.SubmitChanges();
-                dc = null;
+                if (dc.DatabaseExists())
+                {
+                    dc.SubmitChanges();
+                    dc = null;
+                }
+                dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                _view.ClassAttendanceGrid.DataSource = dc.spClassAttendanceHeader(className);
+                classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
             }
-            dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-            _view.ClassAttendanceGrid.DataSource = dc.spClassAttendanceHeader(className);
-            classAttendanceRecordClicked = false;//so can't delete Class header before selecting a record
+            catch (Exception e)
+            {
+                log.Error("In ScheduleViewModel..RefreshClassAttendanceGrid: " + e.Message);
+                Environment.Exit(-1);
+            }
+
         }
 
         private RelayCommand deleteAttendanceHeaderCommand;
@@ -303,16 +336,25 @@ namespace LoadViewDynamicly.ViewModel
 
         private void DeleteAttendanceHeader()
         {
-            dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-            dc.spDeleteSchedulesHeader(ActiveHeader.AttendanceHeader);
-            int headerId = ActiveHeader.AttendanceHeader;
-
-            if (ClassFullName.Trim().Length > 0)
+            try
             {
-                RefreshClassAttendanceGrid(ClassFullName);
-                ResetStudentAttendanceGrid();
-                MainWindowViewModel.Instance.StatusBar = $"Deleted attendance header {headerId} for {ClassFullName}";
+                dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                dc.spDeleteSchedulesHeader(ActiveHeader.AttendanceHeader);
+                int headerId = ActiveHeader.AttendanceHeader;
+
+                if (ClassFullName.Trim().Length > 0)
+                {
+                    RefreshClassAttendanceGrid(ClassFullName);
+                    ResetStudentAttendanceGrid();
+                    MainWindowViewModel.Instance.StatusBar = $"Deleted attendance header {headerId} for {ClassFullName}";
+                }
             }
+            catch (Exception e)
+            {
+                log.Error("In ScheduleViewModel..DeleteAttendanceHeader: " + e.Message);
+                Environment.Exit(-1);
+            }
+
         }
 
         bool classAttendanceRecordClicked = false;
@@ -322,12 +364,21 @@ namespace LoadViewDynamicly.ViewModel
             get { return activeHeader; }
             set
             {
-                activeHeader = value;
-                RaisePropertyChanged("ActiveHeader");
-                dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-                _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
-                classAttendanceRecordClicked = true;
-                MainWindowViewModel.Instance.StatusBar = $"You just selected class attendance header {activeHeader.AttendanceHeader}";
+                try
+                {
+                    activeHeader = value;
+                    RaisePropertyChanged("ActiveHeader");
+                    dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                    _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
+                    classAttendanceRecordClicked = true;
+                    MainWindowViewModel.Instance.StatusBar = $"You just selected class attendance header {activeHeader.AttendanceHeader}";
+                }
+                catch (Exception e)
+                {
+                    log.Error("In ScheduleViewModel..ActiveHeader SET: " + e.Message);
+                    Environment.Exit(-1);
+                }
+
             }
         }
 
@@ -338,12 +389,21 @@ namespace LoadViewDynamicly.ViewModel
             get { return activeAttendanceDetail; }
             set
             {
-                activeAttendanceDetail = value;
-                RaisePropertyChanged("ActiveAttendanceDetail");
-                classAttendanceDetailClicked = true;
-                App.Messenger.NotifyColleagues("StudentSelectionChanged", activeAttendanceDetail.ID);
+                try
+                {
+                    activeAttendanceDetail = value;
+                    RaisePropertyChanged("ActiveAttendanceDetail");
+                    classAttendanceDetailClicked = true;
+                    App.Messenger.NotifyColleagues("StudentSelectionChanged", activeAttendanceDetail.ID);
 
-                //MainWindowViewModel.Instance.StatusBar = $"You just selected student {ActiveAttendanceDetail.Student}";
+                    //MainWindowViewModel.Instance.StatusBar = $"You just selected student {ActiveAttendanceDetail.Student}";
+                }
+                catch (Exception e)
+                {
+                    log.Error("In ScheduleViewModel..ActiveAttendanceDetail SET: " + e.Message);
+                    Environment.Exit(-1);
+                }
+
             }
         }
 

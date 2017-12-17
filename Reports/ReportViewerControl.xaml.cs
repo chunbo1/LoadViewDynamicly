@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Reflection;
 using Microsoft.Reporting.WinForms;
 using Core.Extensions;
+using log4net;
 
 namespace Reports
 {
@@ -26,6 +27,8 @@ namespace Reports
     
     public partial class ReportViewerControl : UserControl
     {
+
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public ReportViewerControl()
         {
             InitializeComponent();
@@ -106,16 +109,25 @@ namespace Reports
 
         private void ProcessReport(Action<ReportViewer> reportProcessingCallback, Action reportCompletedCallback)
         {
-            var lReportViewerCtl = WinFormsHostCtl.Child as ReportViewer;
-            if (lReportViewerCtl == null) return;
-            ReportCompletedCallback = reportCompletedCallback;
-            lReportViewerCtl.RenderingComplete -= OnReportRenderingComplete;
-            lReportViewerCtl.Reset();
-            reportProcessingCallback(lReportViewerCtl);
-            lReportViewerCtl.ShowProgress = true;
-            lReportViewerCtl.ShowStopButton = false;
-            lReportViewerCtl.RefreshReport();
-            lReportViewerCtl.RenderingComplete += OnReportRenderingComplete;
+            try
+            {
+                var lReportViewerCtl = WinFormsHostCtl.Child as ReportViewer;
+                if (lReportViewerCtl == null) return;
+                ReportCompletedCallback = reportCompletedCallback;
+                lReportViewerCtl.RenderingComplete -= OnReportRenderingComplete;
+                lReportViewerCtl.Reset();
+                reportProcessingCallback(lReportViewerCtl);
+                lReportViewerCtl.ShowProgress = true;
+                lReportViewerCtl.ShowStopButton = false;
+                lReportViewerCtl.RefreshReport();
+                lReportViewerCtl.RenderingComplete += OnReportRenderingComplete;
+            }
+            catch (Exception e)
+            {
+                log.Error("In ReportViewerControl.cs..ProcessReport: " + e.Message);
+                Environment.Exit(-1);
+            }
+
         }
 
         #region " IDisposable "
