@@ -11,7 +11,7 @@ using System.ComponentModel;
 using LoadViewDynamicly.Model;
 using log4net;
 using System.Reflection;
-
+using System.Diagnostics;
 
 namespace LoadViewDynamicly.ViewModel
 {
@@ -366,16 +366,26 @@ namespace LoadViewDynamicly.ViewModel
             {
                 try
                 {
-                    activeHeader = value;
-                    RaisePropertyChanged("ActiveHeader");
-                    dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-                    _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
-                    classAttendanceRecordClicked = true;
-                    MainWindowViewModel.Instance.StatusBar = $"You just selected class attendance header {activeHeader.AttendanceHeader}";
+                    if (value != null)
+                    {
+                        activeHeader = value;
+                        RaisePropertyChanged("ActiveHeader");
+                        dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                        _view.StudentAttendance1Grid.DataSource = dc.spGetClassAttendanceDetail(activeHeader.AttendanceHeader);
+                        classAttendanceRecordClicked = true;
+                        MainWindowViewModel.Instance.StatusBar = $"You just selected class attendance header {activeHeader.AttendanceHeader}";
+                    }
+                    else
+                    {
+                        StackTrace stackTrace = new StackTrace();
+                        string LastAction = stackTrace.GetFrame(1).GetMethod().Name;
+
+                        log.Info("In ScheduleViewModel..ActiveHeader SET: value = null and LastAction = " + LastAction);
+                    }
                 }
                 catch (Exception e)
                 {
-                    log.Error("In ScheduleViewModel..ActiveHeader SET: " + e.Message);
+                    log.Error("In ScheduleViewModel..ActiveHeader SET: " + e.Message + e.StackTrace);
                     Environment.Exit(-1);
                 }
 
@@ -391,12 +401,21 @@ namespace LoadViewDynamicly.ViewModel
             {
                 try
                 {
-                    activeAttendanceDetail = value;
-                    RaisePropertyChanged("ActiveAttendanceDetail");
-                    classAttendanceDetailClicked = true;
-                    App.Messenger.NotifyColleagues("StudentSelectionChanged", activeAttendanceDetail.ID);
+                    if (value != null)
+                    {
+                        activeAttendanceDetail = value;                        
+                        RaisePropertyChanged("ActiveAttendanceDetail");
+                        classAttendanceDetailClicked = true;
+                        App.Messenger.NotifyColleagues("StudentSelectionChanged", activeAttendanceDetail.ID);
+                        //MainWindowViewModel.Instance.StatusBar = $"You just selected student {ActiveAttendanceDetail.Student}";
+                    }
+                    else
+                    {
+                        StackTrace stackTrace = new StackTrace();
+                        string LastAction = stackTrace.GetFrame(1).GetMethod().Name;
 
-                    //MainWindowViewModel.Instance.StatusBar = $"You just selected student {ActiveAttendanceDetail.Student}";
+                        log.Info("In ScheduleViewModel..ActiveAttendanceDetail SET: value = null and LastAction = " + LastAction);
+                    }
                 }
                 catch (Exception e)
                 {

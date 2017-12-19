@@ -20,7 +20,7 @@
 
         <Grid Grid.Row="1" Grid.Column="1" x:Name="linqCtrl">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
+                <RowDefinition Height="20" />
                 <RowDefinition Height="*" MinHeight="100" />
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>

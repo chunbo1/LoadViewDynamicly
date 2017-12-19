@@ -26,14 +26,22 @@ namespace LoadViewDynamicly.ViewModel
 
         public void ProcessStudent(int id)
         {
-            dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
-            ISingleResult<spGetStudentDetailResult> stu = dc.spGetStudentDetail(id);
-            spGetStudentDetailResult student = stu.Single();
-            CurrentStudent = new StudentDetail(student.ID, student.FirstName, student.LastName, student.Gender, 
-                DateTime.ParseExact(String.IsNullOrEmpty(student.BirthDate) ? "20000101": student.BirthDate, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture), 
-                student.ContactName, student.Address, student.Email, student.CellPhone, student.HomePhone, student.StudentPhone, student.Comment,
-                student.UpdateDateTime);
-            MainWindowViewModel.Instance.StatusBar = $"Populate StudentDetail for {student.FirstName} {student.LastName}";
+            try
+            {
+                dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
+                ISingleResult<spGetStudentDetailResult> stu = dc.spGetStudentDetail(id);
+                spGetStudentDetailResult student = stu.Single();
+                CurrentStudent = new StudentDetail(student.ID, student.FirstName, student.LastName, student.Gender,
+                    DateTime.ParseExact(String.IsNullOrEmpty(student.BirthDate) ? "20000101" : student.BirthDate, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture),
+                    student.ContactName, student.Address, student.Email, student.CellPhone, student.HomePhone, student.StudentPhone, student.Comment,
+                    student.UpdateDateTime);
+                MainWindowViewModel.Instance.StatusBar = $"Populate StudentDetail for {student.FirstName} {student.LastName}";
+            }
+            catch (Exception e)
+            {
+                log.Error("In ScheduleDetailViewModel..ProcessStudent : " + e.Message);
+                Environment.Exit(-1);
+            }
 
         }
 

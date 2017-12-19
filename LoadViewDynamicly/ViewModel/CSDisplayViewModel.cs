@@ -266,6 +266,9 @@ namespace LoadViewDynamicly.ViewModel
             //GetClassStudents() has Grouping, DisplayedProduct does the same
             DisplayedProduct.Grouping = cc.ClassName + " " + cc.Semester + " " + cc.Dayofweek + " " + cc.Timeofweek;
             DisplayedProduct.UpdateDateTime = DateTime.Now;
+            //DisplayedProduct.InvoiceNumber 
+
+
 
             if (!stat.ChkClassStudentForAdd(DisplayedProduct)) return;
             if (CSViewModel.Instance.DataItems.Contains(DisplayedProduct))

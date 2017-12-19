@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LoadViewDynamicly.View"
              xmlns:vm="clr-namespace:LoadViewDynamicly.ViewModel"
+             xmlns:igEditors="http://infragistics.com/Editors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -29,7 +30,7 @@
             <Button Margin="2,5,0,0"  Background="LightBlue" Height="35" Width="50"
                   Command="{Binding AddCommand}" Padding="2">Add</Button>
         </StackPanel>
-        
+
         <Grid Margin="10" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -40,9 +41,19 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
@@ -59,8 +70,8 @@
                       SelectedValuePath="ID"                      
                       SelectedValue="{Binding Path=DisplayedProduct.ClassId}"
                       />
-             
-            
+
+
             <TextBlock Margin="7"  Grid.Row="1">Student Name:</TextBlock>
             <!--TextBox Margin="5"  Grid.Row="1" Grid.Column="1" BorderBrush="{Binding Path=Stat.ModelNumberBrush}" BorderThickness="1"
                      Text="{Binding Path=DisplayedProduct.StudentName, UpdateSourceTrigger=PropertyChanged}"></-->
@@ -72,26 +83,69 @@
                       >
             </ComboBox>
 
-            <TextBlock Margin="7" Grid.Row="2">Tuition Paid:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="2">Total Tuition:</TextBlock>
             <TextBox Margin="5" Grid.Row="2" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
                      Text="{Binding Path=DisplayedProduct.TuitionPaid, UpdateSourceTrigger=LostFocus}"></TextBox>
 
             <TextBlock Margin="7" Grid.Row="3">Tuition Discount:</TextBlock>
             <TextBox Margin="5" Grid.Row="3" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.TuitionDiscount}" IsEnabled="False"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.TuitionDiscount}"></TextBox>
 
-            
-            <TextBlock Margin="7" Grid.Row="4">Comment:</TextBlock>
-            <TextBox Margin="5" Grid.Row="4" Grid.Column="1"  BorderBrush="{Binding Path=Stat.CategoryNameBrush}" BorderThickness="1"
+
+            <TextBlock Margin="7" Grid.Row="5">Invoice Number:</TextBlock>
+            <TextBox Margin="5" Grid.Row="5" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.InvoiceNumber}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="6">Casher Name:</TextBlock>
+            <TextBox Margin="5" Grid.Row="6" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.CasherName}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="7">Cash Received :</TextBlock>
+            <TextBox Margin="5" Grid.Row="7" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.CashReceived}"></TextBox>
+
+            <TextBlock Margin="7,0,7,7" Grid.Row="8" Height="18" VerticalAlignment="Bottom">Check Received:</TextBlock>
+            <TextBox Margin="5" Grid.Row="8" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.CheckReceived}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="9">Check Number:</TextBlock>
+            <TextBox Margin="5" Grid.Row="9" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.CheckNumber}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="10">Credit Card Received:</TextBlock>
+            <TextBox Margin="5" Grid.Row="10" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.CreditCardReceived}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="11">Other Received:</TextBlock>
+            <TextBox Margin="5" Grid.Row="11" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.OtherReceived}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="12">Other Source:</TextBlock>
+            <TextBox Margin="5" Grid.Row="12" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.OtherSource}"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="13">Registration Date:</TextBlock>
+            <igEditors:XamDateTimeEditor 
+                       Height="21" 
+                       Name="scheduleDate"  
+                       Grid.Row="13"
+                       Grid.Column="1"
+                       Text="{Binding Path=DisplayedProduct.RegistrationDate}"
+                       VerticalAlignment="Center" 
+                       Margin="5,0,5,0"/>
+
+
+            <TextBlock Margin="7" Grid.Row="14">Comment:</TextBlock>
+            <TextBox Margin="5" Grid.Row="14" Grid.Column="1"  BorderBrush="{Binding Path=Stat.CategoryNameBrush}" BorderThickness="1"
                      TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" 
                      Text="{Binding Path=DisplayedProduct.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-            <TextBlock Margin="7,7,7,0" Grid.Row="5">UpdateDateTime:</TextBlock>
-            <TextBox Margin="7" Grid.Row="5" Grid.Column="1"  
+            <TextBlock Margin="7,7,7,0" Grid.Row="15">UpdateDateTime:</TextBlock>
+            <TextBox Margin="7" Grid.Row="15" Grid.Column="1"  
                  TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" Text="{Binding Path=DisplayedProduct.UpdateDateTime}"></TextBox>
 
-            <TextBlock Margin="7,-10,0,0" Grid.Row="6">Status:</TextBlock>
-            <TextBox Margin="7" Grid.Row="6" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" 
+            <TextBlock Margin="7" Grid.Row="16">Status:</TextBlock>
+            <TextBox Margin="7" Grid.Row="16" Grid.RowSpan="2" Grid.Column="1"  
                  Text="{Binding Path=Stat.Status}"></TextBox>
         </Grid>
 

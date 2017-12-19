@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MDH2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=SSCSDSQL01\DTWSQLSVR;Initial Catalog=MDH2;Integrated Security=True" SettingsObjectName="LoadViewDynamicly.Properties.Settings" SettingsPropertyName="MDH2ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.ClassStudents" Member="ClassStudents">
-    <Type Name="ClassStudent">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ClassId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TuitionPaid" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.vwStudentByClass" Member="vwStudentByClasses">
     <Type Name="vwStudentByClass">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -69,20 +59,6 @@
       <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.vwCST" Member="vwCSTs">
-    <Type Name="vwCST">
-      <Column Name="Division" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="ClassName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Dayofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Timeofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Tuition" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Teacher" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
-      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Student" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Classes" Member="Classes">
     <Type Name="Class">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -118,26 +94,40 @@
       <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
-  <Function Name="dbo.UpdateCS" Method="UpdateCS">
-    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="TuitionPaid" Parameter="tuitionPaid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(50)" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.AddCS" Method="AddCS">
-    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="TuitionPaid" Parameter="tuitionPaid" Type="System.Int32" DbType="Int" />
-    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(50)" />
-    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.DeleteCS" Method="DeleteCS">
-    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
-    <Return Type="System.Int32" />
-  </Function>
+  <Table Name="dbo.ClassStudents" Member="ClassStudents">
+    <Type Name="ClassStudent">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClassId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TuitionPaid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="InvoiceNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CasherName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CashReceived" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CheckReceived" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CheckNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreditCardReceived" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OtherReceived" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OtherSource" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RegistrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="UpdateDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwCST" Member="vwCSTs">
+    <Type Name="vwCST">
+      <Column Name="Division" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Dayofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Timeofweek" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Tuition" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Teacher" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+      <Column Name="StudentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Student" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.AddSchedulesHeader" Method="AddSchedulesHeader">
     <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
     <Parameter Name="TeacherId" Parameter="teacherId" Type="System.Int32" DbType="Int" />
@@ -210,5 +200,43 @@
     <ElementType Name="spGetClassTuitionResult">
       <Column Name="Tuition" Type="System.Double" DbType="Float" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateCS" Method="UpdateCS">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TuitionPaid" Parameter="tuitionPaid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="InvoiceNumber" Parameter="invoiceNumber" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CasherName" Parameter="casherName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CashReceived" Parameter="cashReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="CheckReceived" Parameter="checkReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="CheckNumber" Parameter="checkNumber" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CreditCardReceived" Parameter="creditCardReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="OtherReceived" Parameter="otherReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="OtherSource" Parameter="otherSource" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RegistrationDate" Parameter="registrationDate" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddCS" Method="AddCS">
+    <Parameter Name="StudentId" Parameter="studentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TuitionPaid" Parameter="tuitionPaid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="InvoiceNumber" Parameter="invoiceNumber" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CasherName" Parameter="casherName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CashReceived" Parameter="cashReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="CheckReceived" Parameter="checkReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="CheckNumber" Parameter="checkNumber" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="CreditCardReceived" Parameter="creditCardReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="OtherReceived" Parameter="otherReceived" Type="System.Double" DbType="Float" />
+    <Parameter Name="OtherSource" Parameter="otherSource" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="RegistrationDate" Parameter="registrationDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteCS" Method="DeleteCS">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

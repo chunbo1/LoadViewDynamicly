@@ -41,6 +41,15 @@ namespace LoadViewDynamicly.Model
                                 TuitionPaid = q.TuitionPaid,            
                                 Comment = q.Comment,
                                 UpdateDateTime = q.UpdateDateTime,
+                                InvoiceNumber = q.InvoiceNumber,
+                                CasherName = q.CasherName,
+                                CashReceived = q.CashReceived,
+                                CheckReceived = q.CheckReceived,
+                                CheckNumber = q.CheckNumber,
+                                CreditCardReceived = q.CreditCardReceived,
+                                OtherReceived = q.OtherReceived,
+                                OtherSource = q.OtherSource,
+                                RegistrationDate = q.RegistrationDate,
                                 Grouping = c.ClassName + " " + c.Semester + " " + c.Dayofweek + " " + c.Timeofweek
                             };
                 foreach (SqlClassStudent sp in query)
@@ -61,7 +70,8 @@ namespace LoadViewDynamicly.Model
             {
                 SqlClassStudent p = new SqlClassStudent(displayP);
                 DataClasses1DataContext dc = new DataClasses1DataContext();
-                dc.UpdateCS(p.Id, p.StudentId, p.ClassId, p.TuitionPaid, p.Comment);
+                dc.UpdateCS(p.Id, p.StudentId, p.ClassId, p.TuitionPaid, p.Comment, 
+                    p.InvoiceNumber, p.CasherName, p.CashReceived, p.CheckReceived, p.CheckNumber, p.CreditCardReceived, p.OtherReceived, p.OtherSource, p.RegistrationDate);
             }
             catch (Exception ex)
             {
@@ -102,7 +112,9 @@ namespace LoadViewDynamicly.Model
                 SqlClassStudent p = new SqlClassStudent(displayP);
                 DataClasses1DataContext dc = new DataClasses1DataContext();
                 int? newId = 0;
-                dc.AddCS(p.StudentId, p.ClassId, p.TuitionPaid, p.Comment, ref newId);
+
+                dc.AddCS(p.StudentId, p.ClassId, p.TuitionPaid, p.Comment,
+                    p.InvoiceNumber, p.CasherName, p.CashReceived, p.CheckReceived, p.CheckNumber, p.CreditCardReceived, p.OtherReceived, p.OtherSource, p.RegistrationDate, ref newId);
                 p.Id = (int)newId;
                 displayP.ProductAdded2DB(p);    //update corresponding ClassStudent Id using SqlClassStudent
             }

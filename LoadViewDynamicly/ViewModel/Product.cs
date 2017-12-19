@@ -148,7 +148,122 @@ namespace LoadViewDynamicly.ViewModel
             set { comment = value;
                 OnPropertyChanged("Comment"); }
         }
-        
+
+        private string invoiceNumber;
+        public string InvoiceNumber
+        {
+            get { return invoiceNumber; }
+            set
+            {
+                invoiceNumber = value;
+                OnPropertyChanged("InvoiceNumber");
+            }
+        }
+
+
+        private string casherName;
+        public string CasherName
+        {
+            get { return casherName; }
+            set
+            {
+                casherName = value;
+                OnPropertyChanged("CasherName");
+            }
+        }
+
+
+        private double? cashReceived;
+        public double? CashReceived
+        {
+            get { return cashReceived; }
+            set
+            {
+                cashReceived = value;
+                OnPropertyChanged("CashReceived");
+            }
+        }
+
+
+        private double? checkReceived;
+        public double? CheckReceived
+        {
+            get { return checkReceived; }
+            set
+            {
+                checkReceived = value;
+                OnPropertyChanged("CheckReceived");
+            }
+        }
+
+
+        private string checkNumber;
+        public string CheckNumber
+        {
+            get { return checkNumber; }
+            set
+            {
+                checkNumber = value;
+                OnPropertyChanged("CheckNumber");
+            }
+        }
+
+
+        private double? creditCardReceived;
+        public double? CreditCardReceived
+        {
+            get { return creditCardReceived; }
+            set
+            {
+                creditCardReceived = value;
+                OnPropertyChanged("CreditCardReceived");
+            }
+        }
+
+
+        private double? otherReceived;
+        public double? OtherReceived
+        {
+            get { return otherReceived; }
+            set
+            {
+                otherReceived = value;
+                OnPropertyChanged("OtherReceived");
+            }
+        }
+
+
+        private string otherSource;
+        public string OtherSource
+        {
+            get { return otherSource; }
+            set
+            {
+                otherSource = value;
+                OnPropertyChanged("OtherSource");
+            }
+        }
+
+
+        private DateTime? registrationDate;
+        public DateTime? RegistrationDate
+        {
+            get { return registrationDate; }
+            set
+            {
+                registrationDate = value;
+                OnPropertyChanged("RegistrationDate");
+            }
+        }
+
+
+
+
+
+
+
+
+
         private DateTime updateDateTime;
         public DateTime UpdateDateTime
         {
@@ -173,7 +288,9 @@ namespace LoadViewDynamicly.ViewModel
 
         public ClassStudent(int _Id, int? studentId, string studentName, 
             int? classId, string className, double? classTuition, int? tuitionPaid,
-                       string comment, DateTime updateDateTime, string grouping, double? tuitionDiscount)
+                       string comment, DateTime updateDateTime, string grouping, double? tuitionDiscount,
+                       string invoiceNumber, string casherName, double? cashReceived, double? checkReceived, string checkNumber, double? creditCardReceived, double? otherReceived, string otherSource, DateTime? registrationDate
+                       )
         {
             this.id = _Id;
             StudentId = studentId;
@@ -186,6 +303,16 @@ namespace LoadViewDynamicly.ViewModel
             Comment = comment;
             UpdateDateTime = updateDateTime;
             Grouping = grouping;
+
+            InvoiceNumber = invoiceNumber;
+            CasherName = casherName;
+            CashReceived = cashReceived;
+            CheckReceived = checkReceived;
+            CheckNumber = checkNumber;
+            CreditCardReceived = creditCardReceived;
+            OtherReceived = otherReceived;
+            OtherSource = otherSource;
+            RegistrationDate = registrationDate;
         }
         
 
@@ -232,6 +359,18 @@ namespace LoadViewDynamicly.ViewModel
         public DateTime UpdateDateTime { get; set; }
         public string Grouping { get; set; }
 
+        public string InvoiceNumber { get; set; }
+        public string CasherName { get; set; }
+        public double? CashReceived { get; set; }
+        public double? CheckReceived { get; set; }
+        public string CheckNumber { get; set; }
+        public double? CreditCardReceived { get; set; }
+        public double? OtherReceived { get; set; }
+        public string OtherSource { get; set; }
+        public DateTime? RegistrationDate { get; set; }
+
+
+
         public SqlClassStudent() { }
 
         public SqlClassStudent(int id, int studentId, int classId, int tuitionPaid,
@@ -254,12 +393,22 @@ namespace LoadViewDynamicly.ViewModel
             TuitionPaid = p.TuitionPaid;
             Comment = p.Comment;
             UpdateDateTime = p.UpdateDateTime;
+            InvoiceNumber = p.InvoiceNumber;
+            CasherName = p.CasherName;
+            CashReceived = p.CashReceived;
+            CheckReceived = p.CheckReceived;
+            CheckNumber = p.CheckNumber;
+            CreditCardReceived = p.CreditCardReceived;
+            OtherReceived = p.OtherReceived;
+            OtherSource = p.OtherSource;
+            RegistrationDate = p.RegistrationDate;
             //TuitionDiscount = p.TuitionDiscount;
         }
 
         public ClassStudent SqlProduct2Product()
         {
-            return new ClassStudent(Id, StudentId, StudentName, ClassId, ClassName, ClassTuition, TuitionPaid, Comment,  UpdateDateTime, Grouping, 1-TuitionPaid/ClassTuition);
+            return new ClassStudent(Id, StudentId, StudentName, ClassId, ClassName, ClassTuition, TuitionPaid, Comment,  UpdateDateTime, Grouping, 1-TuitionPaid/ClassTuition,
+                InvoiceNumber, CasherName, CashReceived, CheckReceived, CheckNumber, CreditCardReceived, OtherReceived, OtherSource, RegistrationDate);
         } //SqlProduct2Product()
     }//Class SqlClassStudent
 

@@ -170,7 +170,7 @@
                     Margin="0,0,0,0"  
                     TextWrapping="Wrap"   
                     Width="100" 
-                    ToolTip="Class Start Time" 
+                    ToolTip="Enter Class Start Time, Say 3:00 PM" 
                     Cursor="Arrow"
                     Grid.Row="2"
                     Grid.Column="1"
@@ -184,7 +184,7 @@
                 Margin="0,0,20,0"  
                 TextWrapping="Wrap"   
                 Width="100" 
-                ToolTip="Class Start Time" 
+                ToolTip="Enter Class Finish Time, Say 5:00 PM" 
                 Cursor="Arrow"
                 Grid.Row="2"
                 Grid.Column="3"
@@ -198,6 +198,7 @@
                        Grid.Column="1"
                        Text="{Binding ClassDate, UpdateSourceTrigger=PropertyChanged}"
                        VerticalAlignment="Center" 
+                       ToolTip="Enter Class Date" 
                        Margin="0,0,0,0"/>
 
 
