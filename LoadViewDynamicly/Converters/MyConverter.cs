@@ -92,5 +92,23 @@ namespace LoadViewDynamicly.Converters
         }
     }
 
-   
+    public class ColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            double bal = (double)value;
+            
+            if (bal > 0) 
+                return new SolidColorBrush(Colors.Red);
+            else
+                return new SolidColorBrush(Colors.Yellow);
+            
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
 }

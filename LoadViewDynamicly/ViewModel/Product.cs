@@ -141,6 +141,16 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
+
+        private double? outstandingBalance;
+        public double? OutstandingBalance
+        {
+            get
+            {                
+                return  ((double)tuitionPaid) - (cashReceived==null ? 0 : cashReceived) - (CheckReceived == null ? 0 : CheckReceived) - (CreditCardReceived== null ? 0 : CreditCardReceived) - (OtherReceived == null ? 0 : OtherReceived);
+            }
+
+        }
         private string comment;
         public string Comment
         {
@@ -373,17 +383,6 @@ namespace LoadViewDynamicly.ViewModel
 
         public SqlClassStudent() { }
 
-        public SqlClassStudent(int id, int studentId, int classId, int tuitionPaid,
-                      string comment, DateTime timestamp, string grouping)
-        {
-            Id = id;
-            StudentId = studentId;
-            ClassId = classId;
-            TuitionPaid = tuitionPaid;
-            Comment = comment;
-            UpdateDateTime = timestamp;
-            Grouping = grouping;
-        }
 
         public SqlClassStudent(ClassStudent p)
         {

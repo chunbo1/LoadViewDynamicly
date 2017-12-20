@@ -4,12 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LoadViewDynamicly.View"
+             xmlns:conv="clr-namespace:LoadViewDynamicly.Converters"
              xmlns:vm="clr-namespace:LoadViewDynamicly.ViewModel"
              xmlns:igEditors="http://infragistics.com/Editors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-
+    <UserControl.Resources>
+        <conv:ColorConverter x:Key="CConverter"></conv:ColorConverter>
+    </UserControl.Resources>
 
 
     <Grid>
@@ -41,8 +44,8 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="0"></RowDefinition>
                 
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -69,6 +72,7 @@
                       DisplayMemberPath="FullName"
                       SelectedValuePath="ID"                      
                       SelectedValue="{Binding Path=DisplayedProduct.ClassId}"
+                      ToolTip="This is a required field"
                       />
 
 
@@ -80,50 +84,58 @@
                       DisplayMemberPath="Comment"
                       SelectedValuePath="ID"                      
                       SelectedValue="{Binding Path=DisplayedProduct.StudentId}"
+                      ToolTip="This is a required field"
                       >
             </ComboBox>
 
-            <TextBlock Margin="7" Grid.Row="2">Total Tuition:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="2">Total Tuition and Fees:</TextBlock>
             <TextBox Margin="5" Grid.Row="2" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.TuitionPaid, UpdateSourceTrigger=LostFocus}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.TuitionPaid, UpdateSourceTrigger=LostFocus}" Background="#FF1414B2" Foreground="Yellow"
+                     ToolTip="This is the total tuition and fees for this student"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="3">Tuition Discount:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="3" ToolTip="This is a calculated field">Tuition Discount:</TextBlock>
             <TextBox Margin="5" Grid.Row="3" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.TuitionDiscount}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.TuitionDiscount}" IsEnabled="False" ToolTip="Calculated Field" ></TextBox>
 
 
-            <TextBlock Margin="7" Grid.Row="5">Invoice Number:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="4">Invoice Number:</TextBlock>
+            <TextBox Margin="5" Grid.Row="4" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
+                     Text="{Binding Path=DisplayedProduct.InvoiceNumber}" ToolTip="Invoice Number is for reporting purpose"></TextBox>
+
+            <TextBlock Margin="7" Grid.Row="5">Casher Name:</TextBlock>
             <TextBox Margin="5" Grid.Row="5" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.InvoiceNumber}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.CasherName}"  ToolTip="Casher name is for reporting purpose"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="6">Casher Name:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="6">Cash Received :</TextBlock>
             <TextBox Margin="5" Grid.Row="6" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.CasherName}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.CashReceived}" Background="LightBlue"  ToolTip="Enter cash amount received"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="7">Cash Received :</TextBlock>
+            <TextBlock Margin="7,0,7,7" Grid.Row="7" Height="18" VerticalAlignment="Bottom">Check Received:</TextBlock>
             <TextBox Margin="5" Grid.Row="7" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.CashReceived}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.CheckReceived}"  Background="LightBlue"></TextBox>
 
-            <TextBlock Margin="7,0,7,7" Grid.Row="8" Height="18" VerticalAlignment="Bottom">Check Received:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="8">Check Number:</TextBlock>
             <TextBox Margin="5" Grid.Row="8" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.CheckReceived}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.CheckNumber}"  ToolTip="Check Number is for reporting purpose"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="9">Check Number:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="9">Credit Card Received:</TextBlock>
             <TextBox Margin="5" Grid.Row="9" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.CheckNumber}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.CreditCardReceived}"  Background="LightBlue"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="10">Credit Card Received:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="10">Other Received:</TextBlock>
             <TextBox Margin="5" Grid.Row="10" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.CreditCardReceived}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.OtherReceived}"  Background="LightBlue"  ToolTip="Other Received is for reporting purpose"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="11">Other Received:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="11">Other Source:</TextBlock>
             <TextBox Margin="5" Grid.Row="11" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.OtherReceived}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.OtherSource}"  ToolTip="This is for reporting purpose"></TextBox>
 
-            <TextBlock Margin="7" Grid.Row="12">Other Source:</TextBlock>
+            <TextBlock Margin="7" Grid.Row="12">Outstanding Balance:</TextBlock>
             <TextBox Margin="5" Grid.Row="12" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.OtherSource}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.OutstandingBalance, Mode=OneWay}" Background="#FF0A2F91" 
+                     Foreground="{Binding Path=DisplayedProduct.OutstandingBalance, Converter={StaticResource CConverter}}" ToolTip="This is a Calculated Field"></TextBox>
 
+            
             <TextBlock Margin="7" Grid.Row="13">Registration Date:</TextBlock>
             <igEditors:XamDateTimeEditor 
                        Height="21" 
@@ -132,13 +144,15 @@
                        Grid.Column="1"
                        Text="{Binding Path=DisplayedProduct.RegistrationDate}"
                        VerticalAlignment="Center" 
-                       Margin="5,0,5,0"/>
+                       Margin="5,0,125,0"
+                        ToolTip="It is for reporting purpose"
+                />
 
 
             <TextBlock Margin="7" Grid.Row="14">Comment:</TextBlock>
             <TextBox Margin="5" Grid.Row="14" Grid.Column="1"  BorderBrush="{Binding Path=Stat.CategoryNameBrush}" BorderThickness="1"
                      TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" 
-                     Text="{Binding Path=DisplayedProduct.Comment, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                     Text="{Binding Path=DisplayedProduct.Comment, UpdateSourceTrigger=PropertyChanged}"  ToolTip="Enter any important note here"></TextBox>
 
             <TextBlock Margin="7,7,7,0" Grid.Row="15">UpdateDateTime:</TextBlock>
             <TextBox Margin="7" Grid.Row="15" Grid.Column="1"  
