@@ -12,6 +12,7 @@
 
     <UserControl.Resources>
         <conv:ColorConverter x:Key="CConverter"></conv:ColorConverter>
+        <conv:BakcGroundColorConverter x:Key="BConverter"></conv:BakcGroundColorConverter>
     </UserControl.Resources>
 
 
@@ -132,7 +133,7 @@
 
             <TextBlock Margin="7" Grid.Row="12">Outstanding Balance:</TextBlock>
             <TextBox Margin="5" Grid.Row="12" Grid.Column="1"   BorderBrush="{Binding Path=Stat.UnitCostBrush}" BorderThickness="1"
-                     Text="{Binding Path=DisplayedProduct.OutstandingBalance, Mode=OneWay}" Background="#FF0A2F91" 
+                     Text="{Binding Path=DisplayedProduct.OutstandingBalance, Mode=OneWay}" Background="{Binding Path=DisplayedProduct.OutstandingBalance, Converter={StaticResource BConverter}}" 
                      Foreground="{Binding Path=DisplayedProduct.OutstandingBalance, Converter={StaticResource CConverter}}" ToolTip="This is a Calculated Field"></TextBox>
 
             

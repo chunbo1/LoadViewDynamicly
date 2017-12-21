@@ -99,9 +99,9 @@ namespace LoadViewDynamicly.Converters
             double bal = (double)value;
             
             if (bal > 0) 
-                return new SolidColorBrush(Colors.Red);
-            else
                 return new SolidColorBrush(Colors.Yellow);
+            else
+                return new SolidColorBrush(Colors.White);
             
         }
 
@@ -111,4 +111,46 @@ namespace LoadViewDynamicly.Converters
         }
     }
 
-}
+    public class BakcGroundColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            double bal = (double)value;
+
+            if (bal > 0)
+                return new SolidColorBrush(Colors.Red);
+            else
+                return new SolidColorBrush(Colors.Green);
+
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
+    }//Class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}//NS

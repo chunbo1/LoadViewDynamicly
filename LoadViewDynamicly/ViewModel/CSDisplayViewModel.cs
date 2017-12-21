@@ -295,6 +295,7 @@ namespace LoadViewDynamicly.ViewModel
 
         public void ProcessProduct(ClassStudent p)
         {
+            log.Info("CSDisplayViewModel..ProcessProduct starts");
             //Delete will trigger SelectionChanged, So SelectionChanged is ambigous, let's disable this flag to remove abiguity
             //App.last_action = "SelectionChanged";
             if (p == null) {
@@ -312,6 +313,7 @@ namespace LoadViewDynamicly.ViewModel
             isSelected = true;
             stat.NoError();
             MainWindowViewModel.Instance.StatusBar = $"Record selection changed";
+            log.Info("CSDisplayViewModel..ProcessProduct End");
         } // ProcessProduct()
 
 

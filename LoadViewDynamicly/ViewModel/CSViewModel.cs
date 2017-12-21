@@ -128,8 +128,9 @@ namespace LoadViewDynamicly.ViewModel
 
         private void SelectionHasChanged()
         {
+            log.Info("CSViewModel..SelectionHasChanged start");
             App.Messenger.NotifyColleagues("ProductSelectionChanged", selectedProduct);
-
+            log.Info("CSViewModel..SelectionHasChanged end");
         }
 
         private ClassStudent selectedProduct;
