@@ -131,6 +131,9 @@
     <Compile Include="Messenger.cs" />
     <Compile Include="Model\StoreDB.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Report\ClassStudentEnroll.xaml.cs">
+      <DependentUpon>ClassStudentEnroll.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Report\StudentRoster.xaml.cs">
       <DependentUpon>StudentRoster.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,7 @@
     <Compile Include="ViewModel\Product.cs" />
     <Compile Include="ViewModel\ProductDisplayModelStatus.cs" />
     <Compile Include="ViewModel\ExtensionMethods.cs" />
+    <Compile Include="ViewModel\Report\ClassStudentEnrollViewModel.cs" />
     <Compile Include="ViewModel\Report\StudentRosterViewModel.cs" />
     <Compile Include="ViewModel\ScheduleStudentViewModel.cs" />
     <Compile Include="ViewModel\ScheduleViewModel.cs" />
@@ -191,6 +195,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\ClassStudentEnroll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

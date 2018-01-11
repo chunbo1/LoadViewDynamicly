@@ -39,6 +39,7 @@ namespace LoadViewDynamicly.ViewModel
             UserControl csSelectionView = new CSMain();
             UserControl scheduleView = new ScheduleView();
             UserControl studentRosterView = new StudentRoster();
+            UserControl classStudentEnrollView= new ClassStudentEnroll();
 
             this.VIEWSpsaces.Add("StudentView", studentView);
             this.VIEWSpsaces.Add("TeacherView", teacherView);
@@ -46,7 +47,8 @@ namespace LoadViewDynamicly.ViewModel
             this.VIEWSpsaces.Add("ClassManagementView", csSelectionView);
             this.VIEWSpsaces.Add("ScheduleView", scheduleView);
             this.VIEWSpsaces.Add("StudentRosterView", studentRosterView);
-
+            this.VIEWSpsaces.Add("ChangeClassStudentEnrollView", classStudentEnrollView);
+            
             ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
             ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
             ViewModelBase classViewModel = new ClassViewModel() { Text = "Class View" };
@@ -168,6 +170,17 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
+        public ICommand ChangeClassStudentEnrollCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    SwitchView("ChangeClassStudentEnrollView");
+                });
+            }
+        }
+
         public void SwitchView(string viewName)
         {
             switch (viewName)
@@ -198,6 +211,10 @@ namespace LoadViewDynamicly.ViewModel
 
                 case "StudentRosterView":
                     ContentControlView = VIEWSpsaces["StudentRosterView"];
+                    break;
+
+                case "ChangeClassStudentEnrollView":
+                    ContentControlView = VIEWSpsaces["ChangeClassStudentEnrollView"];
                     break;
 
 

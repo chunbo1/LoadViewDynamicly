@@ -13,34 +13,38 @@ namespace LoadViewDynamicly.ViewModel.Report
 {
     class StudentRosterViewModel : ReportViewModelBase<StudentRoster>
     {
+        private DateTime _asOfDate;
         public LoadViewDynamicly.Report.StudentRoster _view { get; set; }
 
         public StudentRosterViewModel(StudentRoster view) : base(view)
         {
+            AsOfDate = DateTime.Today;
             _view = view;
         }
 
         
         protected override void OnLoadExecute()
         {
-            DateTime? asOfDate = null;
-
             try
             {
-                asOfDate = DateTime.Today;
                 GenerateReportCommand.Execute();
             }
             catch (Exception)
             {
             }
+ 
+        }
 
-          
+        public DateTime AsOfDate
+        {
+            get { return _asOfDate; }
+            set { _asOfDate = value; RaisePropertyChanged(() => AsOfDate); }
         }
 
         protected override void OnGenerateReportExecute()
         {
             //var managerFilter = ShowInternalAccounts ? true : ShowManagedAccounts ? false : (bool?) null;
-            _view.ShowReport(DateTime.Today);
+            _view.ShowReport(AsOfDate);
 
         }
 

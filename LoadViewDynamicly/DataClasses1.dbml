@@ -128,6 +128,11 @@
       <Column Name="Student" Type="System.String" DbType="VarChar(101)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.vwSemester" Member="vwSemesters">
+    <Type Name="vwSemester">
+      <Column Name="Semester" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="dbo.AddSchedulesHeader" Method="AddSchedulesHeader">
     <Parameter Name="ClassId" Parameter="classId" Type="System.Int32" DbType="Int" />
     <Parameter Name="TeacherId" Parameter="teacherId" Type="System.Int32" DbType="Int" />

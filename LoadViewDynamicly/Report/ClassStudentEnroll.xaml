@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="LoadViewDynamicly.Report.ClassStudentEnroll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:reports="clr-namespace:Reports;assembly=Reports"
+             xmlns:ige="http://infragistics.com/Editors"
+             >
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+
+
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style x:Key="ButtonStyle"
+                       TargetType="{x:Type Button}">
+                    <Setter Property="Margin"
+                            Value="5" />
+                </Style>
+                <Style x:Key="LabelTextBoxStyle"
+                       TargetType="{x:Type TextBlock}">
+                    <Setter Property="Margin"
+                            Value="5" />
+                    <Setter Property="FontWeight"
+                            Value="Bold" />
+                </Style>
+
+            </Grid.Resources>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Style="{StaticResource LabelTextBoxStyle}"
+                       Text="Pick up a Semester"
+                        VerticalAlignment="Center"/>
+
+            <!--https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
+            <ComboBox x:Name="semesterCombo" 
+                      Grid.Row="0" 
+                      Grid.Column="1" 
+                      ItemsSource="{Binding SemesterTable}"                        
+                      SelectedItem="{Binding SimpleStringProperty, Mode=TwoWay}"                     
+                      Text="Select Option"
+                      ToolTip="This is a required field"
+                      />
+
+            <Button Grid.Row="1"
+                    Grid.Column="9"
+                    Style="{StaticResource ButtonStyle}"
+                    Content="Generate Report"
+                    Command="{Binding GenerateReportCommand}" />
+
+        </Grid>
+        <reports:ReportViewerControl x:Name="ReportViewerCtl" />
+    </DockPanel>
+</UserControl>

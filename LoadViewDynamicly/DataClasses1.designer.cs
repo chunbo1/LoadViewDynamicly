@@ -152,6 +152,14 @@ namespace LoadViewDynamicly
 			}
 		}
 		
+		public System.Data.Linq.Table<vwSemester> vwSemesters
+		{
+			get
+			{
+				return this.GetTable<vwSemester>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddSchedulesHeader")]
 		public int AddSchedulesHeader([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassId", DbType="Int")] System.Nullable<int> classId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TeacherId", DbType="Int")] System.Nullable<int> teacherId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClassDate", DbType="Date")] System.Nullable<System.DateTime> classDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="StartTime", DbType="VarChar(10)")] string startTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EndTime", DbType="VarChar(10)")] string endTime, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Status", DbType="VarChar(50)")] string status, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="VarChar(250)")] string comment, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Id", DbType="Int")] ref System.Nullable<int> id)
 		{
@@ -2573,6 +2581,33 @@ namespace LoadViewDynamicly
 				if ((this._Student != value))
 				{
 					this._Student = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vwSemester")]
+	public partial class vwSemester
+	{
+		
+		private string _Semester;
+		
+		public vwSemester()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Semester", DbType="VarChar(50)")]
+		public string Semester
+		{
+			get
+			{
+				return this._Semester;
+			}
+			set
+			{
+				if ((this._Semester != value))
+				{
+					this._Semester = value;
 				}
 			}
 		}

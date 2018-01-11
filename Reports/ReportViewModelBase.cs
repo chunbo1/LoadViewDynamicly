@@ -25,11 +25,11 @@ namespace Reports
 
         protected  void OnRegisterCommands()
         {
-            LoadCommand = new DelegateCommand(OnLoadExecute);
+            //LoadCommand = new DelegateCommand(OnLoadExecute);
             GenerateReportCommand = new DelegateCommand(OnGenerateReportExecute, CanGenerateReportExecute);
         }
 
-        protected   void OnLoad()
+        protected   void OnLoadXXX()
         {
             LoadCommand.Execute();
         }
