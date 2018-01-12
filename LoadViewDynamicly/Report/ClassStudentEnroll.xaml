@@ -51,11 +51,15 @@
                         VerticalAlignment="Center"/>
 
             <!--https://stackoverflow.com/questions/4902039/difference-between-selecteditem-selectedvalue-and-selectedvaluepath -->
+            <!--https://stackoverflow.com/questions/2883481/combobox-selecteditem-vs-selectedvalue -->
+            <!--use SelectedValue to replace SelectedItem works as well:         SelectedValue="{Binding Path=Semester}" -->
             <ComboBox x:Name="semesterCombo" 
                       Grid.Row="0" 
                       Grid.Column="1" 
                       ItemsSource="{Binding SemesterTable}"                        
-                      SelectedItem="{Binding SimpleStringProperty, Mode=TwoWay}"                     
+                      SelectedItem="{Binding Path=Semester, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      
+                      IsSynchronizedWithCurrentItem="True"
                       Text="Select Option"
                       ToolTip="This is a required field"
                       />

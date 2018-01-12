@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LoadViewDynamicly.Report;
 using Reports;
+using System.Collections.ObjectModel;
 
 namespace LoadViewDynamicly.ViewModel.Report
 {
@@ -16,14 +17,17 @@ namespace LoadViewDynamicly.ViewModel.Report
 
         public ClassStudentEnrollViewModel(ClassStudentEnroll view) : base(view)
         {
-            Semester = "Fall 2017";
+            //Semester = "2017 Fall";
             _view = view;
         }
 
         public string Semester
         {
             get { return _semester; }
-            set { _semester = value; RaisePropertyChanged(() => Semester); }
+            set {
+                _semester = value;
+                RaisePropertyChanged(() => Semester);
+            }
         }
 
         protected override void OnLoadExecute()
@@ -51,11 +55,11 @@ namespace LoadViewDynamicly.ViewModel.Report
         }
 
         System.Data.Linq.Table<Class> semesterTable = null;
-        public List<String> SemesterTable
+        public ObservableCollection<String> SemesterTable
         {
             get
             {
-                List<String> mySemester = new List<String>();
+                ObservableCollection<String> mySemester = new ObservableCollection<String>();
                 var query = (from s in dc.vwSemesters
                              orderby s.Semester descending
                              select s.Semester

@@ -125,6 +125,7 @@ namespace Reports
             catch (Exception e)
             {
                 log.Error("In ReportViewerControl.cs..ProcessReport: " + e.Message);
+                log.Error(e.InnerException.Message);
                 Environment.Exit(-1);
             }
 
