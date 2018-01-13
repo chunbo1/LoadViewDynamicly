@@ -40,6 +40,8 @@ namespace LoadViewDynamicly.ViewModel
             UserControl scheduleView = new ScheduleView();
             UserControl studentRosterView = new StudentRoster();
             UserControl classStudentEnrollView= new ClassStudentEnroll();
+            UserControl classPnLReportView = new ClassPnLReport();
+            UserControl changeStudentAttendanceView = new StudentAttendanceReport();
 
             this.VIEWSpsaces.Add("StudentView", studentView);
             this.VIEWSpsaces.Add("TeacherView", teacherView);
@@ -48,7 +50,9 @@ namespace LoadViewDynamicly.ViewModel
             this.VIEWSpsaces.Add("ScheduleView", scheduleView);
             this.VIEWSpsaces.Add("StudentRosterView", studentRosterView);
             this.VIEWSpsaces.Add("ChangeClassStudentEnrollView", classStudentEnrollView);
-            
+            this.VIEWSpsaces.Add("ClassPnLReportView", classPnLReportView);
+            this.VIEWSpsaces.Add("ChangeStudentAttendanceView", changeStudentAttendanceView);
+
             ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
             ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
             ViewModelBase classViewModel = new ClassViewModel() { Text = "Class View" };
@@ -181,6 +185,29 @@ namespace LoadViewDynamicly.ViewModel
             }
         }
 
+        public ICommand ChangeClassPnLReportCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    SwitchView("ChangeClassPnLView");
+                });
+            }
+        }
+
+        public ICommand ChangeStudentAttendanceReportCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    SwitchView("ChangeStudentAttendanceView");
+                });
+            }
+        }
+
+
         public void SwitchView(string viewName)
         {
             switch (viewName)
@@ -217,6 +244,13 @@ namespace LoadViewDynamicly.ViewModel
                     ContentControlView = VIEWSpsaces["ChangeClassStudentEnrollView"];
                     break;
 
+                case "ChangeClassPnLView":
+                    ContentControlView = VIEWSpsaces["ClassPnLReportView"];
+                    break;
+
+                case "ChangeStudentAttendanceView":
+                    ContentControlView = VIEWSpsaces["ChangeStudentAttendanceView"];
+                    break;
 
             }
             MainWindowViewModel.Instance.StatusBar = $"Loaded {viewName}";

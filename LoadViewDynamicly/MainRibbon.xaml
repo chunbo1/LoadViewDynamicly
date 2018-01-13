@@ -99,8 +99,10 @@
                                 <!--TODO: Add tools here-->
                                 <igRibbon:ButtonTool Caption="Student Roster" Id="btnStudentRoster" Command="{Binding ChangeStudentRosterCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Class Student Enroll Report" Id="btnClassStudentEnrollReport" Command="{Binding ChangeClassStudentEnrollCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
-                                <igRibbon:ButtonTool Caption="Student Attendance Card" Id="btnStudentAttendanceCard" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
-                                <igRibbon:ButtonTool Caption="Class PnL" Id="btnClassPnL" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Class PnL Report" Id="btnClassPnL" Command="{Binding ChangeClassPnLReportCommand}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                <igRibbon:ButtonTool Caption="Student Attendance Card" Id="btnStudentAttendanceCard" Command="{Binding ChangeStudentAttendanceReportCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                
+                                
                                 <igRibbon:ButtonTool Caption="Class Book Keeping Report" Id="btnBookKeeping" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Semester PnL Report" Id="btnSemesterReport" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
 
