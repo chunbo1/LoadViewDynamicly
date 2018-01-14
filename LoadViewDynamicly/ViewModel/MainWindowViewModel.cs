@@ -261,7 +261,7 @@ namespace LoadViewDynamicly.ViewModel
                     ContentControlView = VIEWSpsaces["ClassPnLReportView"];
                     break;
 
-                case "StudentAttendanceView":
+                case "StudentAttendanceReportView":
                     ContentControlView = VIEWSpsaces["StudentAttendanceView"];
                     break;
 
