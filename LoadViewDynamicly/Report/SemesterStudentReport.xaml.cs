@@ -21,37 +21,42 @@ using System.Reflection;
 namespace LoadViewDynamicly.Report
 {
     /// <summary>
-    /// Interaction logic for ClassPnLReport.xaml
+    /// Interaction logic for SemesterStudentReport.xaml
     /// </summary>
-    public partial class ClassPnLReport : UserControl
+    public partial class SemesterStudentReport : UserControl
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ClassPnLReport()
+
+        public SemesterStudentReport()
         {
             InitializeComponent();
-            DataContext = new ClassPnLViewModel(this);
-            (DataContext as ClassPnLViewModel)._view = this as ClassPnLReport;
+            DataContext = new SemesterStudentViewModel(this);
+            (DataContext as SemesterStudentViewModel)._view = this as SemesterStudentReport;
 
         }
 
-        public void ShowReport(string semester)
+        public void ShowReport()
         {
             try
             {
                 var param = new List<ReportParameter>();
-                param.Add(new ReportParameter("semester", semester));
+                //param.Add(new ReportParameter("semester", semester));
                 ReportViewerCtl.ShowServerReport(ConfigurationManager.AppSettings["ReportServerUrl"],
-                                                            ConfigurationManager.AppSettings["ClassPnLReport"],
+                                                            ConfigurationManager.AppSettings["SemesterStudentReport"],
                                                  param);
             }
             catch (Exception e)
             {
-                log.Error("In ClassPnLReport.xaml.cs..ShowReport: " + e.Message);
+                log.Error("In         public SemesterStudentReport.xaml.cs..ShowReport: " + e.Message);
                 Environment.Exit(-1);
             }
         }
 
 
-    }//Class
+
+
+
+
+    }//class
 }

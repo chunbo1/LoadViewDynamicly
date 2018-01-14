@@ -101,8 +101,9 @@
                                 <igRibbon:ButtonTool Caption="Class Student Enroll Report" Id="btnClassStudentEnrollReport" Command="{Binding ChangeClassStudentEnrollCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Class PnL Report" Id="btnClassPnL" Command="{Binding ChangeClassPnLReportCommand}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Student Attendance Card" Id="btnStudentAttendanceCard" Command="{Binding ChangeStudentAttendanceReportCommand}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
-                                
-                                
+                                <igRibbon:ButtonTool Caption="Semester Student Report" Id="btnSemesterStudent" Command="{Binding ChangeSemesterStudentReportCommand}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+
+
                                 <igRibbon:ButtonTool Caption="Class Book Keeping Report" Id="btnBookKeeping" Command="{Binding ChangeClassStudentViewCommandXXX}" LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
                                 <igRibbon:ButtonTool Caption="Semester PnL Report" Id="btnSemesterReport" Command="{Binding ChangeScheduleViewCommandXXX}" LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
 

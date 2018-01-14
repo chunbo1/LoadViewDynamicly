@@ -41,7 +41,8 @@ namespace LoadViewDynamicly.ViewModel
             UserControl studentRosterView = new StudentRoster();
             UserControl classStudentEnrollView= new ClassStudentEnroll();
             UserControl classPnLReportView = new ClassPnLReport();
-            UserControl changeStudentAttendanceView = new StudentAttendanceReport();
+            UserControl studentAttendanceView = new StudentAttendanceReport();
+            UserControl semesterStudentReportView = new SemesterStudentReport();
 
             this.VIEWSpsaces.Add("StudentView", studentView);
             this.VIEWSpsaces.Add("TeacherView", teacherView);
@@ -51,7 +52,9 @@ namespace LoadViewDynamicly.ViewModel
             this.VIEWSpsaces.Add("StudentRosterView", studentRosterView);
             this.VIEWSpsaces.Add("ChangeClassStudentEnrollView", classStudentEnrollView);
             this.VIEWSpsaces.Add("ClassPnLReportView", classPnLReportView);
-            this.VIEWSpsaces.Add("ChangeStudentAttendanceView", changeStudentAttendanceView);
+            this.VIEWSpsaces.Add("StudentAttendanceView", studentAttendanceView);
+            this.VIEWSpsaces.Add("SemesterStudentReportView", semesterStudentReportView);
+
 
             ViewModelBase studentViewModel = new StudentViewModel() { Text = "Student View" };
             ViewModelBase teacherViewModel = new TeacherViewModel() { Text = "Teacher View" };
@@ -191,7 +194,7 @@ namespace LoadViewDynamicly.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    SwitchView("ChangeClassPnLView");
+                    SwitchView("ClassPnLReportView");
                 });
             }
         }
@@ -202,11 +205,21 @@ namespace LoadViewDynamicly.ViewModel
             {
                 return new RelayCommand(() =>
                 {
-                    SwitchView("ChangeStudentAttendanceView");
+                    SwitchView("StudentAttendanceReportView");
                 });
             }
         }
 
+        public ICommand ChangeSemesterStudentReportCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    SwitchView("SemesterStudentReportView");
+                });
+            }
+        }
 
         public void SwitchView(string viewName)
         {
@@ -244,13 +257,18 @@ namespace LoadViewDynamicly.ViewModel
                     ContentControlView = VIEWSpsaces["ChangeClassStudentEnrollView"];
                     break;
 
-                case "ChangeClassPnLView":
+                case "ClassPnLReportView":
                     ContentControlView = VIEWSpsaces["ClassPnLReportView"];
                     break;
 
-                case "ChangeStudentAttendanceView":
-                    ContentControlView = VIEWSpsaces["ChangeStudentAttendanceView"];
+                case "StudentAttendanceView":
+                    ContentControlView = VIEWSpsaces["StudentAttendanceView"];
                     break;
+
+                case "SemesterStudentReportView":
+                    ContentControlView = VIEWSpsaces["SemesterStudentReportView"];
+                    break;
+
 
             }
             MainWindowViewModel.Instance.StatusBar = $"Loaded {viewName}";

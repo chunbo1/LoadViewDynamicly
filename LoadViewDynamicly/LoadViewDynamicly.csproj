@@ -137,6 +137,9 @@
     <Compile Include="Report\ClassStudentEnroll.xaml.cs">
       <DependentUpon>ClassStudentEnroll.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Report\SemesterStudentReport.xaml.cs">
+      <DependentUpon>SemesterStudentReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Report\StudentAttendanceReport.xaml.cs">
       <DependentUpon>StudentAttendanceReport.xaml</DependentUpon>
     </Compile>
@@ -151,6 +154,7 @@
     <Compile Include="ViewModel\ExtensionMethods.cs" />
     <Compile Include="ViewModel\Report\ClassPnLViewModel.cs" />
     <Compile Include="ViewModel\Report\ClassStudentEnrollViewModel.cs" />
+    <Compile Include="ViewModel\Report\SemesterStudentViewModel.cs" />
     <Compile Include="ViewModel\Report\StudentAttendanceViewModel.cs" />
     <Compile Include="ViewModel\Report\StudentRosterViewModel.cs" />
     <Compile Include="ViewModel\ScheduleStudentViewModel.cs" />
@@ -211,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Report\ClassStudentEnroll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Report\SemesterStudentReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
