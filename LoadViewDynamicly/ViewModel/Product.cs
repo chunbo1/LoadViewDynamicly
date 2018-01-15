@@ -132,7 +132,10 @@ namespace LoadViewDynamicly.ViewModel
                     ClassTuition = dc.spGetClassTuition(ClassId).First().Tuition;
                     log.Info("In Products ClassStudent..TuitionDiscount, it invoked dc.spGetClassTuition(ClassId)!!! Extra Cost!!!");
                 }
-                return 1 - ((double)tuitionPaid) / ClassTuition;                             
+                if (ClassTuition == null && tuitionPaid == null)
+                    return 0;
+                else
+                    return 1 - ((double)tuitionPaid) / ClassTuition;                             
                 }
             set
             {
@@ -146,8 +149,11 @@ namespace LoadViewDynamicly.ViewModel
         public double? OutstandingBalance
         {
             get
-            {                
-                return  ((double)tuitionPaid) - (cashReceived==null ? 0 : cashReceived) - (CheckReceived == null ? 0 : CheckReceived) - (CreditCardReceived== null ? 0 : CreditCardReceived) - (OtherReceived == null ? 0 : OtherReceived);
+            {
+                if (tuitionPaid == null)
+                    return 0;
+                else
+                    return ((double)tuitionPaid) - (cashReceived==null ? 0 : cashReceived) - (CheckReceived == null ? 0 : CheckReceived) - (CreditCardReceived== null ? 0 : CreditCardReceived) - (OtherReceived == null ? 0 : OtherReceived);
             }
 
         }
