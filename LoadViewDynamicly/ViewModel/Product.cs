@@ -126,7 +126,7 @@ namespace LoadViewDynamicly.ViewModel
                 //After adding a new student in Class, we need to retrieve ClassTuition; StoreDB..GetClassStudents gets ClassTuition
                 //If it comes here from Delete student, we dont want to invoke spGetClassTuition
                 
-                if ( ClassTuition == null && App.last_action.Equals("Add") )
+                if ( ClassTuition == null && App.last_action.Equals("Add") && ClassId!= null)
                 {
                     dc = new DataClasses1DataContext(Properties.Settings.Default.MDH2ConnectionString);
                     ClassTuition = dc.spGetClassTuition(ClassId).First().Tuition;
