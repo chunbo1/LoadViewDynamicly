@@ -17,7 +17,8 @@ namespace LoadViewDynamicly.ViewModel
     [Serializable]
 
     //if forget inherit INotifyPropertyChanged, TuitionDiscount never get auto calculated because PropertyChanged always = null
-    //By inheriting INotifyPropertyChanged, WPF data-binding infrastructure will add a PropertyChanged handler when you set the object as a DataContext
+    //By inheriting INotifyPropertyChanged, WPF data-binding infrastructure will add a PropertyChanged handler 
+    //when you set the object as a DataContext
     public class ClassStudent : IEquatable<ClassStudent>, INotifyPropertyChanged//if forghet inherit INotifyPropertyChanged
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
