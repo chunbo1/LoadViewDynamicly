@@ -16,7 +16,7 @@ namespace LoadViewDynamicly.ViewModel
     //to identify a product and must not be modified by the GUI.
     [Serializable]
 
-    //if forghet inherit INotifyPropertyChanged, TuitionDiscount never get auto calculated because PropertyChanged always = null
+    //if forget inherit INotifyPropertyChanged, TuitionDiscount never get auto calculated because PropertyChanged always = null
     //By inheriting INotifyPropertyChanged, WPF data-binding infrastructure will add a PropertyChanged handler when you set the object as a DataContext
     public class ClassStudent : IEquatable<ClassStudent>, INotifyPropertyChanged//if forghet inherit INotifyPropertyChanged
     {

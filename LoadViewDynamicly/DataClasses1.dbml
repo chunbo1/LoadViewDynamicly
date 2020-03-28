@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MDH2" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=SSCSDSQL01\DTWSQLSVR;Initial Catalog=MDH2;Integrated Security=True" SettingsObjectName="LoadViewDynamicly.Properties.Settings" SettingsPropertyName="MDH2ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=Z600;Initial Catalog=MDH2;User ID=chunbo1" SettingsObjectName="LoadViewDynamicly.Properties.Settings" SettingsPropertyName="MDH2ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.vwStudentByClass" Member="vwStudentByClasses">
     <Type Name="vwStudentByClass">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
