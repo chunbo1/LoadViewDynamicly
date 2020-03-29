@@ -68,7 +68,9 @@
                             <igRibbon:ToolHorizontalWrapPanel MinRows="1" MaxRows="3">
                                 <!--TODO: Add tools here-->
                                 <igRibbon:ButtonTool Caption="Students" Id="btnStudent" Command="{Binding ChangeStudentViewCommand}"  LargeImage="image\pushpin.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
-
+                                
+                                <igRibbon:ButtonTool Caption="Membership" Id="btnMembership" Command="{Binding ChangeMembershipViewCommand}"  LargeImage="image\cost.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+                                
                                 <igRibbon:ButtonTool Caption="Teachers" Id="btnTeacher" Command="{Binding ChangeTeacherViewCommand}"  LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
 
                                 <igRibbon:ButtonTool Caption="Classes" Id="btnClass" Command="{Binding ChangeClassViewCommand}"  LargeImage="image\news_256.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge">

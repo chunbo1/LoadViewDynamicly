@@ -25,7 +25,7 @@
         <Button Name="ClearButton"  Grid.Row="0" Grid.Column="0" Margin="20,0,0,0" Content="Clear" Click="Clear_Click"></Button>
         <Button Name="LoadButton"  Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Content="Load" Click="Load_Click"></Button>
         <Button Name="SaveButton"  Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Content="Save" Click="Save_Click"></Button>
-            <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
+        <Button Name="SwitchButton" Grid.Row="0" Grid.Column="3" Command="{Binding ChangeToTeacherViewCommand}">Change to Teacher View</Button>
             
             <igDP:XamDataPresenter   Name="StudentGrid" Margin="20,0,20,0"   Grid.Row="1" Grid.ColumnSpan="6">
 

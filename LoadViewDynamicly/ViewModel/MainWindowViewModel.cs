@@ -34,6 +34,7 @@ namespace LoadViewDynamicly.ViewModel
             //});
 
             UserControl studentView = new StudentView();
+            UserControl membershipView = new MembershipView();
             UserControl teacherView = new TeacherView();
             UserControl classView = new ClassView();
             UserControl csSelectionView = new CSMain();
@@ -45,6 +46,7 @@ namespace LoadViewDynamicly.ViewModel
             UserControl semesterStudentReportView = new SemesterStudentReport();
 
             this.VIEWSpsaces.Add("StudentView", studentView);
+            this.VIEWSpsaces.Add("MembershipView", membershipView);
             this.VIEWSpsaces.Add("TeacherView", teacherView);
             this.VIEWSpsaces.Add("ClassView", classView);
             this.VIEWSpsaces.Add("ClassManagementView", csSelectionView);
@@ -121,7 +123,18 @@ namespace LoadViewDynamicly.ViewModel
                 });
             }
         }
-        
+
+        public ICommand ChangeMembershipViewCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    SwitchView("MembershipView");
+
+                });
+            }
+        }
         public ICommand ChangeTeacherViewCommand
         {
             get
@@ -228,6 +241,11 @@ namespace LoadViewDynamicly.ViewModel
                 case "StudentView":
                     ContentControlView = VIEWSpsaces["StudentView"];
                     ContentControlView.DataContext = VMspaces["StudentViewModel"];
+                    break;
+
+                case "MembershipView":
+                    ContentControlView = VIEWSpsaces["MembershipView"];
+                    //ContentControlView.DataContext = VMspaces["StudentViewModel"];
                     break;
 
                 case "TeacherView":
