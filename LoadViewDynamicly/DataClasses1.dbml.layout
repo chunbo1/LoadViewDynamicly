@@ -26,7 +26,7 @@
         <elementListCompartment Id="8029852b-7a89-4936-a4e3-b5c924744e57" absoluteBounds="3.14, 3.71, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.125 : 2.825); (4.125 : 3.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.125 : 2.825); (4.125 : 3.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataClasses1DataContext/SchedulesHeader/SchedulesHeader_SchedulesDetail" />
       <nodes>
         <classShapeMoniker Id="9ff301b1-4620-4515-840f-db39c9544a32" />

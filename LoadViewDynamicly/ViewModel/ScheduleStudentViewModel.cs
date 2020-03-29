@@ -36,7 +36,9 @@ namespace LoadViewDynamicly.ViewModel
         }
 
         public int ID { get { return _person.ID; } }
-        public string FullName { get { return _person.FullName; } }
+        public string FullName {
+            get { return _person.FullName; }
+        }
         public string Comment {
             get { return _person.Comment; }
             //with a setter, the field is editable in datagrid

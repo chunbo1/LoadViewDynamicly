@@ -28,10 +28,10 @@ namespace LoadViewDynamicly.ViewModel
         public MainWindowViewModel()
         {
             //http://dotnetpattern.com/mvvm-light-messenger
-            gala.Messenger.Default.Register<SwitchViewMessage>(this, (switchViewMessage) =>
-            {
-                SwitchView(switchViewMessage.ViewName);
-            });
+            //gala.Messenger.Default.Register<SwitchViewMessage>(this, (switchViewMessage) =>
+            //{
+            //    SwitchView(switchViewMessage.ViewName);
+            //});
 
             UserControl studentView = new StudentView();
             UserControl teacherView = new TeacherView();
