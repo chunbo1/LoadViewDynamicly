@@ -1,0 +1,21 @@
+﻿<Window x:Class="LoadViewDynamicly.Test1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoadViewDynamicly"
+        mc:Ignorable="d"
+        Title="Test1" Height="450" Width="800">
+    <Grid>
+        
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Source:" Width="auto" />
+            <TextBox Name="SourceText" Width="160" Height="30" Margin="48,0,44,82" />
+            <TextBlock Text="Target:" Grid.Column="1" Width="auto" />
+        <TextBox Name="TargetText" Width="160" Height="30" Text="{Binding ElementName=SourceText, Path=Text,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="44,0,47,82" />
+        
+    </Grid>
+</Window>

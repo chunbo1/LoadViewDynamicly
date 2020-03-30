@@ -178,6 +178,9 @@
     <Compile Include="Report\StudentRoster.xaml.cs">
       <DependentUpon>StudentRoster.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Test1.xaml.cs">
+      <DependentUpon>Test1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ClassViewModel.cs" />
     <Compile Include="ViewModel\CSDisplayViewModel.cs" />
     <Compile Include="ViewModel\CSViewModel.cs" />
@@ -262,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Report\StudentRoster.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Test1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

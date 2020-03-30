@@ -244,8 +244,7 @@ namespace LoadViewDynamicly.ViewModel
                     break;
 
                 case "MembershipView":
-                    ContentControlView = VIEWSpsaces["MembershipView"];
-                    //ContentControlView.DataContext = VMspaces["StudentViewModel"];
+                    ContentControlView = VIEWSpsaces["MembershipView"];                    
                     break;
 
                 case "TeacherView":
