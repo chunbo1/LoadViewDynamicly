@@ -14,31 +14,39 @@
     </Window.Resources>
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
         
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*" />
-                <ColumnDefinition Width="50*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Source:" Width="auto" />
-            <TextBox Name="SourceText" Width="160" Height="30" Margin="48,0,44,82" />
-            <TextBlock Text="Target:" Grid.Column="1" Width="auto" />
-        <TextBox Name="TargetText" Width="160" Height="30" Text="{Binding ElementName=SourceText, Path=Text,UpdateSourceTrigger=LostFocus}" Grid.Column="1" Margin="44,0,47,82" />
+        <TextBlock Text="Source:" Width="auto" Grid.Row="0" Grid.Column="0"/>
+        <TextBox Name="SourceText" Width="160" Height="30" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="Target:" Width="auto" Grid.Row="0"  Grid.Column="1"/>
+        <TextBox Name="TargetText" Width="160" Height="30" Text="{Binding ElementName=SourceText, Path=Text,UpdateSourceTrigger=LostFocus}" Grid.Row="0"  Grid.Column="1"/>
 
 
-        <TextBox Name="txtFirstName" HorizontalAlignment="Left" Height="26" Margin="42,67,0,0" TextWrapping="Wrap" Text="" 
-                 VerticalAlignment="Top" Width="152"/>
+        <TextBox Name="txtFirstName" HorizontalAlignment="Left" Height="36"  TextWrapping="Wrap" Text="" 
+                 VerticalAlignment="Top" Width="152" Grid.Row="1"/>
 
-        <TextBox Name="txtLastName" HorizontalAlignment="Left" Height="26" Margin="41,135,0,0" TextWrapping="Wrap" Text="" 
-                 VerticalAlignment="Top" Width="153"/>
+        <TextBox Name="txtLastName" HorizontalAlignment="Left" Height="36" TextWrapping="Wrap" Text="" 
+                 VerticalAlignment="Top" Width="153" Grid.Row="2"/>
 
-        <TextBox Name="txtFirstAndLast"  Height="28" HorizontalAlignment="Left" Margin="239,103,0,0" 
-                 VerticalAlignment="Top" Width="117">
+        <TextBox Name="txtFirstAndLast"  Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Width="217" Grid.Row="3">
             <TextBox.Text>
                 <MultiBinding Converter="{StaticResource NameMultiConverter}">
                     <Binding ElementName="txtFirstName" Path="Text" />
                     <Binding ElementName="txtLastName" Path="Text" />
                 </MultiBinding>
             </TextBox.Text>
+            
         </TextBox>
         
         

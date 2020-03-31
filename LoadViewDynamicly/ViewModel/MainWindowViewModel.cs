@@ -180,7 +180,18 @@ namespace LoadViewDynamicly.ViewModel
                 });
             }
         }
-
+        
+        public ICommand NewFormCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    Test1 frm = new Test1();
+                    frm.Show();
+                });
+            }
+        }
         public ICommand ChangeStudentRosterCommand
         {
             get

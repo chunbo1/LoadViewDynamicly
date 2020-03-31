@@ -73,6 +73,8 @@
                                 
                                 <igRibbon:ButtonTool Caption="Teachers" Id="btnTeacher" Command="{Binding ChangeTeacherViewCommand}"  LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
 
+                                <igRibbon:ButtonTool Caption="New Form" Id="btnNewForm" Command="{Binding NewFormCommand}"  LargeImage="image\position.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"/>
+
                                 <igRibbon:ButtonTool Caption="Classes" Id="btnClass" Command="{Binding ChangeClassViewCommand}"  LargeImage="image\news_256.png" igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge">
                                     <igRibbon:ButtonTool.ToolTip>
                                         <ToolTip 

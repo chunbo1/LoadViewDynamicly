@@ -148,7 +148,7 @@ namespace LoadViewDynamicly.Converters
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {
             string str = (string)value;
-            string[] val = str.Split(' ');
+            string[] val = str.Trim().Split(' ');
 
 
             return val;
