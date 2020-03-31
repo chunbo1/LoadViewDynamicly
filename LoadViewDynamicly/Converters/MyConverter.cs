@@ -132,7 +132,29 @@ namespace LoadViewDynamicly.Converters
 
 
 
+    public class NameMultiConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string x = "";
+            foreach (object y in values)
+            {
 
+                x = x + " " + y.ToString();
+            }
+            return x;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string str = (string)value;
+            string[] val = str.Split(' ');
+
+
+            return val;
+
+        }
+    }
 
 
 
