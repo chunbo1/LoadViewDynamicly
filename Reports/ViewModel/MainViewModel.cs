@@ -12,7 +12,7 @@ namespace Reports.ViewModel
     /// </para>
     /// <para>
     /// See http://www.galasoft.ch/mvvm
-    /// </para>
+    /// </para> 
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
